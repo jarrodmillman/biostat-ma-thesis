@@ -11,7 +11,7 @@
 \item Bug reports: \url{https://github.com/statlab/permute/issues}
 \end{itemize}
 
-\subsection{Permutation Testing}
+\subsection{Permutation tests and confidence sets}
 
 Permutation tests and confidence sets for a variety of nonparametric testing
 and estimation problems, for a variety of randomization designs.
@@ -26,25 +26,45 @@ Nonparametric combinations of tests ...
 
 \cite{millman2011python, Perez2011}
 
+\texttt{numpy} \footnote{\url{http://numpy.org}}
+
+\texttt{numpy.random}
+
+\texttt{scipy} \footnote{\url{http://scipy.org}}
+
+\texttt{scipy.optimize}
+
+\texttt{scipy.stats}
+
 \section{Development practices}
 
 \cite{millman2014}
 
-\subsection{Git and GitHub}
+\subsection{Version control}
+
+We are using Git\footnote{\url{http://git-scm.com}} as our version control
+system and GitHub\footnote{\url{https://github.com}} as the public hosting
+service for our official \texttt{upstream} repository.
 
 \subsubsection{Workflow}
 
+Rather than work on the \texttt{master} branch of our repositories,
+we have adopted the policy of performing all code changes on
+feature branches.
+
 \subsubsection{Pull requests}
 
+To get new code integrated in the official \texttt{upstream} master,
+we use GitHub's \emph{pull request} mechanism.
 
 \subsection{Continuous integration}
 
-Travis CI
+Travis CI\footnote{\url{https://travis-ci.org}}
 
 \subsubsection{Testing}
 
-\texttt{nose}
+We use the \texttt{nose} testing framework.\footnote{\url{https://nose.readthedocs.org}}
 
 \subsubsection{Coverage}
 
-\texttt{coveralls}
+\texttt{coveralls}\footnote{\url{https://coveralls.io}}

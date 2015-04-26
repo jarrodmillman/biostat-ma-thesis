@@ -32,14 +32,23 @@ c. different from that of the population from which y comes, if side = ‘two-si
 
 \subsection{Method}
 
-\subsection{Results}
-
 \section{Interrater reliability}
 
 \subsection{Problem}
 
-\cite{davies1982measuring}
+\cite{davies1982measuring, mchugh2012interrater}
 
 \subsection{Method}
 
-\subsection{Results}
+The test statistic within stratum $s$ is
+
+\begin{align*}
+\rho_s &\equiv \frac{1}{N_s {R \choose 2}} \sum_{i=1}^{N_s}
+              \sum_{r=1}^{R-1} \sum_{v=r+1}^R 1(L_{s,i,r} = L_{s,i,v}) \\
+       &= \frac{1}{N_s R(R-1)} \sum_{i=1}^{N_s}
+                (y_{si}(y_{si}-1) + (R-y_{si})(R-y_{si}-1)).
+\end{align*}
+
+That is, within each stratum, we count the number of concordant pairs of
+assignments.
+
