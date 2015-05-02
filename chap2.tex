@@ -1,18 +1,55 @@
-\chapter{Current modules}
+\chapter{Current functionality}
+
+In this chapter, I list the current implemented functionality organized
+by the module structure utilized by the project. 
 
 \section{Data}
 
+To simplify testing as well as providing some standard datasets for
+users to experiment with as they learn how our software works, we
+have a data module, which provides quick and ready access to a few
+builtin data sets. At this point, the majority of the datasets come
+from the examples used in ``Permutation tests for complex data: theory,
+applications and software'' \cite{pesarin2010permutation}.  These
+datasets are discussed in more details in §~\ref{sec:book}.  We also
+have a data set, which we use as an example for the interrater
+reliability test (see  §~\ref{sec:irr}).
+
+Loading one of the packaged data sets involves importing and then
+invoking a helper function, which handles the data loading.  For
+example, here is how you would load the data set used for the
+interrater reliability test:
+\begin{verbatim}
+In [1]: from permute.data import nsgk
+
+In [2]: x = nsgk()
+\end{verbatim} 
+
 \section{Exploratory data analysis}
+
+As we've added data sets, we've also incrementally added tools to simplify
+exploratory data analysis (EDA).  Currently, we provide two helper functions.
+One for reporting duplicate rows in a matrix in various formats.  Another for
+reporting duplicate consecutive rows in a matrix in various formats.  Rather
+than having a list of planned EDA functionality, we have been opportunistic
+and have only implemented functionality as needed for data sets we are adding
+to the \texttt{data} module.
 
 \section{Core tools}
 
+The \texttt{core} module contains basic functions that could be useful in
+multiple specific permutation tests.  
+
+This module provides functions for permuting various data structures in
+different ways.  Currently we have functions for permuting the rows of
+a matrix in-place as well as permuting conditions within each group.
+
+
 Compute the confidence interval for a binomial.
+
 
 Simulate permutation p-value for Spearman correlation coefficient
 
-Permute the rows of a matrix in-place
-
-Permutation of condition within each group.
 
 One-sided or two-sided, two-sample permutation test for equality of two means,
 with p-value estimated by simulated random sampling with reps replications.
@@ -32,7 +69,7 @@ c. different from that of the population from which y comes, if side = ‘two-si
 
 \subsection{Method}
 
-\section{Interrater reliability}
+\section{\label{sec:irr}Interrater reliability}
 
 \subsection{Problem}
 
