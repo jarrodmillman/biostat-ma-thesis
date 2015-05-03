@@ -13,61 +13,80 @@ our immediate and long-term roadmap (\S~\ref{ch:nextsteps}).
 Permutation tests (sometimes referred to as randomization, re-randomization, or
 exact tests) are a nonparametric approach to statistical significance
 testing.  In a permutation test, the distribution of the test statistic under
-the null hypothesis is obtained (exactly or approximately) by considering or
+the null hypothesis is obtained (exactly or approximately) by 
 computing the test statistics of all possible relabelings of the observed data.
 
-For example, imagine you observe 10 coin tosses (e.g., HTTHTHTTTT). Assume 
-each trial is independent and identically distributed and let the
-test statistic be the number of Hs. Under the null hypothesis that the
-coin is unbiased, the Hs and Ts are exchangeable and the expected value of the
-test statistic is 5. To find the distribution of this test statistic under the
-null, count all possible sequences yielding a test statistic of 0,
-1, 2, ..., or 10 Hs in 10 tosses.
+%For example, imagine you observe 10 coin tosses (e.g., HTTHTHTTTT). Assume 
+%each trial is independent and identically distributed and let the
+%test statistic be the number of Hs. Under the null hypothesis that the
+%coin is unbiased, the Hs and Ts are exchangeable and the expected value of the
+%test statistic is 5. To find the distribution of this test statistic under the
+%null, count all possible sequences yielding a test statistic of 0,
+%1, 2, ..., or 10 Hs in 10 tosses.
 
-Consider another example from regression.  In this case, the observed data are
-10 $(x, y)$ pairs, which we wish to fit (using least squares) to a linear model
-$y = a + bx + \epsilon$.  To test whether $b = 0$, let's use
-$\hat{b}/SE(\hat{b})$ as the test statistic.  Under the null hypothesis, there
-is no linear relation between $x$ and $y$. Hence the distribution of the test
-statistic is found by computing it on all possible $(x, y)$ formed by permuting
-the $y$ values among the $x$ values.
+For example, consider the following regression problem.  In this case, the
+observed data might be 10 $(x, y)$ pairs, which we wish to fit (using least
+squares) to a linear model $y = a + bx + \epsilon$.  To test whether $b = 0$,
+let's use $\hat{b}/\text{SE}(\hat{b})$ as the test statistic.  Under the null
+hypothesis, there is no linear relation between $x$ and $y$, so all possible
+combinations of pairs $(x,y)$ are equally likely.  Hence the distribution of
+the test statistic is found by computing it on all possible $(x, y)$ formed by
+permuting the $y$ values among the $x$ values.
 
 From the distribution of the test statistic under the null, you compute
 p-values by taking the ratio of the count of the \emph{as extreme} or
 \emph{more extreme} test statistics to the total number of such test
-statistics.  For instance, in the first example, the test statistic is 3.
-Under the null, the expected test statistic is 5.  Thus the more extreme test
-statistics are 0, 1, 2, 3, 8, 9, and 10. So the p-value is
-\begin{align*}
-\frac{\binom{10}{0} + \binom{10}{1} + \binom{10}{2} + \binom{10}{3} +
-   \binom{10}{8} + \binom{10}{9} + \binom{10}{10}}{2^{10}}.
-\end{align*}
-In the second example, there is no analytic expression; however, the
-computational procedure is straightforward.
+statistics. While there is no analytic expression for this problem, the
+computational procedure is straightforward.  Further note that this exact
+procedure works regardless of the particular test statistic choosen.
 
-To summarize, the general procedure for computing a p-value using permutation
-testing is:
-\begin{enumerate}
-\item carefully formulate the null hypothesis
-\item from the observed data generate all equally likely possible datasets
-\item compute test statistic for the observed and generated data
-\item calculate ratio of data sets with at least as extreme test statistic over the total number of such sets.
-\end{enumerate}
-As the above examples suggest, this procedure may be computationally
-intractable in practice.  In this case, simulation can often produce
-good approximate results.
+A parameteric approach to this problem would begin by imposing additional
+assumptions on the noise $\epsilon$.  For example, if it is assumed that
+$\epsilon$ comes from identical Guassian distributions independently realized
+for each observed pair, then the test statistic has a $t$-distribution with
+$n-2$ degrees of freedom.  If this additional assumption holds, then we can read
+the p-value off a table.  Note that, unlike in the permutation test, we were
+only able to calculate the p-value (even with the additional assumptions)
+because we happened to be able to derive the distribution of this specific
+test statistic. 
+
+%For instance, in the first example, the test statistic is 3.
+%Under the null, the expected test statistic is 5.  Thus the more extreme test
+%statistics are 0, 1, 2, 3, 8, 9, and 10. So the p-value is
+%\begin{align*}
+%\frac{\binom{10}{0} + \binom{10}{1} + \binom{10}{2} + \binom{10}{3} +
+%   \binom{10}{8} + \binom{10}{9} + \binom{10}{10}}{2^{10}}.
+%\end{align*}
+
+In summary, the general procedure for computing a p-value using permutation
+testing is: 1) carefully formulate the null hypothesis based on the
+experimental design and question of interest, 2) from the observed data,
+generate all equally likely possible datasets, 3) compute the test statistic
+for the observed and generated hypothetical data, and 4) calculate the
+proportion of data sets with test statistic at least as extreme as the
+observed.  Of course, as the number of observations increases this procedure
+may become computationally intractable.  In this case, simulation can often
+produce good approximate results.
 
 The advantage of this approach is that it produces exact (or approximately
-exact) results using stronger null hypotheses and weaker assumptions about
-the generating process. Additionally, the rationale justifying these claims
-doesn't require asymptotic theory.  This means it should be easier for
+exact) results using a strong null hypothesis (i.e., we can employee whatever
+test statistic we are interested in) and weaker assumptions (since we don't
+need to derive an analytic form for the distribution of our choosen test
+statistic) about the generating process. Thus permutation testing allows us to
+focus on the exact question of interest, rather than a similiar question which
+is amenable to analysis.  Additionally, the rationale justifying these claims
+doesn't require asymptotic theory; this means it should be easier for
 non-mathematically trained scientists to fully understand.  However, the
 obvious disadvantage is the computational cost.
 
 What does permute aim to provide
-
-...
-
+\begin{itemize}
+\item experimental design needs to be carefully considered in designing
+  permutation tests. We'd like to provide the tools that will enable scientists
+  to conduct tests that actually correspond to their experimental design
+\item provide Python tools to statisticians, and provide better statistical
+  tools to Python users.
+\end{itemize}
 
 \section{Python}
 
@@ -88,13 +107,13 @@ SciPy\footnote{\url{http://scipy.org}}, and matplotlib\footnote{
 scientific Python packages (such as \texttt{permute}) build. NumPy
 provides the basic n-dimensional array data structure and a small core
 functionality such as linear algebra routines to compute on this
-data structure.  SciPy adds several additional general routines on top
+data structure.  SciPy adds additional general routines on top
 of this core functionality necessary for scientific computing including
 basic statistics and optimization.  Complementing these data structures
 and procedures, matplotlib provides publication quality 2D plotting.  
 
 While it is beyond the scope of this report to explore these packages in more
-detail, I note that the pseudo-random number generator (PRNG) provide by NumPy
+detail, I note that the pseudo-random number generator (PRNG) provided by NumPy
 is the Mersenne Twister.  The Mersenne Twister is an efficient PRNG with a
 sufficiently large period for most statistical simulations.\footnote{It is
 default PRNG in R as well.  While sufficient for most statistical simulations,
@@ -104,15 +123,11 @@ an efficient (and simple) algorithm for uniformly generating permutations of
 sequences.
 
 While Python is similar to R in many respects and is widely used in scientific
-and numerical computing, it lacks R extensive support for statistical
+and numerical computing, it lacks R's extensive support for statistical
 applications.  Recently, however, it has become more attractive for statistical
-applications due to several new packages such as Pandas, statsmodels, and
+applications due to new packages such as Pandas, statsmodels, and
 scikit-learn.  Our intention is to help accelerate this trend by supplying a
 high-quality, rigorously tested, and statistically sound package for a large
 variety of permutation tests and confidence sets. As the package matures, we
 anticipate contributing generic functionality upstream to the packages we
 depend on as appropriate.
-
-missing high-quality resampling approaches
-
-we might consider adding bootstrapping like ...

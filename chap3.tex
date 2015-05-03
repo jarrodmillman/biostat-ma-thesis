@@ -1,24 +1,24 @@
 \chapter{\label{ch:func}Current functionality}
 
 While the scope of our package is large, we have initially focused on a
-few features.  In particular, we have implemented built-in data sets,
+few features.  In particular, we have implemented built-in datasets,
 functions for exploratory data analysis, core functionality like various
 types of permutations and confidence intervals, some stratified tests
-and confidence sets, and a test for interrater reliability.
+and confidence sets, and a novel test for interrater reliability.
 
 \section{Data}
 
 To simplify testing as well as providing some standard datasets for
 users to experiment with as they learn how our software works, we
 have a data module, which provides quick and ready access to a few
-built-in data sets. At this point, the majority of the datasets come
+built-in datasets. At this point, the majority of the datasets come
 from the examples used in ``Permutation tests for complex data: theory,
 applications and software'' \cite{pesarin2010permutation}.  These
 datasets are discussed in more details in \S~\ref{sec:book}.  We also
 have a data set, which we use as an example for the interrater
 reliability test (\S~\ref{sec:irr}).
 
-Loading one of the packaged data sets involves importing and then
+Loading one of the packaged datasets involves importing and then
 invoking a helper function, which handles the data loading.  For
 example, here is how you would load the data set used for the
 interrater reliability test:
@@ -30,12 +30,12 @@ In [2]: x = nsgk()
 
 \section{Exploratory data analysis}
 
-As we've added data sets, we've also incrementally added tools to simplify
+As we've added datasets, we've also incrementally added tools to simplify
 exploratory data analysis (EDA).  Currently, we provide two helper functions.
 One for reporting duplicate rows in a matrix in various formats.  Another for
 reporting duplicate consecutive rows in a matrix in various formats.  Rather
 than having a list of planned EDA functionality, we have been opportunistic
-and have only implemented functionality as needed for data sets we are adding
+and have only implemented functionality as needed for datasets we are adding
 to the \texttt{data} module.
 
 \section{Core tools}
