@@ -1,46 +1,73 @@
-\chapter{Introduction}
+\chapter{\label{ch:intro}Introduction}
 
-\section{Overview}
-
-\texttt{permute} is a Python library for permutation tests and confidence sets.
+\texttt{permute} is a Python package for permutation tests and confidence
+sets.\footnote{\url{http://statlab.github.io/permute}}
 Philip B. Stark, Kellie Ottoboni, and I developed this package over the
-last year with most of the work occurring over the last few months.
-Here are a few relevant links for the project:
-\begin{itemize}
-\item Website (including documentation): \url{http://statlab.github.io/permute}
-\item Mailing list: \url{http://groups.google.com/group/permute}
-\item Source: \url{https://github.com/statlab/permute}
-\item Bug reports: \url{https://github.com/statlab/permute/issues}
-\end{itemize}
-In this report, I will briefly explain the purpose of the package, our
-development practices, the currently available functionality, and
-our immediate and long-term roadmap.
+last year with most of the work occurring during the last few months.
+In this report, I briefly explain the purpose of the package (\S~\ref{ch:intro}), our
+development practices (\S~\ref{ch:dev}), the currently available functionality (\S~\ref{ch:func}), and
+our immediate and long-term roadmap (\S~\ref{ch:nextsteps}).
 
-\subsection{Permutation tests}
+\section{Permutation tests and confidence sets}
 
-Permutation tests provide a non-parametric approach to hypothesis testing.
+Permutation tests (sometimes referred to as randomization, re-randomization, or
+exact tests) are a nonparametric approach to statististical significance
+testing.  In a permutation test, the distribution of the test statistic under
+the null hypothesis is obtained (exactly or approximately) by considering or
+computing the test statistics of all possible relabelings of the observed data.
 
-Permutation tests and confidence sets for a variety of nonparametric testing
-and estimation problems, for a variety of randomization designs.
-   
+For example, imagine you observe 10 coin tosses (e.g., HTTHTHTTTT). Assume 
+each trial is independent and identically distributed and let the
+test statistic be the number of Hs. Under the null hypothesis that the
+coin is unbiased, the Hs and Ts are exchangeable and the expected value of the
+test statistic is 5. To find the distribution of this test statistic under the
+null, count all possible sequences yielding a test statistic of 0,
+1, 2, ..., or 10 Hs in 10 tosses.
+
+Consider another example from regression.  In this case, the observed data are
+10 $(x, y)$ pairs, which we wish to fit (using least squares) to a linear model
+$y = a + bx + \epsilon$.  To test whether $b = 0$, let's use
+$\hat{b}/SE(\hat{b})$ as the test statistic.  Under the null hypothesis, there
+is no linear relation between $x$ and $y$. Hence the distribution of the test
+statistic is found by computing it on all possible $(x, y)$ formed by permuting
+the $y$ values among the $x$ values.
+
+From the distribution of the test statistic under the null, you compute
+p-values by taking the ratio of the count of the \emph{as extreme} or
+\emph{more extreme} test statistics to the total number of such test
+statistics.  For instance, in the first example, the test statistic is 3.
+Under the null, the expected test statistic is 5.  Thus the more extreme test
+statistics are 0, 1, 2, 3, 8, 9, and 10. So the p-value is
+\begin{align*}
+\frac{\binom{10}{0} + \binom{10}{1} + \binom{10}{2} + \binom{10}{3} +
+   \binom{10}{8} + \binom{10}{9} + \binom{10}{10}}{2^{10}}.
+\end{align*}
+In the second example, there is no analytic expression; however, the
+computational procedure is straightforward.
+
+The advantage of this approach is that it 
+
+However, the obvious disadvatage is the computational cost.
+
+What does permute aim to provide
+
 Test statistics in each stratum ...
 
 Methods of combining tests across strata ...
 
 Nonparametric combinations of tests ...
 
-\subsection{Confidence sets}
 
-\subsection{Python}
+\section{Python}
 
 Python is a high-level, general purpose programming language, which has
 become increasingly popular for scientific computing
 \cite{millman2011python, Perez2011}. Unlike most high-level languages
 used in scientific computing, Python was not specifically designed for
 scientific applications.  However, it quickly attracted interest among
-scientists and engineers.  Initially, it was primarily employed as ``glue''
+scientists and engineers.  Initially, it was employed primarily as a ``glue''
 language to couple together low-level numeric libraries written in C or
-Fortran with high-level scientific application languages such as Matlab.
+Fortran with higher-level scientific application languages such as Matlab.
 
 In addition to standard Python, \texttt{permute} makes heavy use of
 of third-party libraries NumPy\footnote{\url{http://numpy.org}} and
@@ -54,106 +81,16 @@ Mersenne Twister
 SciPy
 for optimization functions such as Brentq and statistics functions.
 
+Similar to R but not as widely used by statisticians.
 
-\section{Development practices}
+Recently has become more attractive for statistical applications due to
 
-As this is a new software project, we invested a significant effort in
-setting up a development infrastructure to ensure that all our work
-is carefully tracked and thoroughly and continually tested.  In particular,
-we have adopted and implemented many of the best software practices
-employed by many successful open source software projects \cite{millman2014}.
+Pandas
 
-\subsection{Version control}
+statsmodels
 
-We are using Git\footnote{\url{http://git-scm.com}} as our version control
-system and GitHub\footnote{\url{https://github.com}} as the public hosting
-service for our official \texttt{upstream} repository.
+scikit-learn
 
-\subsubsection{Workflow}
+missing high-quality resampling approaches
 
-Rather than work on the \texttt{master} branch of our repositories,
-we have adopted the policy of performing all code changes on
-feature branches.
-
-\subsubsection{Pull requests}
-
-To get new code integrated in the official \texttt{upstream} master, we use
-GitHub's \emph{pull request} mechanism.  This helps make performing code review
-for new code added to the official ``upstream'' repository easy to manage.
-Given the short development history and the fact that there is only one
-developer adding most of the code, we have 
-
-\subsection{Testing}
-
-We use the \texttt{nose} testing framework for automating our testing
-procedures.\footnote{\url{https://nose.readthedocs.org}}  This is the
-standard testing framework used by most of the core packages in
-the scientific Python ecosystem.
-
-For example, from the top-level of the repository, you can ask \texttt{nose}
-to run the tests by entering \texttt{nosetests permute} in Bash.  For example,
-
-\begin{verbatim}
-$ nosetests permute 
-......................................................................
-----------------------------------------------------------------------
-Ran 35 tests in 37.923s
-\end{verbatim}
-
-In the above console output, you will see a ``.'' for each test, which
-is run.  A test corresponds to a function and each test may test several
-things.
-
-\subsubsection{Coverage}
-
-We also use \texttt{nose} to monitor our test coverage.  Our goal is to
-test everyline of code.  For example, not only do we want to test every
-function in our package, but if a specific function has internal logic
-we want to test each possible path through the function.  Having tested
-each line of code increases our confidence in our codebase, but more
-importantly provides us assurance that changes we make do not break
-existing code.
-
-Working in the top-level of our local repository in Bash, you could
-enter
-
-\begin{verbatim}
-$ nosetests permute --with-coverage --cover-package=permute
-Name                 Stmts   Miss Branch BrMiss  Cover   Missing
-----------------------------------------------------------------
-permute                 43      7     10      2    83%   72, 77-88, 113
-permute.core            55      0     30      4    95%   
-permute.data            45      0      2      0   100%   
-permute.eda             22      0      8      0   100%   
-permute.irr             52      0     20      2    97%   
-permute.stratified      44      0     16      4    93%   
-----------------------------------------------------------------
-TOTAL                  261      7     86     12    95%   
-----------------------------------------------------------------------
-Ran 35 tests in 39.985s
-\end{verbatim}
-Here you can see, that in addition to running 35 tests without error,
-that over 95\% of our code has at least one test.
-
-\subsubsection{Continuous integration}
-
-Travis CI\footnote{\url{https://travis-ci.org}}
-
-
-\texttt{coveralls}\footnote{\url{https://coveralls.io}}
-
-\begin{figure}
-  \begin{centering}
-    \includegraphics[width=5.5in]{fig/pull-request-ci.png}\par
-  \end{centering}
-
-  \caption{\label{fig:pull-request}Pull request and continuous integration.}
-\end{figure}
-
-\subsection{Documentation}
-
-Docstring standard \cite{SciPyProceedings_27}.
-
-ReStructured Text
-
-\texttt{sphinx}
+we might consider adding bootstrapping like ...

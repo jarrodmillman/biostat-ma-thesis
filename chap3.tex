@@ -1,7 +1,10 @@
-\chapter{Current functionality}
+\chapter{\label{ch:func}Current functionality}
 
-In this chapter, I list the current implemented functionality organized
-by the module structure utilized by the project. 
+While the scope of our package is large, we have initially focused on a
+few features.  In particular, we have implemented built-in data sets,
+functions for exploratory data analysis, core functionality like various
+types of permutations and confidence intervals, some stratified tests
+and confidence sets, and a test for interrater reliability.
 
 \section{Data}
 
@@ -11,9 +14,9 @@ have a data module, which provides quick and ready access to a few
 builtin data sets. At this point, the majority of the datasets come
 from the examples used in ``Permutation tests for complex data: theory,
 applications and software'' \cite{pesarin2010permutation}.  These
-datasets are discussed in more details in §~\ref{sec:book}.  We also
+datasets are discussed in more details in \S~\ref{sec:book}.  We also
 have a data set, which we use as an example for the interrater
-reliability test (see  §~\ref{sec:irr}).
+reliability test (\S~\ref{sec:irr}).
 
 Loading one of the packaged data sets involves importing and then
 invoking a helper function, which handles the data loading.  For
