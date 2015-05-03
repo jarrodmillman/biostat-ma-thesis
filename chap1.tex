@@ -11,7 +11,7 @@ our immediate and long-term roadmap (\S~\ref{ch:nextsteps}).
 \section{Permutation tests and confidence sets}
 
 Permutation tests (sometimes referred to as randomization, re-randomization, or
-exact tests) are a nonparametric approach to statististical significance
+exact tests) are a nonparametric approach to statistical significance
 testing.  In a permutation test, the distribution of the test statistic under
 the null hypothesis is obtained (exactly or approximately) by considering or
 computing the test statistics of all possible relabelings of the observed data.
@@ -45,51 +45,73 @@ statistics are 0, 1, 2, 3, 8, 9, and 10. So the p-value is
 In the second example, there is no analytic expression; however, the
 computational procedure is straightforward.
 
-The advantage of this approach is that it 
+To summarize, the general procedure for computing a p-value using permutation
+testing is:
+\begin{enumerate}
+\item carefully formulate the null hypothesis
+\item from the observed data generate all equally likely possible datasets
+\item compute test statistic for the observed and generated data
+\item calculate ratio of data sets with at least as extreme test statistic over the total number of such sets.
+\end{enumerate}
+As the above examples suggest, this procedure may be computationally
+intractable in practice.  In this case, simulation can often produce
+good approximate results.
 
-However, the obvious disadvatage is the computational cost.
+The advantage of this approach is that it produces exact (or approximately
+exact) results using stronger null hypotheses and weaker assumptions about
+the generating process. Additionally, the rationale justifying these claims
+doesn't require asymptotic theory.  This means it should be easier for
+non-mathematically trained scientists to fully understand.  However, the
+obvious disadvantage is the computational cost.
 
 What does permute aim to provide
 
-Test statistics in each stratum ...
-
-Methods of combining tests across strata ...
-
-Nonparametric combinations of tests ...
+...
 
 
 \section{Python}
 
-Python is a high-level, general purpose programming language, which has
-become increasingly popular for scientific computing
-\cite{millman2011python, Perez2011}. Unlike most high-level languages
-used in scientific computing, Python was not specifically designed for
-scientific applications.  However, it quickly attracted interest among
-scientists and engineers.  Initially, it was employed primarily as a ``glue''
-language to couple together low-level numeric libraries written in C or
-Fortran with higher-level scientific application languages such as Matlab.
+Python is a high-level, general purpose programming language, which has become
+increasingly popular for scientific computing \cite{millman2011python,
+Perez2011}. Unlike some high-level languages used in scientific computing,
+Python was not specifically designed for scientific applications.  However, it
+quickly attracted interest among scientists and engineers.  Initially, it was
+employed primarily as a ``glue'' language to couple together low-level numeric
+libraries written in C or Fortran with higher-level scientific application
+languages such as Matlab \cite{dubois2007guest}.
 
-In addition to standard Python, \texttt{permute} makes heavy use of
-of third-party libraries NumPy\footnote{\url{http://numpy.org}} and
-SciPy\footnote{\url{http://scipy.org}}.
+As more scientists and engineers began using Python, they started developing
+third party libraries to provide additional functionality for scientific
+and numeric computing.  In particular, NumPy\footnote{\url{http://numpy.org}},
+SciPy\footnote{\url{http://scipy.org}}, and matplotlib\footnote{
+\url{http://matplotlib.org}} provide a core foundation on which other
+scientific Python packages (such as \texttt{permute}) build. NumPy
+provides the basic n-dimensional array data structure and a small core
+functionality such as linear algebra routines to compute on this
+data structure.  SciPy adds several additional general routines on top
+of this core functionality necessary for scientific computing including
+basic statistics and optimization.  Complementing these data structures
+and procedures, matplotlib provides publication quality 2D plotting.  
 
-NumPy is
+While it is beyond the scope of this report to explore these packages in more
+detail, I note that the pseudo-random number generator (PRNG) provide by NumPy
+is the Mersenne Twister.  The Mersenne Twister is an efficient PRNG with a
+sufficiently large period for most statistical simulations.\footnote{It is
+default PRNG in R as well.  While sufficient for most statistical simulations,
+for other applications such as cryptography it may be insufficient.}  In
+addition to providing a high-quality PRNG, NumPy implements Knuth shuffling ---
+an efficient (and simple) algorithm for uniformly generating permutations of
+sequences.
 
-Mersenne Twister
-624-vector of 32-bit integers
-
-SciPy
-for optimization functions such as Brentq and statistics functions.
-
-Similar to R but not as widely used by statisticians.
-
-Recently has become more attractive for statistical applications due to
-
-Pandas
-
-statsmodels
-
-scikit-learn
+While Python is similar to R in many respects and is widely used in scientific
+and numerical computing, it lacks R extensive support for statistical
+applications.  Recently, however, it has become more attractive for statistical
+applications due to several new packages such as Pandas, statsmodels, and
+scikit-learn.  Our intention is to help accelerate this trend by supplying a
+high-quality, rigorously tested, and statistically sound package for a large
+variety of permutation tests and confidence sets. As the package matures, we
+anticipate contributing generic functionality upstream to the packages we
+depend on as appropriate.
 
 missing high-quality resampling approaches
 
