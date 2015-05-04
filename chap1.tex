@@ -24,10 +24,10 @@ computing the test statistics of all possible relabelings of the observed data.
 %null, count all possible sequences yielding a test statistic of 0,
 %1, 2, ..., or 10 Hs in 10 tosses.
 
-For example, consider the following regression problem.  In this case, the
-observed data might be 10 $(x, y)$ pairs, which we wish to fit (using least
-squares) to a linear model $y = a + bx + \epsilon$.  To test whether $b = 0$,
-let's use $\hat{b}/\text{SE}(\hat{b})$ as the test statistic.  Under the null
+
+Given $n=10$ independent observations of two scalar $(x, y)$, consider
+the simple linear regression model $y = a + bx + \epsilon$.  To test 
+whether $b = 0$, let's use $\hat{b}/\text{SE}(\hat{b})$ as the test statistic.  Under the null
 hypothesis, there is no linear relation between $x$ and $y$, so all possible
 combinations of pairs $(x,y)$ are equally likely.  Hence the distribution of
 the test statistic is found by computing it on all possible $(x, y)$ formed by
