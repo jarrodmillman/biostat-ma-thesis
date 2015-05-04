@@ -1,7 +1,7 @@
 \chapter{\label{ch:dev}Development practices}
 
 As this is a new software project, we invested a significant effort in setting
-up a development infrastructure to ensure our work is carefully tracked,
+up a development infrastructure to ensure our work is tracked,
 thoroughly and continually tested, and incrementally improved and documented.
 To this end, we have adopted best practices for software development used by
 successful open source projects \cite{millman2014}.
@@ -11,69 +11,69 @@ successful open source projects \cite{millman2014}.
 We use Git\footnote{\url{http://git-scm.com}} as our version control
 system (VCS) and GitHub\footnote{\url{https://github.com}} as the public hosting
 service for our official \texttt{upstream} repository.  Git allows us to
-carefully track how our code evolves as well as deliberately consider and
+track how our code evolves as well as deliberately consider and
 refine new functionality on isolated branches before merging it into the main
 branch.
 
-\subsection{Git data model}
+%\subsection{Git data model}
 
-Git's data model is sufficiently different from other VCS that it is helpful to
-briefly describe it before discussing our Git workflow.  In Git, a repository
-is represented as a directed acyclic graph (DAG) of commits.  A commit in Git
-is a cryptographically signed object containing zero or more parent commits,
-some metadata, and a snapshot of entire work tree.  A working tree can be
-thought of as the entire project structure of directories and files at a
-particular point in the development.  Over time the working tree evolves due to
-new features, refactoring of current functionality, optimizations, or bug
-fixes.  Taking snapshots of this evolution over time allows us to analyze the
-past to better understand how the code came to be in its present state.  The
-cryptographic signature ensures that it is practically impossible for someone
-to change history without it being readily apparent.\footnote{Surprisingly
-few previous VCS even attempted to ensure the historical integrity of a
-project's history.}
+%Git's data model is sufficiently different from other VCS that it is helpful to
+%briefly describe it before discussing our Git workflow.  In Git, a repository
+%is represented as a directed acyclic graph (DAG) of commits.  A commit in Git
+%is a cryptographically signed object containing zero or more parent commits,
+%some metadata, and a snapshot of entire work tree.  A working tree can be
+%thought of as the entire project structure of directories and files at a
+%particular point in the development.  Over time the working tree evolves due to
+%new features, refactoring of current functionality, optimizations, or bug
+%fixes.  Taking snapshots of this evolution over time allows us to analyze the
+%past to better understand how the code came to be in its present state.  The
+%cryptographic signature ensures that it is practically impossible for someone
+%to change history without it being readily apparent.\footnote{Surprisingly
+%few previous VCS even attempted to ensure the historical integrity of a
+%project's history.}
+%
+%An essential design feature of Git (and one absent from other VCS), is
+%the simplicity of creating and merging branches.  A branch in Git is a pointer
+%to a commit in the repository DAG, which moves forward as new commits are made.
+%This provides a lightweight mechanism for branching.  Typically each repository
+%has a master branch which is viewed as the main truck of development.  Creating
+%a new branch off the master branch (or main trunk) only requires making a new
+%label and then committing to it.  A merge is a commit with 2 or more parents,
+%which corresponds to the resulting integration of the parent commits.
+%
+%Further, Git is completely decentralized so there are no inherent
+%asymmetries as found in older client-server models.  So every developer
+%has their our own self-contained repository.  For collaborative purposes,
+%Git repositories have a notion of remote repositories.  Remotes are other
+%repositories that a specific repository tracks.  Commits can be pushed
+%and pulled from remote repositories into local repositories.
 
-An essential design feature of Git (and one absent from other VCS), is
-the simplicity of creating and merging branches.  A branch in Git is a pointer
-to a commit in the repository DAG, which moves forward as new commits are made.
-This provides a lightweight mechanism for branching.  Typically each repository
-has a master branch which is viewed as the main truck of development.  Creating
-a new branch off the master branch (or main trunk) only requires making a new
-label and then committing to it.  A merge is a commit with 2 or more parents,
-which corresponds to the resulting integration of the parent commits.
+%Git, while not easy to master, is simple in the sense that once a few concepts
+%are understood, it behaves in an entirely reliable, intelligible, and
+%straightforward manner.\footnote{To clarify the distinction I am making between
+%easy and simple, let me use the familiar example of Calculus.  Many students
+%require one or more semesters of college level coursework to learn the basic
+%techniques of differentiation and integration.  In this sense, it isn't easy to
+%learn.  However, once the basic techniques are learned, it is simple to apply
+%to new contexts and applications.  Prior to the invention of Calculus,
+%discovering how to compute the area under a new curve often required
+%mathematical genius and insight into the specific application.} If you've ever
+%tried to do anything non-trivial in ``easier'' to use VCS such as SVN or CVS,
+%then you've likely experienced the ensuing frustration these systems cause.
+%More likely you've never tried to do anything non-trivial with such systems as
+%it is completely unclear how such things could be done.  With Git the pain is
+%upfront, but the benefits are extensive and enable fluid and comprehensive
+%collaborations, which scale well.
 
-Further, Git is completely decentralized so there are no inherent
-asymmetries as found in older client-server models.  So every developer
-has their our own self-contained repository.  For collaborative purposes,
-Git repositories have a notion of remote repositories.  Remotes are other
-repositories that a specific repository tracks.  Commits can be pushed
-and pulled from remote repositories into local repositories.
-
-Git, while not easy to master, is simple in the sense that once a few concepts
-are understood, it behaves in an entirely reliable, intelligible, and
-straightforward manner.\footnote{To clarify the distinction I am making between
-easy and simple, let me use the familiar example of Calculus.  Many students
-require one or more semesters of college level coursework to learn the basic
-techniques of differentiation and integration.  In this sense, it isn't easy to
-learn.  However, once the basic techniques are learned, it is simple to apply
-to new contexts and applications.  Prior to the invention of Calculus,
-discovering how to compute the area under a new curve often required
-mathematical genius and insight into the specific application.} If you've ever
-tried to do anything non-trivial in ``easier'' to use VCS such as SVN or CVS,
-then you've likely experienced the ensuing frustration these systems cause.
-More likely you've never tried to do anything non-trivial with such systems as
-it is completely unclear how such things could be done.  With Git the pain is
-upfront, but the benefits are extensive and enable fluid and comprehensive
-collaborations, which scale well.
-
-The inherent flexibility of Git makes numerous workflows possible.  We've
-followed the standard workflow used by the core scientific Python packages.
-This workflow enables us to keep the official master branch of the project in a
-pristine state at all times and simplifies the structure of the DAG by
-divorcing it from the sometimes random, tentative moves made when developing
-new code so that we can record a revised and coherent history.  Further it
-rationalizes the process of making changes to the official master by allowing
-us to add new features and bug fixes in isolated, tested, and code reviewed
-chunks.
+%The inherent flexibility of Git makes numerous workflows possible.  
+%We've followed the standard workflow used by the core scientific Python packages.
+%This workflow enables us to keep the official master branch of the project in a
+%pristine state at all times and simplifies the structure of the DAG by
+%divorcing it from the sometimes random, tentative moves made when developing
+%new code so that we can record a revised and coherent history.  Further it
+%rationalizes the process of making changes to the official master by allowing
+%us to add new features and bug fixes in isolated, tested, and code reviewed
+%chunks.
 
 We've designated \url{https://github.com/statlab/permute} as the official
 upstream master.  No one commits changes to it directly.  Instead we each fork
@@ -83,8 +83,8 @@ you click a button labeled fork on the repository website you wish to fork.
 This let's GitHub track the relationship between various repositories it hosts.
 In particular, it enables you to create pull requests, which I discuss below.
 
-Once we've forked the official repository, we clone our fork onto a local
-account so we can work on the code.  Rather than work on the \texttt{master}
+Once we've forked the official repository, we clone our fork to our computers
+so we can work on the code.  Rather than work on the \texttt{master}
 branch of our repositories, we perform all code changes on branches.  As
 we work on our branch we push the changes to our individual forks.  Once
 we've pushed our branch to our fork on GitHub, we can create a pull request
@@ -92,12 +92,8 @@ to begin the code review process necessary to merge our branch into the
 upstream master.
 
 To get new code integrated in the official \texttt{upstream} master, we use
-GitHub's \emph{pull request} mechanism.  This helps make performing code review
-for new code added to the official ``upstream'' repository easy to manage.
-Given the short development history and small development team, we have
-kept the review process lightweight and mostly automated, which I describe
-below.
-
+GitHub's \emph{pull request} mechanism.  This enables us to review code
+before integrating it.  I describe our review process below.
 Once a \emph{pull request} is reviewed and accepted, it is merged into
 the upstream master.  Once merged into the upstream repository, we pull
 the changes into our local repository and then cleanup after ourselves.
@@ -122,7 +118,6 @@ The \texttt{nose} testing framework simplifies test creation, discovery,
 and running. It has an extensive set of plugins to add functionality
 for coverage reporting, test annotation, profiling, isolation, as well
 as inspecting and testing documentation.
-
 So far, we've primarily used it for testing individual units of code for
 consistency.  Eventually we will add regression and integration testing as well
 as testing the code for correctness using the expected statistical properties.
@@ -196,9 +191,8 @@ able to achieve 100\% coverage.
 Having an automated test suite enables us to implement continuous integration.
 Continuous integration is the process of automatically running the full test
 suite using different versions of our dependencies (e.g., Python 2 and 3) on
-different operating systems (e.g., Windows, Mac OS, and Linux) and different
-hardware (e.g., Big-endian and Little-endian systems) every time any new commit
-is made to a repository or pull request.
+different operating systems (e.g., Windows, Mac OS, and Linux) every time any
+new commit is made to a repository or pull request.
 
 We've configured Travis CI\footnote{\url{https://travis-ci.org}} and
 \texttt{coveralls}\footnote{\url{https://coveralls.io}} to be automatically
@@ -254,20 +248,18 @@ desirable to periodically make official releases with binary packages uploaded
 to PyPI (the Python version of CRAN) and release announcements posted to
 community lists.
 
-Since the project is still new, there's only been one release so far.  To install
-this release without downloading the source code, you can enter the following
-command from a Bash prompt:
-\begin{verbatim}
-pip install permute
-\end{verbatim}
-This will install version 0.1.alpha0 of \texttt{permute} as well as it
-dependencies.  Since we have yet to finalize our call signatures or package
-structure, we use the alpha designation to telegraph this fact to
-potential users.  However, our release process is fully documented and
-partially automated.  Together with the policy of keeping upstream master
-pristine, this means that making new releases is extremely light-weight.  Being
-able to quickly generate new releases quickly and reliably is essential to being able to
-quickly respond to mistakenly broken releases.  Despite using a rigorous
-testing and integration methodology, error is a constant concern.  Being able
-to quickly respond to discovered errors in released software is essential to
-creating a software tool people trust.
+%Since the project is still new, there's only been one release so far.  To install
+%this release without downloading the source code, you can enter the following
+To install the latest release of \texttt{permute} and its dependencies, type
+the following command from a Bash prompt: \texttt{pip install permute}
+%This will install version 0.1.alpha0 of \texttt{permute} as well as it
+%dependencies.  Since we have yet to finalize our call signatures or package
+%structure, we use the alpha designation to telegraph this fact to
+%potential users.  However, our release process is fully documented and
+%partially automated.  Together with the policy of keeping upstream master
+%pristine, this means that making new releases is extremely light-weight.  Being
+%able to quickly generate new releases quickly and reliably is essential to being able to
+%quickly respond to mistakenly broken releases.  Despite using a rigorous
+%testing and integration methodology, error is a constant concern.  Being able
+%to quickly respond to discovered errors in released software is essential to
+%creating a software tool people trust.
