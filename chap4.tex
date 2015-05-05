@@ -94,26 +94,44 @@ making decisions regarding several important design choices. However, as we
 continue to add new functionality and expanding our codebase, these choices
 will need to be made.
 
-Dependencies
+The Python language is in the middle of major transition from version 2 to
+3.  Version 3 introduced several changes, which broke backward compatibility.
+Given the large deployed codebase already written in Python, the transition
+is a slow multiyear process.  We are currently committed to maintaining one
+codebase that runs without modification on both Python 2 and 3.  Our testing
+infrastructure ensures that we are continually checking that our code works
+on both platforms.  When there are problems, we are immediately notified and
+can quickly resolve the problem.  However, supporting Python 2 requires that
+we avoid using new features provided by Python 3.  Since we haven't yet
+attracted a user base, we may want to drop support for Python 2 before
+too long.
 
-  - Python 2
-  
-  - Pandas
-  
-  
-  - R package
+Python is known for its extensive standard library; however, few scientific
+libraries are included as part of the standard library.  So far we have
+restricted our core dependencies on third-party packages to NumPy and SciPy.
+As we add new functionality, we will be tempted to leverage additional
+external packages.  For pure Python packages, this will cause little
+difficulty.  However, many of the packages we will be interested in
+are partially implemented in C or another compiled language.  Depending
+on packages that require compilation, will increase the complexity
+of installation for some users.
 
+While choosing which versions of Python to support and what packages to depend
+on will require some thought, a more difficult set of questions will arise as
+we attempt to finalize our application programming interface (API).  We've
+already spent a lot of effort unifying our call signatures and naming
+conventions.  However, we have begun discussing a more generic structures for
+specifying test statistics.  At the very least, we would like to be able to
+pass functions, rather than using strings as we currently do.  If we go this
+route it may make sense to consider creating test statistics classes that
+we can instantiate with the test statistic function.  A more interesting
+possibility would be to see if we can create something like R's formula
+for specifying our permutation models.
 
-API / Object-oriented programming
-
-  - formula-like objects?
-  
-  Generic test statistics functions
-  
-  - allow functions to be passed in, rather than strings
-
-Performance
-
-  - Cython
-
-  - parallelization
+Finally, as we start implementing more tests and applying our package
+to larger datasets, we will need to take performance more seriously.
+While we've been able to stick to a pure Python implementation so far,
+we will eventual need to write C extensions or use something like
+Cython to improve computation time.  As permutation tests are inherently
+parallelizable, we will also need to consider providing parallel processing
+support.

@@ -41,35 +41,22 @@ to the \texttt{data} module.
 \section{Core tools}
 
 The \texttt{core} module contains basic functions that could be useful in
-multiple specific permutation tests as well as a few fundamental
-permutation tests.  
+multiple specific permutation tests as well as a few classic permutation tests.
+This includes core functions for permuting various data structures in different
+ways.  For example, we have functions for permuting the rows of a matrix
+in-place as well as permuting conditions within each group. We also have
+functions for computing confidence intervals for a binomial as well as
+one- or two-sided, two-sample permutation test for equality of two means.
 
-This module provides functions for permuting various data structures in
-different ways.  Currently we have functions for permuting the rows of
-a matrix in-place as well as permuting conditions within each group.
-
-Anne Boring
-
-
-Compute the confidence interval for a binomial.
-
-
-Simulate permutation p-value for Spearman correlation coefficient
-
-
-One-sided or two-sided, two-sample permutation test for equality of two means,
-with p-value estimated by simulated random sampling with reps replications.
-
-Tests the hypothesis that x and y are a random partition of x,y against the
-alternative that x comes from a population with mean
-
-a. greater than that of the population from which y comes, if side = ‘greater’
-
-b. less than that of the population from which y comes, if side = ‘less’
-
-c. different from that of the population from which y comes, if side = ‘two-sided’
+While one of our collaborators, Anne Boring from OFCE-Sciences Po in Paris, was
+visiting to work on a study evaluating bias in student evaluations of teachers,
+we added code to simulate permutation p-value for Spearman correlation
+coefficient.\cite{boring2015}
 
 \section{Stratified permutation testing}
+
+This module contains code adapted from an IPython notebook written by
+Philip demonstrating how to perform stratified permutation testing.
 
 Test statistics in each stratum ...
 
