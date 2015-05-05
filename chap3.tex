@@ -66,8 +66,33 @@ Nonparametric combinations of tests ...
 
 \section{\label{sec:irr}Interrater reliability}
 
-This module was motivated by a specific problem presented to use by
-Naomi Stark.
+The interrater reliability module was motivated by a specific problem presented
+to us by Naomi Stark.  This data was collected under the following conditions.
+Several different raters watched several videos.  Each video was paused at
+regular intervals and each rater was asked to complete a checklist indicating
+whether or not some event occurred in the video segment they just
+viewed.\footnote{In fact, they were asked whether several different events
+occurred in the video segment, but we consider each event separately.  So for
+the purpose of this report, we will assume that there is only one event that is
+either present or absent during each video segement.} The question posed to us
+was to determine whether these responses (or ratings) were reliable between
+raters. 
+
+For each video and rater, we have a vector of 0s and 1s indicating whether the
+event occurred or not during each time interval.  Under the null hypothesis, we
+assume that the elements of the vector are exchangeable.  So the permutation
+distribution is derived from permuting each rater's ratings independently.  For
+our test statistic, we count the number of concordant pairs.
+
+In 1960, Cohen \cite{cohen1960} introduced the kappa statistic for measuring
+the agreement between two raters correcting for chance.  Since then a number of
+extensions have been proposed, but we were unable to find one that provided a
+stratified permutation test for multiple raters. We developed our own based
+on a proposal by Philip Stark. The complete details of our method are included
+in the documentation and is implemented with tests in our code.  We are in the
+process of writing a manuscript to explain are method.
+
+
 %The test statistic within stratum $s$ is
 %
 %\begin{align*}

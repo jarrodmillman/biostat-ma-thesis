@@ -31,21 +31,47 @@ idea concrete, consider the following examples.
 %null, count all possible sequences yielding a test statistic of 0,
 %1, 2, ..., or 10 Hs in 10 tosses.
 
-\begin{exmp}[Two sample test]
+\begin{exmp}[Two sample test] Consider the following randomized, controlled
+experiment.  Suppose you suspect a specific treatment will increase the growth
+rate of a certain type of cell.  To test this hypothesis, you clone 100 cells.
+Now there are 200 cells composed of 100 pairs of identical clones.  For each
+cloned pair you randomly assign one to treatment.  At the end of the treatment,
+you measure the growth rate for all the cells.  The null hypothesis is that
+this treatment has no effect. If that is true, then it doesn't matter which of
+the cloned pair is labelled as having been treated or not.  So you can generate
+new hypothetical datasets from the observed data by exchanging the treatment
+and control labels for all the cloned pairs independently, which are equally
+likely to have occurred under the null.  This yields a total of $2^100$ total
+datasets including the observed data and all the equally likely hypothetical
+datasets that you generated.
+
+Using a standard parametric approach, you might be interested in using either a
+two-sample student $t$-test or a one-sample student $t$-test.  If you use the
+two-sample student $t$-test, then the test statistic is the mean of the treated
+group less the mean of the control group divided by the pooled estimate of the
+standard deviation of the difference in means.  If you use the one-sample
+student $t$-test, then the test statistic is the mean of the difference between
+each cloned cell divided by the standard error of these differences.  In this
+experiment, you would likely prefer the one-sample student $t$-test since the
+cloned cells are presumably more homogenous with each other than with another
+randomly choosed cell (and thus more readily compared).  On the other hand if
+all your cells were identical clones, then you would prefer the two-sample
+student $t$-test.
+
 "The two-sample problem is an easier one to explain; you might add it as well,
 and a little prose explaining how one might choose the test statistic,
 depending on the alternative."
 \end{exmp}
 
-\begin{exmp}[Test for the slope in simple linear regression]
-Given $n=10$ independent observations of two scalar $(x, y)$, consider the
-simple linear regression model $y = a + bx + \epsilon$.  To test whether $b =
-0$, let's use the least squares estimate of the slope normalized by its
-standard error.  as the test statistic.  Under the null hypothesis, there is no
-linear relation between $x$ and $y$, so all possible combinations of pairs
-$(x,y)$ are equally likely.  Hence the distribution of the test statistic is
-found by computing it on all possible $(x, y)$ formed by permuting the $y$
-values among the $x$ values.
+\begin{exmp}[Test for the slope in simple linear regression] Given $n=10$
+independent observations of two scalar $(x_i, y_i)$ for $i = 1, 2, \dots, n$,
+consider the simple linear regression model $y_i = a + bx_i + \epsilon_i$.  To
+test whether $b = 0$, let's use the least squares estimate of the slope
+normalized by its standard error as the test statistic.  Under the null
+hypothesis, there is no linear relation between $x$ and $y$, so all possible
+pairs $(x_i,y_j)$ for $i, j = 1, 2, \dots, n$ are equally likely.  Hence the
+distribution of the test statistic is found by computing it on all possible
+$(x, y)$ pairs formed by permuting the $y_i$ values among the $x_i$ values.
 
 From the distribution of the test statistic under the null, you compute
 p-values by taking the ratio of the count of the \emph{as extreme} or
@@ -97,7 +123,7 @@ obvious disadvantage is the computational cost.
 
 sketch how to use permutation tests to find confidence sets and point out that it requires additional assumptions.
 
-
+e.g., two sample test with constant effect
 
 \section{Python}
 
