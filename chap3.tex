@@ -18,15 +18,15 @@ datasets are discussed in more details in \S~\ref{sec:book}.  We also
 have a data set, which we use as an example for the interrater
 reliability test (\S~\ref{sec:irr}).
 
-Loading one of the packaged datasets involves importing and then
-invoking a helper function, which handles the data loading.  For
-example, here is how you would load the data set used for the
-interrater reliability test:
-\begin{verbatim}
-In [1]: from permute.data import nsgk
-
-In [2]: x = nsgk()
-\end{verbatim} 
+%Loading one of the packaged datasets involves importing and then
+%invoking a helper function, which handles the data loading.  For
+%example, here is how you would load the data set used for the
+%interrater reliability test:
+%\begin{verbatim}
+%In [1]: from permute.data import nsgk
+%
+%In [2]: x = nsgk()
+%\end{verbatim} 
 
 \section{Exploratory data analysis}
 
@@ -41,11 +41,14 @@ to the \texttt{data} module.
 \section{Core tools}
 
 The \texttt{core} module contains basic functions that could be useful in
-multiple specific permutation tests.  
+multiple specific permutation tests as well as a few fundamental
+permutation tests.  
 
 This module provides functions for permuting various data structures in
 different ways.  Currently we have functions for permuting the rows of
 a matrix in-place as well as permuting conditions within each group.
+
+Anne Boring
 
 
 Compute the confidence interval for a binomial.
@@ -76,15 +79,17 @@ Nonparametric combinations of tests ...
 
 \section{\label{sec:irr}Interrater reliability}
 
-The test statistic within stratum $s$ is
+This module was motivated by a specific problem presented to use by
+Naomi Stark.
+%The test statistic within stratum $s$ is
+%
+%\begin{align*}
+%\rho_s &\equiv \frac{1}{N_s {R \choose 2}} \sum_{i=1}^{N_s}
+%              \sum_{r=1}^{R-1} \sum_{v=r+1}^R 1(L_{s,i,r} = L_{s,i,v}) \\
+%       &= \frac{1}{N_s R(R-1)} \sum_{i=1}^{N_s}
+%                (y_{si}(y_{si}-1) + (R-y_{si})(R-y_{si}-1)).
+%\end{align*}
 
-\begin{align*}
-\rho_s &\equiv \frac{1}{N_s {R \choose 2}} \sum_{i=1}^{N_s}
-              \sum_{r=1}^{R-1} \sum_{v=r+1}^R 1(L_{s,i,r} = L_{s,i,v}) \\
-       &= \frac{1}{N_s R(R-1)} \sum_{i=1}^{N_s}
-                (y_{si}(y_{si}-1) + (R-y_{si})(R-y_{si}-1)).
-\end{align*}
-
-That is, within each stratum, we count the number of concordant pairs of
-assignments.
+%That is, within each stratum, we count the number of concordant pairs of
+%assignments.
 

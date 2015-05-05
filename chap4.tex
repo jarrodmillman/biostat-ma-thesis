@@ -1,10 +1,40 @@
 \chapter{\label{ch:nextsteps}Next steps}
 
-There is still much still to do.
+While the development of \texttt{permute} will continue to be guided by the
+scientific projects we engage with, there are a few things already planned.
 
 \section{\label{sec:book}``Permutation Tests for Complex Data'' Examples}
 
-\cite{pesarin2010permutation}
+On the companion
+website\footnote{\url{http://www.wiley.com/legacy/wileychi/pesarin/material.html}}
+to ``Permutation Tests for Complex Data: Theory, Applications and
+Software'' by F. Pesarin and L. Salmaso \cite{pesarin2010permutation}, the
+authors provide several R functions for implementing the application examples
+presented in their book.  They've also made their datasets available for download
+(as well as some Matlab and SAS code).  In preparation for the second edition,
+we will be implementing these examples in Python as part of our package.
+
+As mentioned above, these datasets are already included in our package.  We've
+also created a GitHub
+repository,\footnote{\url{https://github.com/statlab/permuter}} where we've
+made some tentative improvements to the code.  In order to create a test suite
+to ensure we are able to independently produce the results given by the R
+implementation, we plan to develop it into a simple R package.  Since the
+existing R code was released for the purpose of illustration, rather than as an
+attempt by the authors to provide an R library for reuse, we do not currently
+plan to submit the package to CRAN.  However, it will be publicly-available on
+GitHub and will be easily installable (we will need to make it easy to install
+for the purposes of our automated testing anyway).
+
+In addition to using the examples and R code as part of our testing suite, we
+will also include a detailed discussion of each example from the book in our
+user documentation.  While our intention is not to further develop and improve
+the R package, we will fix bugs and refactor the code as necessary to ensure
+that we can validate our results for the examples using \texttt{permute} with
+an independent implementation in R.  As part of our documentation we will
+include snippets of the R code, in the hopes that it might serve users of
+\texttt{permute} who are more familiar with R as they work through the examples
+in Python.
 
 %\section{Missing functionality}
 %
@@ -38,26 +68,52 @@ There is still much still to do.
 %
 %Monotone shifts
 
+\section{Missing features and new projects}
+
+As time permits, we will also start adding functionality to round out the
+diversity of permutation tests we provide.  For example, adding tests for slope
+in linear regression, for independence and association (e.g., runs tests), or
+for symmetry will be easy to do once we have a better sense of how we will
+ultimately organize our modules and subpackages.  Even without motivating
+scientific collaborations, we will want to start adding these tests and their
+associated confidence sets as it will help us refine our naming and call
+signature conventions.
+
+While our motivating scientific collaborations have so far produced small- to
+moderate-sized datasets, I would like to start looking at larger datasets.  In
+particular, I would like to begin applying our software to problems from
+genomics and functional neuroimaging.  Both of these problem domains already
+make use of permutation tests and the size of the datasets will enable to
+seriously focus on scalability issues.  
+
 \section{Design decisions}
+
+In the interest of making incremental improvements while gaining experience
+with the problem domain and implementation details in Python, we have postponed
+making decisions regarding several important design choices. However, as we
+continue to add new functionality and expanding our codebase, these choices
+will need to be made.
 
 Dependencies
 
-- Python 2
+  - Python 2
+  
+  - Pandas
+  
+  
+  - R package
 
-- Pandas
 
+API / Object-oriented programming
 
-- R package
+  - formula-like objects?
+  
+  Generic test statistics functions
+  
+  - allow functions to be passed in, rather than strings
 
-On the companion website of the book ``Permutation Tests for Complex Data:
-Theory, Applications and Software'' by F. Pesarin and L. Salmaso, the
-authors provide several R functions to develop the application examples
-presented in the book.\footnote{\url{http://www.wiley.com/legacy/wileychi/pesarin/material.html}}
+Performance
 
-Object-oriented programming
+  - Cython
 
-- formula-like objects?
-
-Generic test statistics functions
-
-- allow functions to be passed in, rather than strings
+  - parallelization

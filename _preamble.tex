@@ -4,6 +4,10 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newtheorem{exmp}{Example}
 
 %-----------------------------------------------------------------------------
 % Special-purpose color definitions (dark enough to print OK in black and white)

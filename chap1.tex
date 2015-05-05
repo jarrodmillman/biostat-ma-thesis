@@ -8,13 +8,20 @@ In this report, I briefly explain the purpose of the package (\S~\ref{ch:intro})
 development practices (\S~\ref{ch:dev}), the currently available functionality (\S~\ref{ch:func}), and
 our immediate and long-term roadmap (\S~\ref{ch:nextsteps}).
 
-\section{Permutation tests and confidence sets}
+\section{Permutation tests}
 
 Permutation tests (sometimes referred to as randomization, re-randomization, or
-exact tests) are a nonparametric approach to statistical significance
-testing.  In a permutation test, the distribution of the test statistic under
-the null hypothesis is obtained (exactly or approximately) by 
-computing the test statistics of all possible relabelings of the observed data.
+exact tests) are a nonparametric approach to statistical significance testing.
+They were first introduced by R. A. Fisher in 1935 and further developed by E.
+Pitman a few years later \cite{fisher1935design, pitman1937, pitman1937II,
+pitman1938significance}.  After the introduction of the bootstrap, the ideas
+were extended in the late 1980's by J. Romano \cite{romano1988bootstrap,
+romano1989bootstrap}.
+
+In a permutation test, the distribution of the test statistic under the null
+hypothesis is obtained (exactly or approximately) by computing the test
+statistics of all possible relabelings of the observed data.  To make this
+idea concrete, consider the following examples.
 
 %For example, imagine you observe 10 coin tosses (e.g., HTTHTHTTTT). Assume 
 %each trial is independent and identically distributed and let the
@@ -24,14 +31,21 @@ computing the test statistics of all possible relabelings of the observed data.
 %null, count all possible sequences yielding a test statistic of 0,
 %1, 2, ..., or 10 Hs in 10 tosses.
 
+\begin{exmp}[Two sample test]
+"The two-sample problem is an easier one to explain; you might add it as well,
+and a little prose explaining how one might choose the test statistic,
+depending on the alternative."
+\end{exmp}
 
-Given $n=10$ independent observations of two scalar $(x, y)$, consider
-the simple linear regression model $y = a + bx + \epsilon$.  To test 
-whether $b = 0$, let's use $\hat{b}/\text{SE}(\hat{b})$ as the test statistic.  Under the null
-hypothesis, there is no linear relation between $x$ and $y$, so all possible
-combinations of pairs $(x,y)$ are equally likely.  Hence the distribution of
-the test statistic is found by computing it on all possible $(x, y)$ formed by
-permuting the $y$ values among the $x$ values.
+\begin{exmp}[Test for the slope in simple linear regression]
+Given $n=10$ independent observations of two scalar $(x, y)$, consider the
+simple linear regression model $y = a + bx + \epsilon$.  To test whether $b =
+0$, let's use the least squares estimate of the slope normalized by its
+standard error.  as the test statistic.  Under the null hypothesis, there is no
+linear relation between $x$ and $y$, so all possible combinations of pairs
+$(x,y)$ are equally likely.  Hence the distribution of the test statistic is
+found by computing it on all possible $(x, y)$ formed by permuting the $y$
+values among the $x$ values.
 
 From the distribution of the test statistic under the null, you compute
 p-values by taking the ratio of the count of the \emph{as extreme} or
@@ -49,7 +63,7 @@ the p-value off a table.  Note that, unlike in the permutation test, we were
 only able to calculate the p-value (even with the additional assumptions)
 because we happened to be able to derive the distribution of this specific
 test statistic. 
-
+\end{exmp}
 %For instance, in the first example, the test statistic is 3.
 %Under the null, the expected test statistic is 5.  Thus the more extreme test
 %statistics are 0, 1, 2, 3, 8, 9, and 10. So the p-value is
@@ -79,14 +93,11 @@ doesn't require asymptotic theory; this means it should be easier for
 non-mathematically trained scientists to fully understand.  However, the
 obvious disadvantage is the computational cost.
 
-What does permute aim to provide
-\begin{itemize}
-\item experimental design needs to be carefully considered in designing
-  permutation tests. We'd like to provide the tools that will enable scientists
-  to conduct tests that actually correspond to their experimental design
-\item provide Python tools to statisticians, and provide better statistical
-  tools to Python users.
-\end{itemize}
+\section{Confidence sets}
+
+sketch how to use permutation tests to find confidence sets and point out that it requires additional assumptions.
+
+
 
 \section{Python}
 
@@ -115,7 +126,7 @@ While it is beyond the scope of this report to explore these packages in more
 detail, I note that the pseudo-random number generator (PRNG) provided by NumPy
 is the Mersenne Twister.  The Mersenne Twister is an efficient PRNG with a
 sufficiently large period for most statistical simulations.\footnote{It is
-default PRNG in R as well.  While sufficient for most statistical simulations,
+the default PRNG in R as well.  While sufficient for most statistical simulations,
 for other applications such as cryptography it may be insufficient.}  In
 addition to providing a high-quality PRNG, NumPy implements Knuth shuffling ---
 an efficient (and simple) algorithm for uniformly generating permutations of
@@ -130,3 +141,14 @@ high-quality, rigorously tested, and statistically sound package for a large
 variety of permutation tests and confidence sets. As the package matures, we
 anticipate contributing generic functionality upstream to the packages we
 depend on as appropriate.
+
+\section{Putting it all together}
+
+What does permute aim to provide
+\begin{itemize}
+\item experimental design needs to be carefully considered in designing
+  permutation tests. We'd like to provide the tools that will enable scientists
+  to conduct tests that actually correspond to their experimental design
+\item provide Python tools to statisticians, and provide better statistical
+  tools to Python users.
+\end{itemize}
