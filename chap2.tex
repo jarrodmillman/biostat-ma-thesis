@@ -75,21 +75,21 @@ branch.
 %us to add new features and bug fixes in isolated, tested, and code reviewed
 %chunks.
 
-We've designated \url{https://github.com/statlab/permute} as the official
-upstream master.  No one commits changes to it directly.  Instead we each fork
-this repository on GitHub (e.g, my fork is
-\url{https://github.com/jarrodmillman/permute}).  To fork a project on GitHub,
-you click a button labeled fork on the repository website you wish to fork.
-This let's GitHub track the relationship between various repositories it hosts.
-In particular, it enables you to create pull requests, which I discuss below.
-
-Once we've forked the official repository, we clone our fork to our computers
-so we can work on the code.  Rather than work on the \texttt{master}
-branch of our repositories, we perform all code changes on branches.  As
-we work on our branch we push the changes to our individual forks.  Once
-we've pushed our branch to our fork on GitHub, we can create a pull request
-to begin the code review process necessary to merge our branch into the
-upstream master.
+%We've designated \url{https://github.com/statlab/permute} as the official
+%upstream master.  No one commits changes to it directly.  Instead we each fork
+%this repository on GitHub (e.g, my fork is
+%\url{https://github.com/jarrodmillman/permute}).  To fork a project on GitHub,
+%you click a button labeled fork on the repository website you wish to fork.
+%This let's GitHub track the relationship between various repositories it hosts.
+%In particular, it enables you to create pull requests, which I discuss below.
+%
+%Once we've forked the official repository, we clone our fork to our computers
+%so we can work on the code.  Rather than work on the \texttt{master}
+%branch of our repositories, we perform all code changes on branches.  As
+%we work on our branch we push the changes to our individual forks.  Once
+%we've pushed our branch to our fork on GitHub, we can create a pull request
+%to begin the code review process necessary to merge our branch into the
+%upstream master.
 
 To get new code integrated in the official \texttt{upstream} master, we use
 GitHub's \emph{pull request} mechanism.  This enables us to review code
@@ -98,13 +98,13 @@ Once a \emph{pull request} is reviewed and accepted, it is merged into
 the upstream master.  Once merged into the upstream repository, we pull
 the changes into our local repository and then cleanup after ourselves.
 
-To summarize, all new work is made on a branch and pushed to our
-personal forks of the upstream repository. To incorporate this new
-work on our local master branch we then pull from the upstream
-master.  This separation between where we push and pull our
-work creates the space for code review, testing, and discussion of
-new features and bugfixes before merging work into the official 
-repository.
+%To summarize, all new work is made on a branch and pushed to our
+%personal forks of the upstream repository. To incorporate this new
+%work on our local master branch we then pull from the upstream
+%master.  This separation between where we push and pull our
+%work creates the space for code review, testing, and discussion of
+%new features and bugfixes before merging work into the official 
+%repository.
 
 \section{\label{sec:test}Testing}
 
@@ -113,18 +113,18 @@ procedures.\footnote{\url{https://nose.readthedocs.org}}  This is the standard
 testing framework used by the core packages in the scientific Python ecosystem.
 Automating the tests allows us to monitor a proxy for code correctness when
 making changes as well as simplifying the code review process for new code. 
-
 The \texttt{nose} testing framework simplifies test creation, discovery,
 and running. It has an extensive set of plugins to add functionality
 for coverage reporting, test annotation, profiling, isolation, as well
 as inspecting and testing documentation.
-So far, we've primarily used it for testing individual units of code for
-consistency.  Eventually we will add regression and integration testing as well
-as testing the code for correctness using the expected statistical properties.
-For instance, rather than merely checking whether when a function is called
-with the same arguments it returns the same results, we can run tests that
-check whether results are within the expected statistical error.
 
+%we've primarily used it for testing individual units of code for
+%consistency.  Eventually we will add regression and integration testing as well
+%as testing the code for correctness using the expected statistical properties.
+%For instance, rather than merely checking whether when a function is called
+%with the same arguments it returns the same results, we can run tests that
+%check whether results are within the expected statistical error.
+%
 %While testing is not a proof of program correctness, it can serve as a
 %useful tool for catching errors and increase our confidence in the
 %reliability of our results.
@@ -145,14 +145,16 @@ check whether results are within the expected statistical error.
 
 %\subsection{Coverage}
 
-We also use \texttt{nose} to monitor our test coverage.  Our goal is to
-test every line of code.  For example, not only do we want to test every
-function in our package, but if a specific function has internal logic
-we want to test each possible path through the function.  Having tested
+%We also use \texttt{nose} to monitor our test coverage.  
+
+Our goal is to test every line of code.  For example, not only do we want to
+test every function in our package, but if a specific function has internal
+logic we want to test each possible path through the function.  Having tested
 each line of code increases our confidence in our codebase, but more
-importantly provides us assurance that changes we make do not break
-existing code.  It also increases our confidence that new code works,
-which reduces the friction of accepting contributions.
+importantly provides us assurance that changes we make do not break existing
+code.  It also increases our confidence that new code works, which reduces the
+friction of accepting contributions.  Currently over 99\% of our code has at
+least one test touch it.
 
 %Working in the top-level of our local repository in Bash, you could
 %enter
@@ -178,28 +180,31 @@ which reduces the friction of accepting contributions.
 %\end{verbatim}
 %Here you can see, that in addition to running 39 tests without error,
 
-Currently over 97\% of our code has at least one test touch it.  The remaining
-lines are mostly branch misses where executing both branches is difficult.  For
-example, the branch depends on the particular environment in which it is being
-run. So each branch is tested in different environments, but not at the same
-time.  I've tried to trick the tests to run both branches by hand modifying
-system objects in the tests as well as creating mock objects, but haven't been
-able to achieve 100\% coverage.
+
+%The remaining
+%lines are mostly branch misses where executing both branches is difficult.  For
+%example, the branch depends on the particular environment in which it is being
+%run. So each branch is tested in different environments, but not at the same
+%time.  I've tried to trick the tests to run both branches by hand modifying
+%system objects in the tests as well as creating mock objects, but haven't been
+%able to achieve 100\% coverage.
 
 %\subsection{Continuous integration}
 
-Having an automated test suite enables us to implement continuous integration.
-Continuous integration is the process of automatically running the full test
-suite using different versions of our dependencies (e.g., Python 2 and 3) on
-different operating systems (e.g., Windows, Mac OS, and Linux) every time any
-new commit is made to a repository or pull request.
+%Having an automated test suite enables us to implement continuous integration.
+%Continuous integration is the process of automatically running the full test
+%suite i
 
 We've configured Travis CI\footnote{\url{https://travis-ci.org}} and
 \texttt{coveralls}\footnote{\url{https://coveralls.io}} to be automatically
 triggered whenever a commit is made to a pull request or the upstream
-master directly.  These systems run the full test suite and generate reports.
-These systems are integrated with GitHub so that our pull requests are
-automatically annotated with these reports as soon as changes are made.
+master directly.  These systems then run the full test suite 
+using different versions of our dependencies (e.g., Python 2 and 3) on
+different operating systems (e.g., Windows, Mac OS, and Linux) every time any
+new commit is made to a repository or pull request.
+This means that when you go to review a pull request you can immediately see
+a full report of whether the change breaks any of the tests as well as whether
+the new code decreases the overall test coverage.
 
 %Python 2 and Python 3 on Debian-derived system
 %
@@ -221,17 +226,17 @@ automatically annotated with these reports as soon as changes are made.
 
 \section{\label{sec:doc}Documentation}
 
-Reducing the friction involved with producing documentation encourages
-developers and users to contribute documentation.  For instance, NumPy use to
-have fairly poor documentation until one summer when Stefan van der Walt (now a
-BIDS fellow) built on several newly improved Python technologies for
-documentation \cite{SciPyProceedings_27}.
+%Reducing the friction involved with producing documentation encourages
+%developers and users to contribute documentation.  For instance, NumPy use to
+%have fairly poor documentation until one summer when Stefan van der Walt (now a
+%BIDS fellow) built on several newly improved Python technologies for
+%documentation \cite{SciPyProceedings_27}.
 
-We've adopted this system and already have good developer documentation and the
-foundation for high-quality user documentation. We've used Python docstrings and
-the NumPy docstring standard to document all the modules and functions in
-\texttt{permute}.\footnote{https://github.com/numpy/numpy/blob/master/doc/HOWTO\_DOCUMENT.rst.txt}
-
+We use Sphinx\footnote{\url{http://sphinx-doc.org}} as our documentation system
+and already have good developer documentation and the foundation for
+high-quality user documentation. We've used Python docstrings and the NumPy
+docstring standard to document all the modules and functions in
+\texttt{permute}.\footnote{\url{https://github.com/numpy/numpy/blob/master/doc/HOWTO\_DOCUMENT.rst.txt}}
 Using Sphinx and some NumPy extensions, we have a system for autogenerating the
 project documentation (as HTML or PDF) using the docstrings as well as
 stand-alone text written in a light-weight markdown-like language.  This

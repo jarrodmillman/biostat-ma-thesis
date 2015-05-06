@@ -4,10 +4,14 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 
-\newenvironment{example}[1][Example]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{example}[1][Example]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 
-\newtheorem{exmp}{Example}
+%\newtheorem{exmp}{Example}
+\usepackage{thmtools}
+
+\declaretheorem[style=definition]{example}
+
 
 %-----------------------------------------------------------------------------
 % Special-purpose color definitions (dark enough to print OK in black and white)
@@ -24,13 +28,22 @@
 % internal cross-reference links, web links for URLs, etc.)
 \usepackage{hyperref}
 
+%\hypersetup{pdftex,  % needed for pdflatex
+%  breaklinks=true,  % so long urls are correctly broken across lines
+%  colorlinks=true,
+%  urlcolor=blue,
+%  linkcolor=darkorange,
+%  citecolor=darkgreen,
+%  }
+
 \hypersetup{pdftex,  % needed for pdflatex
   breaklinks=true,  % so long urls are correctly broken across lines
   colorlinks=true,
-  urlcolor=blue,
-  linkcolor=darkorange,
-  citecolor=darkgreen,
+  urlcolor=black,
+  linkcolor=black,
+  citecolor=black,
   }
+
 
 
 \usepackage{url}
