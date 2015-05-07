@@ -70,45 +70,48 @@ in Python.
 
 \section{Missing features and new projects}
 
-As time permits, we will also start adding functionality to round out the
-diversity of permutation tests we provide.  For example, adding tests for slope
-in linear regression, for independence and association (e.g., runs tests), or
-for symmetry will be easy to do once we have a better sense of how we will
-ultimately organize our modules and subpackages.  Even without motivating
-scientific collaborations, we will want to start adding these tests and their
-associated confidence sets as it will help us refine our naming and call
-signature conventions.
+%There are still many standard tests that we have yet to add.
+%As time permits, we will also start adding functionality to round out the
+%diversity of permutation tests we provide.  
 
-While our motivating scientific collaborations have so far produced small- to
-moderate-sized datasets, I would like to start looking at larger datasets.  In
-particular, I would like to begin applying our software to problems from
+Adding new permutation tests (e.g., for slope in linear regression, for
+independence and association (e.g., runs tests), or for symmetry) will be easy to
+do now that we have our development infrastructure in place and have started
+developing a sense of how we will ultimately organize our modules and
+subpackages.  Even without motivating scientific collaborations, we will begin
+adding these tests and their associated confidence sets as it will help us
+refine our naming and call signature conventions.
+
+While our motivating scientific collaborations have so far involved small- to
+moderate-sized datasets, we will soon begin working with larger datasets.  In
+particular, we will begin using our software for problems from
 genomics and functional neuroimaging.  Both of these problem domains already
 make use of permutation tests and the size of the datasets will enable to
-seriously focus on scalability issues.  
+seriously focus on scalability issues.
 
 \section{Design decisions}
 
-In the interest of making incremental improvements while gaining experience
-with the problem domain and implementation details in Python, we have postponed
-making decisions regarding several important design choices. However, as we
-continue to add new functionality and expanding our codebase, these choices
-will need to be made.
+%In the interest of making incremental improvements while gaining experience
+%with the problem domain and implementation details in Python, we have postponed
+%making decisions regarding several important design choices. However, as we
+%continue to add new functionality and expanding our codebase, these choices
+%will need to be made.
 
-The Python language is in the middle of major transition from version 2 to
-3.  Version 3 introduced several changes, which broke backward compatibility.
-Given the large deployed codebase already written in Python, the transition
-is a slow multiyear process.  We are currently committed to maintaining one
-codebase that runs without modification on both Python 2 and 3.  Our testing
-infrastructure ensures that we are continually checking that our code works
-on both platforms.  When there are problems, we are immediately notified and
-can quickly resolve the problem.  However, supporting Python 2 requires that
-we avoid using new features provided by Python 3.  Since we haven't yet
-attracted a user base, we may want to drop support for Python 2 before
-too long.
+%The Python language is in the middle of major transition from version 2 to
+%3.  Version 3 introduced several changes, which broke backward compatibility.
+%Given the large deployed codebase already written in Python, the transition
+%is a slow multiyear process.  We are currently committed to maintaining one
+%codebase that runs without modification on both Python 2 and 3.  Our testing
+%infrastructure ensures that we are continually checking that our code works
+%on both platforms.  When there are problems, we are immediately notified and
+%can quickly resolve the problem.  However, supporting Python 2 requires that
+%we avoid using new features provided by Python 3.  Since we haven't yet
+%attracted a user base, we may want to drop support for Python 2 before
+%too long.
 
-Python is known for its extensive standard library; however, few scientific
-libraries are included as part of the standard library.  So far we have
-restricted our core dependencies on third-party packages to NumPy and SciPy.
+%Python is known for its extensive standard library; however, few scientific
+%libraries are included as part of the standard library.  
+Thus far we have limited our core dependencies to NumPy and SciPy.
 As we add new functionality, we will be tempted to leverage additional
 external packages.  For pure Python packages, this will cause little
 difficulty.  However, many of the packages we will be interested in
@@ -116,11 +119,11 @@ are partially implemented in C or another compiled language.  Depending
 on packages that require compilation, will increase the complexity
 of installation for some users.
 
-While choosing which versions of Python to support and what packages to depend
+While choosing what packages to depend
 on will require some thought, a more difficult set of questions will arise as
 we attempt to finalize our application programming interface (API).  We've
 already spent a lot of effort unifying our call signatures and naming
-conventions.  However, we have begun discussing a more generic structures for
+conventions.  However, we have begun discussing more generic structures for
 specifying test statistics.  At the very least, we would like to be able to
 pass functions, rather than using strings as we currently do.  If we go this
 route it may make sense to consider creating test statistics classes that
