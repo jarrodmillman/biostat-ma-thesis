@@ -18,8 +18,10 @@ After the introduction of the bootstrap, the ideas were extended in the late
 1980's by J. Romano \cite{romano1988bootstrap, romano1989bootstrap}.
 
 In a permutation test, the distribution of the test statistic under the null
-hypothesis is obtained (exactly or approximately) by computing the test
-statistics on all possible, equally likely relabelings of the observed data. 
+hypothesis is obtained obtained exactly by computing the test statistic on all
+possible, equally likely relabelings of the observed data, or approximately, by
+computing the test statistic on a random sample of the equally likely
+relabelings of the observed data.
 
 %For example, imagine you observe 10 coin tosses (e.g., HTTHTHTTTT). Assume 
 %each trial is independent and identically distributed and let the
@@ -30,18 +32,19 @@ statistics on all possible, equally likely relabelings of the observed data.
 %1, 2, ..., or 10 Hs in 10 tosses.
 
 \begin{example}[label=exa:cont] Consider the following randomized, controlled
-experiment.  You suspect a specific treatment will increase the growth
-rate of a certain type of cell.  To test this hypothesis, you clone 100 cells.
-Now there are 200 cells composed of 100 pairs of identical clones.  For each
-cloned pair you randomly assign one to treatment.  At the end of the treatment,
-you measure the growth rate for all the cells.  The null hypothesis is that
-this treatment has no effect. If that is true, then it doesn't matter which of
-the cloned pair is labeled as having been treated or not.  So you can generate
-new hypothetical datasets from the observed data by exchanging the treatment
-and control labels for all the cloned pairs independently, which are equally
-likely to have occurred under the null.  This yields a total of $2^{100}$ total
-datasets including the observed data and all the equally likely hypothetical
-datasets that you generated.
+experiment.  You suspect a specific treatment will increase the growth rate of
+a certain type of cell.  To test this hypothesis, you clone 100 cells. Now
+there are 200 cells composed of 100 pairs of identical clones. For each cloned
+pair you randomly assign one to treatment, with probability 1/2, independently
+across the 100 pairs.  At the end of the treatment, you measure the growth rate
+for all the cells.  The null hypothesis is that this treatment has no effect.
+If that is true, then the assignment of a clone to treatment amounts to an
+arbitrary label that has nothing to do with the measured response.  So you can
+generate new hypothetical datasets from the observed data by exchanging the
+treatment and control labels for all the cloned pairs independently, which are
+equally likely to have occurred under the null.  This yields a total of
+$2^{100}$ total datasets including the observed data and all the equally likely
+hypothetical datasets that you generated.
 
 Using a standard parametric approach, you might be interested in using either a
 two-sample or a one-sample student $t$-test.  If you use the two-sample student
