@@ -21,4 +21,5 @@ thesis.pdf: thesis.tex $(BUILDDIR)
 	($(TEX2PDF) $(<))
 	($(BIBER) thesis)
 	($(TEX2PDF) $(<))
+	($(TEX2PDF) $(<))
 	cp $(BUILDDIR)/$(@) .

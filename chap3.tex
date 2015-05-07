@@ -74,7 +74,7 @@ whether or not some event occurred in the video segment they just
 viewed.\footnote{In fact, they were asked whether several different events
 occurred in the video segment, but we consider each event separately.  So for
 the purpose of this report, we will assume that there is only one event that is
-either present or absent during each video segement.} The question posed to us
+either present or absent during each video segment.} The question posed to us
 was to determine whether these responses (or ratings) were reliable between
 raters. 
 
@@ -82,7 +82,9 @@ For each video and rater, we have a vector of 0s and 1s indicating whether the
 event occurred or not during each time interval.  Under the null hypothesis, we
 assume that the elements of the vector are exchangeable.  So the permutation
 distribution is derived from permuting each rater's ratings independently.  For
-our test statistic, we count the number of concordant pairs.
+our test statistic, we count the number of concordant pairs.  We then calculate
+the p-value for each video.  Then we compute a combined p-value using the
+nonparametric combination.
 
 In 1960, Cohen \cite{cohen1960} introduced the kappa statistic for measuring
 the agreement between two raters correcting for chance.  Since then a number of
