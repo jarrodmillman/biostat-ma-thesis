@@ -51,9 +51,9 @@ deviation of the difference in means.  If you use the one-sample student
 $t$-test, then the test statistic is the mean of the difference between each
 cloned cell divided by the standard error of these differences.  In this
 experiment, you would likely prefer the one-sample student $t$-test since the
-cloned cells are presumably more similar with each other than with another
+cloned cells are presumably more similar to each other than to another
 randomly chosen cell (and thus more readily compared).  On the other hand if
-all your cells were identical clones, then you would prefer the two-sample
+all your cells were identical, then you would prefer the two-sample
 student $t$-test.
 
 The permutation testing approach can use the same test statistic as you would
@@ -135,7 +135,7 @@ clones would then be similar.  Hence an interval estimate of $d$ can be
 constructed by looking at all possible values of $d$ for which the null is not
 rejected by the permutation test.  Since you assume the treatment effect is
 positive under the alternative, you will want a one-sided confidence interval.
-Assuming that the p-value calculated by the permutation test described above is
+Assume that the p-value calculated by the permutation test described above is
 less than $\alpha$, where $\alpha$ is the predetermined significance level of
 your test.  So you would then take the observed test statistic and increase it
 by a small amount and perform the permutation again.  You keep repeating this
@@ -194,8 +194,8 @@ Our aim is for \texttt{permute} to help increase the use of permutation methods
 as well as increase the usefulness of Python for statistical data analysis.
 While we wish to see an increased use of permutation methods, our aim is to not
 only make these methods easier to apply, but we also want to help researchers
-apply these methods correctly.  To this end, we intend to ultimately provided
-many worked examples illustrating the thought process as well as the mechanical
+apply these methods correctly.  To this end, we intend to provide
+many worked examples illustrating the thought process and not just the mechanical
 application of these methods.  Further our goal is to provide tools to
 prototype and implement custom tests such that researchers can easily develop
 permutation tests appropriate for their experiments.  Experimental design needs

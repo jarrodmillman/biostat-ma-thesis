@@ -1,10 +1,10 @@
 \chapter{\label{ch:func}Current functionality}
 
-While the scope of our package is large, we have initially focused on a
-few features.  In particular, we have implemented built-in datasets,
-functions for exploratory data analysis, core functionality like various
-types of permutations and confidence intervals, some stratified tests
-and confidence sets, and a novel test for interrater reliability.
+While the scope of our package is large, we have initially focused on a few
+features.  In particular, we have implemented built-in datasets, functions for
+data cleaning and quality assurance, core functionality like various types of
+permutations and confidence intervals, some stratified tests and confidence
+sets, and a novel test for interrater reliability.
 
 \section{Data}
 
@@ -28,15 +28,15 @@ reliability test (\S~\ref{sec:irr}).
 %In [2]: x = nsgk()
 %\end{verbatim} 
 
-\section{Exploratory data analysis}
+\section{Quality assurance}
 
-As we've added datasets, we've also incrementally added tools to simplify
-exploratory data analysis (EDA).  Currently, we provide two helper functions.
-One for reporting duplicate rows in a matrix in various formats.  Another for
-reporting duplicate consecutive rows in a matrix in various formats.  Rather
-than having a list of planned EDA functionality, we have been opportunistic
-and have only implemented functionality as needed for datasets we are adding
-to the \texttt{data} module.
+As we've added datasets, we've also incrementally added tools to simplify data
+cleaning or quality assurance (QA).  Currently, we provide two helper
+functions.  One for reporting duplicate rows in a matrix in various formats.
+Another for reporting duplicate consecutive rows in a matrix in various
+formats.  Rather than having a list of planned QA functionality, we have been
+opportunistic and have only implemented functionality as needed for datasets we
+are adding to the \texttt{data} module.
 
 \section{Core tools}
 
