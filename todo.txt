@@ -1,0 +1,22 @@
+
+x capitalize title, too late?  already have signatures?
+
+- missing functionality, what tests do we implement?
+
+- appendix with a complete worked example. use SET data from Kellie or maybe dataset from book
+
+- more on Python vs. R, Sandrine wondered why we didn't do this in R , would like to see more justification
+
+- in SAS (and some R) have permutation implementations, literature review of competing packages, somewhat related to above comment
+
+- page 1, where did example come from, made up.
+
+- page 2, should use the terminology : paired t-test  (not one-sample t-test exactly).
+
+- page 3, simulation to sampling (need to be more precise, add a few words)
+
+- what is a strong null hypothesis ?  Make sure to define / talk w/Philip , Holland 1984 (Causal inference review maybe?)
+
+- confidence set clearer explanation , maybe a picture, certainly needs expanding
+
+- restructure.  move permutes to utils, what about core name?  simple, basic, standard, or maybe just leave it as core.

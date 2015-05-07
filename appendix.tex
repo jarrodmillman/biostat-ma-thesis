@@ -1,0 +1,45 @@
+\chapter{\label{app:ex}Worked examples}
+
+For the following two worked examples, we assume that the following imports 
+have been made.
+
+\begin{verbatim}
+>>> import numpy as np
+>>> from scipy import stats
+>>> import matplotlib.pyplot as plt
+>>> from pandas import read_csv
+\end{verbatim}
+
+You will also need to have \texttt{permute} version 0.1a1 installed.
+
+\begin{verbatim}
+>>> import permute
+>>> permute.__version__
+'0.1a1'
+\end{verbatim}
+
+Note that this is still designated as an \emph{alpha} release, so we are
+making no guarantees regarding the stability of our package structure
+or call signatures.  We do not have plans to break our API, but we are
+allowing ourselves to continue refining our API as we gain experience
+using the package and continue adding new functionality.  However, the
+following example sessions will give you an idea of what working with
+\texttt{permute} is like.
+
+\section{Two sample permutation test}
+
+The following example uses data from \cite{macnell2014s}.
+
+\begin{verbatim}
+>>> from permute.core import two_sample
+\end{verbatim}
+
+
+\section{Stratified Spearman correlation permutation test}
+
+The following example use fake data similar to that used in \cite{boring2015}.
+
+\begin{verbatim}
+>>> from permute.stratified import sim_corr
+\end{verbatim}
+

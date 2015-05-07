@@ -47,17 +47,16 @@ $2^{100}$ total datasets including the observed data and all the equally likely
 hypothetical datasets that you generated.
 
 Using a standard parametric approach, you might be interested in using either a
-two-sample or a one-sample student $t$-test.  If you use the two-sample student
-$t$-test, then the test statistic is the mean of the treated group less the
-mean of the control group divided by the pooled estimate of the standard
-deviation of the difference in means.  If you use the one-sample student
-$t$-test, then the test statistic is the mean of the difference between each
-cloned cell divided by the standard error of these differences.  In this
-experiment, you would likely prefer the one-sample student $t$-test since the
-cloned cells are presumably more similar to each other than to another
-randomly chosen cell (and thus more readily compared).  On the other hand if
-all your cells were identical, then you would prefer the two-sample
-student $t$-test.
+two-sample or a paired $t$-test.  If you use the two-sample $t$-test, then the
+test statistic is the mean of the treated group less the mean of the control
+group divided by the pooled estimate of the standard deviation of the
+difference in means.  If you use the paired $t$-test, then the test statistic
+is the mean of the difference between each cloned cell divided by the standard
+error of these differences.  In this experiment, you would likely prefer the
+paired $t$-test since the cloned cells are presumably more similar to each
+other than to another randomly chosen cell (and thus more readily compared).
+On the other hand if all your cells were identical, then you would prefer the
+two-sample student $t$-test.
 
 The permutation testing approach can use the same test statistic as you would
 use in the parametric setting, but instead of using the $t$-distribution you
@@ -108,8 +107,8 @@ generate all equally likely possible datasets, 3) compute the test statistic
 for the observed and generated hypothetical data, and 4) calculate the
 proportion of data sets with test statistic at least as extreme as the
 observed.  Of course, as the number of observations increases this procedure
-may become computationally intractable.  In this case, simulation can often
-produce good approximate results.
+may become computationally intractable.  In this case, simulating the
+distribution via random sampling can often produce good approximate results.
 
 The advantage of this approach is that it produces exact (or approximately
 exact) results using a strong null hypothesis (i.e., we can employ whatever

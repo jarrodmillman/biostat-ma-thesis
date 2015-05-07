@@ -10,16 +10,16 @@ successful open source projects \cite{millman2014}.
 
 We use Git\footnote{\url{http://git-scm.com}} as our version control system
 (VCS) and GitHub\footnote{\url{https://github.com}} as the public hosting
-service for our official \texttt{upstream} repository.  Git allows us to track
-and manage how our code changes over time as well as review all new
-functionality before merging it into the main codebase.  To get new code
-integrated in the official \texttt{upstream} repository, we use GitHub's
-\emph{pull request} mechanism.  This enables us to review code before
-integrating it.  In the following section, I describe how we automate our
-testing to generate reports for all pull request.  This way we can verify that
-changes to our code don't break existing functionality.  Once a \emph{pull
-request} is reviewed and accepted, it is merged.  Once merged into the
-\texttt{upstream} repository, we pull the changes into our local repositories.
+service for our official \texttt{upstream} repository
+\url{https://github.com/statlab/permute}.  Git allows us to track and manage
+how our code changes over time as well as review all new functionality before
+merging it into the main codebase.  To get new code integrated in the official
+\texttt{upstream} repository, we use GitHub's \emph{pull request} mechanism.
+This enables us to review code before integrating it.  In the following
+section, I describe how we automate our testing to generate reports for all
+pull request.  This way we can verify that changes to our code don't break
+existing functionality.  Once a pull request is reviewed and accepted, it is
+then --- and only then --- merged into the \texttt{upstream} repository.
 
 %To summarize, all new work is made on a branch and pushed to our
 %personal forks of the upstream repository. To incorporate this new
@@ -70,13 +70,21 @@ as inspecting and testing documentation.
 
 %We also use \texttt{nose} to monitor our test coverage.  
 
+\begin{figure}
+  \begin{centering}
+    \includegraphics[width=\textwidth]{fig/pull-request-ci.png}\par
+  \end{centering}
+
+  \caption{\label{fig:pull-request}Pull request and continuous integration.}
+\end{figure}
+
 Our goal is to test every line of code.  For example, not only do we want to
 test every function in our package, but if a specific function has internal
 logic we want to test each possible path through the function.  Having tested
 each line of code increases our confidence in our codebase, but more
 importantly provides us assurance that changes we make do not break existing
 code.  It also increases our confidence that new code works, which reduces the
-friction of accepting contributions.  Currently over 99\% of our code has at
+friction of accepting contributions.  Currently over 98\% of our code has at
 least one test touch it.
 
 %Working in the top-level of our local repository in Bash, you could
@@ -140,13 +148,6 @@ the new code decreases the overall test coverage.
 %
 %\texttt{coveralls}\footnote{\url{https://coveralls.io}}
 %
-%\begin{figure}
-%  \begin{centering}
-%    \includegraphics[width=5.5in]{fig/pull-request-ci.png}\par
-%  \end{centering}
-%
-%  \caption{\label{fig:pull-request}Pull request and continuous integration.}
-%\end{figure}
 
 \section{\label{sec:doc}Documentation}
 

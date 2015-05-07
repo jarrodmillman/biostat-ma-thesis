@@ -4,7 +4,12 @@ While the scope of our package is large, we have initially focused on a few
 features.  In particular, we have implemented built-in datasets, functions for
 data cleaning and quality assurance, core functionality like various types of
 permutations and confidence intervals, some stratified tests and confidence
-sets, and a novel test for interrater reliability.
+sets, and a novel stratified permutation test for multi-rater interrater
+reliability.\footnote{In Appendix~\ref{app:ex}, I have included a couple
+worked examples to give the reader a sense of how they would use \texttt{permute}
+in practice.
+For additional documentation and examples, please see the project website:
+\url{http://statlab.github.io/permute}.}
 
 \section{Data}
 
@@ -28,6 +33,15 @@ reliability test (\S~\ref{sec:irr}).
 %In [2]: x = nsgk()
 %\end{verbatim} 
 
+\section{Utility functions}
+
+We provide several utility functions that are useful in multiple specific
+permutation tests as well as functions useful for reproducible tests
+given the random nature of our sampling methods.
+This includes core functions for permuting various data structures in different
+ways.  For example, we have functions for permuting the rows of a matrix
+in-place as well as permuting conditions within each group.
+
 \section{Quality assurance}
 
 As we've added datasets, we've also incrementally added tools to simplify data
@@ -40,20 +54,17 @@ are adding to the \texttt{data} module.
 
 \section{Core tools}
 
-The \texttt{core} module contains basic functions that could be useful in
-multiple specific permutation tests as well as a few classic permutation tests.
-This includes core functions for permuting various data structures in different
-ways.  For example, we have functions for permuting the rows of a matrix
-in-place as well as permuting conditions within each group. We also have
-functions for computing confidence intervals for a binomial as well as
-one- or two-sided, two-sample permutation test for equality of two means.
+The \texttt{core} module contains classic (non-stratified) permutation tests.
+In particular, we have functions for computing confidence intervals for a
+binomial as well as one- or two-sided, two-sample permutation test for equality
+of two means.
 
 While one of our collaborators, Anne Boring from OFCE-Sciences Po in Paris, was
 visiting to work on a study evaluating bias in student evaluations of teachers
 \cite{boring2015}, we added code to simulate permutation p-value for Spearman
 correlation coefficient.
 
-\section{Stratified permutation testing}
+\section{Stratified tests}
 
 This module contains code adapted from an IPython notebook written by
 Philip demonstrating how to perform stratified permutation testing.
@@ -66,17 +77,17 @@ Nonparametric combinations of tests ...
 
 \section{\label{sec:irr}Interrater reliability}
 
-The interrater reliability module was motivated by a specific problem presented
-to us by Naomi Stark.  This data was collected under the following conditions.
-Several different raters watched several videos.  Each video was paused at
-regular intervals and each rater was asked to complete a checklist indicating
-whether or not some event occurred in the video segment they just
-viewed.\footnote{In fact, they were asked whether several different events
-occurred in the video segment, but we consider each event separately.  So for
-the purpose of this report, we will assume that there is only one event that is
-either present or absent during each video segment.} The question posed to us
-was to determine whether these responses (or ratings) were reliable between
-raters. 
+The multirater interrater reliability module was motivated by a specific
+problem presented to us by Naomi Stark.  This data was collected under the
+following conditions.  Several different raters watched several videos.  Each
+video was paused at regular intervals and each rater was asked to complete a
+checklist indicating whether or not some event occurred in the video segment
+they just viewed.\footnote{In fact, they were asked whether several different
+events occurred in the video segment, but we consider each event separately.
+So for the purpose of this report, we will assume that there is only one event
+that is either present or absent during each video segment.} The question posed
+to us was to determine whether these responses (or ratings) were reliable
+between raters. 
 
 For each video and rater, we have a vector of 0s and 1s indicating whether the
 event occurred or not during each time interval.  Under the null hypothesis, we

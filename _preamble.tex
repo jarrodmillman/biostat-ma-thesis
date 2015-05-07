@@ -1,5 +1,9 @@
 \usepackage{graphicx}
 
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+
+
 \usepackage{amsmath} 
 \usepackage{amsthm}
 \usepackage{amssymb}
@@ -55,4 +59,18 @@
 \makeatother
 %% Now actually use the newly defined style.
 \urlstyle{leo}
+
+% enables straight single quote
+\makeatletter
+\let \@sverbatim \@verbatim
+\def \@verbatim {\@sverbatim \verbatimplus}
+{\catcode`'=13 \gdef \verbatimplus{\catcode`'=13 \chardef '=13 }}
+\makeatother
+
+% enables backticks in verbatim
+\makeatletter
+{\catcode`\`=13
+\xdef\@verbatim{\unexpanded\expandafter{\@verbatim}\chardef\noexpand`=18 }
+}
+\makeatother
 
