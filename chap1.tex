@@ -23,14 +23,6 @@ possible, equally likely relabelings of the observed data, or approximately, by
 computing the test statistic on a random sample of the equally likely
 relabelings of the observed data.
 
-%For example, imagine you observe 10 coin tosses (e.g., HTTHTHTTTT). Assume 
-%each trial is independent and identically distributed and let the
-%test statistic be the number of Hs. Under the null hypothesis that the
-%coin is unbiased, the Hs and Ts are exchangeable and the expected value of the
-%test statistic is 5. To find the distribution of this test statistic under the
-%null, count all possible sequences yielding a test statistic of 0,
-%1, 2, ..., or 10 Hs in 10 tosses.
-
 \begin{example}[label=exa:cont] Consider the following randomized, controlled
 experiment.  You suspect a specific treatment will increase the growth rate of
 a certain type of cell.  To test this hypothesis, you clone 100 cells. Now
@@ -93,12 +85,6 @@ permutation test, we were only able to calculate the p-value (even with the
 additional assumptions) because we happened to be able to derive the
 distribution of this specific test statistic.
 \end{example}
-
-%For instance, in the first example, the test statistic is 3.  Under the null,
-%the expected test statistic is 5.  Thus the more extreme test statistics are
-%0, 1, 2, 3, 8, 9, and 10. So the p-value is \begin{align*} \frac{\binom{10}{0}
-%+ \binom{10}{1} + \binom{10}{2} + \binom{10}{3} + \binom{10}{8} +
-%\binom{10}{9} + \binom{10}{10}}{2^{10}}.  \end{align*}
 
 In summary, the general procedure for computing a p-value using permutation
 testing is: 1) carefully formulate the null hypothesis based on the

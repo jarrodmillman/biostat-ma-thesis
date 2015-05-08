@@ -36,38 +36,6 @@ include snippets of the R code, in the hopes that it might serve users of
 \texttt{permute} who are more familiar with R as they work through the examples
 in Python.
 
-%\section{Missing functionality}
-%
-%
-%\subsection{Problems/Methods}
-%
-%The 2-sample problem
-%
-%The n-sample problem
-%
-%Tests for the slope in linear regression 
-%
-%Tests for quantiles
-%
-%Tests of independence and association: runs tests, permutation association, ...
-%
-%Tests of exchangeability
-%
-%Tests of symmetry: reflection, spherical, ...
-%
-%Permutation ANOVA
-%
-%Goodness of fit tests
-%
-%
-%\subsection{Confidence sets}
-%
-%Constant shifts
-%
-%Proportional shifts
-%
-%Monotone shifts
-
 \section{Missing features and new projects}
 
 %There are still many standard tests that we have yet to add.
@@ -91,26 +59,6 @@ better understand the scalability issues.
 
 \section{Design decisions}
 
-%In the interest of making incremental improvements while gaining experience
-%with the problem domain and implementation details in Python, we have postponed
-%making decisions regarding several important design choices. However, as we
-%continue to add new functionality and expanding our codebase, these choices
-%will need to be made.
-
-%The Python language is in the middle of major transition from version 2 to
-%3.  Version 3 introduced several changes, which broke backward compatibility.
-%Given the large deployed codebase already written in Python, the transition
-%is a slow multiyear process.  We are currently committed to maintaining one
-%codebase that runs without modification on both Python 2 and 3.  Our testing
-%infrastructure ensures that we are continually checking that our code works
-%on both platforms.  When there are problems, we are immediately notified and
-%can quickly resolve the problem.  However, supporting Python 2 requires that
-%we avoid using new features provided by Python 3.  Since we haven't yet
-%attracted a user base, we may want to drop support for Python 2 before
-%too long.
-
-%Python is known for its extensive standard library; however, few scientific
-%libraries are included as part of the standard library.  
 Thus far we have limited our core dependencies to NumPy and SciPy.
 As we add new functionality, we will be tempted to leverage additional
 external packages.  For pure Python packages, this will cause little
