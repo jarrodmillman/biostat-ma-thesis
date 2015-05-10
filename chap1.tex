@@ -5,8 +5,8 @@ sets.\footnote{\url{http://statlab.github.io/permute}}
 Philip B. Stark, Kellie Ottoboni, and I developed this package over the
 last year with most of the work occurring during the last few months.
 In this report, I briefly explain the purpose of the package (\S~\ref{ch:intro}), our
-development practices (\S~\ref{ch:dev}), the currently available functionality (\S~\ref{ch:func}), and
-our immediate and long-term roadmap (\S~\ref{ch:nextsteps}).
+development practices (\S~\ref{ch:dev}), the current functionality (\S~\ref{ch:func}), and
+our short- and long-term plans (\S~\ref{ch:nextsteps}).
 
 \section{Permutation tests}
 
@@ -18,10 +18,10 @@ After the introduction of the bootstrap, the ideas were extended in the late
 1980's by J. Romano \cite{romano1988bootstrap, romano1989bootstrap}.
 
 In a permutation test, the distribution of the test statistic under the null
-hypothesis is obtained obtained exactly by computing the test statistic on all
-possible, equally likely relabelings of the observed data, or approximately, by
-computing the test statistic on a random sample of the equally likely
-relabelings of the observed data.
+hypothesis is obtained exactly by computing the test statistic on all possible,
+equally likely relabelings of the observed data, or approximately, by computing
+the test statistic on a random sample of the equally likely relabelings of the
+observed data.
 
 \begin{example}[label=exa:cont] Consider the following randomized, controlled
 experiment.  You suspect a specific treatment will increase the growth rate of
@@ -33,40 +33,51 @@ for all the cells.  The null hypothesis is that this treatment has no effect.
 If that is true, then the assignment of a clone to treatment amounts to an
 arbitrary label that has nothing to do with the measured response.  So you can
 generate new hypothetical datasets from the observed data by exchanging the
-treatment and control labels for all the cloned pairs independently, which are
-equally likely to have occurred under the null.  This yields a total of
-$2^{100}$ total datasets including the observed data and all the equally likely
-hypothetical datasets that you generated.
+treatment and control labels for all the cloned pairs independently.  This
+yields a total of $2^{100}$ total datasets (including the observed data and all
+the hypothetical datasets that you generated), which are equally likely to have
+occurred under the null.  
 
-Using a standard parametric approach, you might be interested in using either a
-two-sample or a paired $t$-test.  If you use the two-sample $t$-test, then the
-test statistic is the mean of the treated group less the mean of the control
-group divided by the pooled estimate of the standard deviation of the
-difference in means.  If you use the paired $t$-test, then the test statistic
-is the mean of the difference between each cloned cell divided by the standard
-error of these differences.  In this experiment, you would likely prefer the
-paired $t$-test since the cloned cells are presumably more similar to each
-other than to another randomly chosen cell (and thus more readily compared).
-On the other hand if all your cells were identical, then you would prefer the
-two-sample student $t$-test.
+Using a parametric approach, you might use either a two-sample or a paired
+$t$-test.  If you use the two-sample $t$-test, then the test statistic is the
+mean of the treated group minus the mean of the control group divided by the
+pooled estimate of the standard deviation of the difference in means.  If you
+use the paired $t$-test, then the test statistic is the mean of the difference
+between each cloned cell divided by the standard error of these differences.
+In this experiment, you would likely prefer the paired $t$-test since the
+cloned cells are presumably more similar to each other than to another randomly
+chosen cell (and thus more readily compared).  On the other hand, if all your
+cells were identical, then you would prefer the two-sample student $t$-test.
 
 The permutation testing approach can use the same test statistic as you would
 use in the parametric setting, but instead of using the $t$-distribution you
 would compute the exact distribution of the test statistic by computing it
 on all equally possible datasets (i.e., the observed data as well as your
 hypothetical generated data).  The permutation p-value is then the proportion
-of the \emph{as} or \emph{more extreme} test statistics.
+of the \emph{as} or \emph{more extreme} test statistics calculated this way.
 \end{example}
 
 \begin{example} Given $n=10$ observations of two scalars $(x_i, y_i)$ for
 $i = 1, 2, \dots, n$, consider the simple linear regression model
 $y_i = a + bx_i + \epsilon_i$.  Assume that the $\epsilon_i$'s are
-exchangeable.  To test whether $b = 0$, use the least squares estimate of the slope
+exchangeable.\footnote{A sequence $X_1, X_2, X_3, \dots, X_n$ of random variables
+is \emph{exchangeable} if their joint distribution is invariant to permutations
+of the indices; that is,
+\begin{align*}
+p(x_1, \dots, x_n) &= p(x_{\pi(1)}, \dots, x_{\pi(n)})
+\end{align*}
+for all permutations $\pi$ of $1, 2, \dots, n$.
+It is closely related to the notion of \emph{independent and identically-distributed}
+random variables.  Independent and identically-distributed random variables
+are exchangeable.  However, simple random sampling \emph{without} replacement produces
+an exchangeable, but not independent, sequence of random variables.}
+
+To test whether $b = 0$, use the least squares estimate of the slope
 normalized by its standard error as the test statistic.  Under the null
 hypothesis, there is no linear relation between $x$ and $y$, so all possible
 pairs $(x_i,y_j)$ for $i, j = 1, 2, \dots, n$ are equally likely.  Hence the
-distribution of the test statistic is found by computing it on all possible
-pairs formed by permuting the $y$ values among the $x$ values.
+distribution of the test statistic may be found by computing the test statistic
+on all possible pairs formed by permuting the $y$ values among the $x$ values.
 
 From the distribution of the test statistic under the null, you compute
 p-values by taking the ratio of the count of the \emph{as extreme} or
@@ -89,21 +100,21 @@ distribution of this specific test statistic.
 In summary, the general procedure for computing a p-value using permutation
 testing is: 1) carefully formulate the null hypothesis based on the
 experimental design and question of interest, 2) from the observed data,
-generate all equally likely possible datasets, 3) compute the test statistic
-for the observed and generated hypothetical data, and 4) calculate the
-proportion of data sets with test statistic at least as extreme as the
-observed.  Of course, as the number of observations increases this procedure
-may become computationally intractable.  In this case, simulating the
+generate all equally likely possible datasets under the null, 3) compute the
+test statistic for the observed and generated hypothetical data, and 4)
+calculate the proportion of data sets with test statistic at least as extreme
+as the observed.  Of course, as the number of observations increases this
+procedure may become computationally intractable.  In this case, simulating the
 distribution via random sampling can often produce good approximate results.
 
-The advantage of this approach is that it produces exact (or approximately
+The advantage of the permutation approach is that it produces exact (or approximately
 exact) results using a strong null hypothesis (i.e., we can employ whatever
-test statistic we are interested in) and weaker assumptions (since we don't
+test statistic we are interested in) and weaker assumptions (since we do not
 need to derive an analytic form for the distribution of our chosen test
 statistic) about the generating process. Thus permutation testing allows us to
 focus on the exact question of interest, rather than a similar question which
 is amenable to analysis.  Additionally, the rationale justifying these claims
-doesn't require asymptotic theory; this means we have exact results for small
+does not require asymptotic theory; this means we have exact results for small
 samples.  The obvious disadvantage is the computational cost; however, with
 increasing computational resources and improved algorithms this limitation
 is less of a problem.
@@ -113,25 +124,24 @@ is less of a problem.
 Despite the duality between tests and confidence sets, computing the permutation
 confidence set often requires additional assumptions.  
 
-\begin{example}[continues=exa:cont] In addition to the above stated
-assumptions, you further assume an additive model where the effect of treatment
-adds a constant amount $d$ to the control response of the cell.  With this
-additional assumption, you can now estimate the treatment effect by inverting
-the permutation test.  Under the additive model, you assume that if you remove
-the true treatment effect $d$ the growth rates of the treated and untreated
-clones would then be similar.  Hence an interval estimate of $d$ can be
-constructed by looking at all possible values of $d$ for which the null is not
-rejected by the permutation test.  Since you assume the treatment effect is
-positive under the alternative, you will want a one-sided confidence interval.
-Assume that the p-value calculated by the permutation test described above is
-less than $\alpha$, where $\alpha$ is the predetermined significance level of
-your test.  So you would then take the observed test statistic and increase it
-by a small amount and perform the permutation again.  You keep repeating this
-process until you find the maximum value $d_U$ such that when you remove this
-amount from the treated cell's growth rate, you no longer reject the null
-hypothesis at significance level $\alpha$.  Then $(0, d_U)$ is a $(1-\alpha)100\%$
-permutation confidence interval for $d$.
-\end{example}
+\begin{example}[continues=exa:cont] Returning to the cloned cells example, let
+us further assume an additive model where the effect of treatment adds a
+constant amount $d$ to the control response of the cell.  With this additional
+assumption, you can now estimate the treatment effect by inverting the
+permutation test.  Under the additive model, you assume that if you remove the
+true treatment effect $d$ the growth rates of the treated and untreated clones
+would then be similar.  Hence an interval estimate of $d$ can be constructed by
+looking at all possible values of $d$ for which the null is not rejected by the
+permutation test.  Since you assume the treatment effect is positive under the
+alternative, you will want a one-sided confidence interval.  Assume that the
+p-value calculated by the permutation test described above is less than
+$\alpha$, where $\alpha$ is the predetermined significance level of your test.
+So you would then take the observed test statistic and increase it by a small
+amount and perform the permutation again.  You keep repeating this process
+until you find the maximum value $d_U$ such that when you remove this amount
+from the treated cell's growth rate, you no longer reject the null hypothesis
+at significance level $\alpha$.  Then $(-\infty, d_U)$ is a $(1-\alpha)100\%$
+permutation confidence interval for $d$.  \end{example}
 
 \section{Python}
 
@@ -148,9 +158,10 @@ third party libraries to provide additional functionality for scientific and
 numeric computing.  In particular, NumPy\footnote{\url{http://numpy.org}},
 SciPy\footnote{\url{http://scipy.org}}, and
 matplotlib\footnote{\url{http://matplotlib.org}} provide a core foundation on
-which other scientific Python packages (such as \texttt{permute}) build. NumPy
-provides the basic n-dimensional array data structure and a small core
-functionality such as linear algebra routines to compute on this data
+which other scientific Python packages (such as \texttt{permute}) build 
+\cite{oliphant2007python, van2011numpy, hunter2007matplotlib}. NumPy
+provides the basic n-dimensional array data structure and a small number of
+basic functions (e.g., linear algebra, Fourier transforms) to compute on this data
 structure.  SciPy adds additional general routines on top of this core
 functionality necessary for scientific computing including basic statistics and
 optimization.  Complementing these data structures and algorithms, matplotlib
@@ -159,18 +170,20 @@ provides publication quality 2D plotting.
 While it is beyond the scope of this report to explore these packages in more
 detail, I note that the pseudo-random number generator (PRNG) provided by NumPy
 is the Mersenne Twister.  The Mersenne Twister is an efficient PRNG with a
-sufficiently large period for most statistical simulations.\footnote{It is
-the default PRNG in R as well.  While sufficient for most statistical simulations,
+sufficiently large period for most statistical simulations.\footnote{It is the
+default PRNG in R as well.  While sufficient for most statistical simulations,
 for other applications such as cryptography it may be insufficient.}  In
-addition to providing a high-quality PRNG, NumPy implements Knuth shuffling ---
-an efficient (and simple) algorithm for uniformly generating permutations of
-sequences.
+addition to providing a high-quality PRNG, NumPy implements Knuth
+shuffling---an efficient (and simple) algorithm for uniformly generating
+permutations of sequences.
 
 While Python is similar to R in many respects and is widely used in scientific
 and numerical computing, it lacks R's extensive support for statistical
-applications.  Recently, however, it has become more attractive for statistical
-applications due to new packages such as Pandas, statsmodels, and
-scikit-learn.  Our intention is to help accelerate this trend by supplying a
+applications.  Recently, however, as an increasing number of data scientists
+have embraced Python as their primary programming language they have developed
+several new Python packages including Pandas, statsmodels, and
+scikit-learn.  These new packages have greatly enhanced Python as a language for
+statistical computing.  Our intention is to help accelerate this trend by supplying a
 high-quality, rigorously tested, and statistically sound package for a large
 variety of permutation tests and confidence sets. As the package matures, we
 anticipate contributing generic functionality upstream to the packages we
@@ -178,16 +191,17 @@ depend on as appropriate.
 
 \section{Putting it all together}
 
-Our aim is for \texttt{permute} to help increase the use of permutation methods
-as well as increase the usefulness of Python for statistical data analysis.
+Our aim is for \texttt{permute} to increase the use of permutation methods
+as well as the usefulness of Python for statistical data analysis.
 While we wish to see an increased use of permutation methods, our aim is to not
-only make these methods easier to apply, but we also want to help researchers
-apply these methods correctly.  To this end, we intend to provide
-many worked examples illustrating the thought process and not just the mechanical
+only make these methods easier to apply, but also to help researchers
+apply these methods correctly.  To this end, we intend to provide many worked
+examples illustrating the thought process and not just the mechanical
 application of these methods.  Further our goal is to provide tools to
 prototype and implement custom tests such that researchers can easily develop
-permutation tests appropriate for their experiments.  Experimental design needs
-to be carefully considered in designing permutation tests. We'd like to provide
-the tools that will enable scientists to conduct tests that actually correspond
-to their designs.  Finally, we aim to provide Python tools to
-statisticians, and provide better statistical tools to Python users.
+permutation tests appropriate for their experiments.  As suggested by our
+examples, experimental design needs to be carefully considered in designing
+permutation tests. We would like to provide the tools that will enable scientists
+to conduct tests that correspond to their designs.  Finally, we aim to
+provide Python tools to statisticians as well as better statistical tools to
+Python users.

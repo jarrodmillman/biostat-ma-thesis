@@ -14,17 +14,17 @@ presented in their book.  They've also made their datasets available for downloa
 (as well as some Matlab and SAS code).  In preparation for the second edition,
 we will be implementing these examples in Python as part of our package.
 
-As mentioned above, these datasets are already included in our package.  We've
+As mentioned above, these datasets are already included in our package.  We have
 also created a GitHub
-repository,\footnote{\url{https://github.com/statlab/permuter}} where we've
+repository,\footnote{\url{https://github.com/statlab/permuter}} where we have
 made some tentative improvements to the code.  In order to create a test suite
 to ensure we are able to independently produce the results given by the R
-implementation, we plan to develop it into a simple R package.  Since the
-existing R code was released for the purpose of illustration, rather than as an
-attempt by the authors to provide an R library for reuse, we do not currently
-plan to submit the package to CRAN.  However, it will be publicly-available on
-GitHub and will be easily installable (we will need to make it easy to install
-for the purposes of our automated testing anyway).
+implementation, we plan to develop it into an R package.  Since the existing R
+code was released for the purpose of illustration, rather than as an attempt by
+the authors to provide an R library for reuse, we do not currently plan to
+submit the package to CRAN.  However, it will be publicly-available on GitHub
+and will be easily installable (we will need to make it easy to install for the
+purposes of our automated testing anyway).
 
 In addition to using the examples and R code as part of our testing suite, we
 will also include a detailed discussion of each example from the book in our
@@ -38,24 +38,19 @@ in Python.
 
 \section{Missing features and new projects}
 
-%There are still many standard tests that we have yet to add.
-%As time permits, we will also start adding functionality to round out the
-%diversity of permutation tests we provide.  
-
-Adding new permutation tests (e.g., for slope in linear regression, for
-independence and association (e.g., runs tests), or for symmetry) will be easy to
-do now that we have our development infrastructure in place and have started
-developing a sense of how we will ultimately organize our modules and
-subpackages.  Even without motivating scientific collaborations, we will begin
-adding these tests and their associated confidence sets as it will help us
+Now that we have our development infrastructure in place and some experience in
+designing the API, it will be easier to add new permutation tests (e.g., for
+slope in linear regression, for independence and association, or for symmetry).
+Even without motivating scientific collaborations, we will begin adding these
+tests (and others) and their associated confidence sets as it will help us
 refine our naming and call signature conventions.
 
-While our motivating scientific collaborations have so far involved small- to
-moderate-sized datasets, we will soon begin working with larger datasets.  In
+Our motivating scientific collaborations have so far involved small- to
+moderate-sized datasets.  We will soon begin working with larger datasets.  In
 particular, we will begin using our software for problems from
 genomics and functional neuroimaging.  Both of these problem domains already
 make use of permutation tests and the size of the datasets will help us
-better understand the scalability issues.
+better understand the performance and scalability issues.
 
 \section{Design decisions}
 
@@ -63,26 +58,36 @@ Thus far we have limited our core dependencies to NumPy and SciPy.
 As we add new functionality, we will be tempted to leverage additional
 external packages.  For pure Python packages, this will cause little
 difficulty.  However, many of the packages we will be interested in
-are partially implemented in C or another compiled language.  Depending
+are partially implemented in C, C{}\verb!++!, or Fortran.  Depending
 on packages that require compilation, will increase the complexity
 of installation for some users.
 
-While choosing what packages to depend
-on will require some thought, a more difficult set of questions will arise as
-we attempt to finalize our application programming interface (API).  We've
-already spent a lot of effort unifying our call signatures and naming
-conventions.  However, we have begun discussing more generic structures for
-specifying test statistics.  At the very least, we would like to be able to
-pass functions, rather than using strings as we currently do.  If we go this
-route it may make sense to consider creating test statistics classes that
-we can instantiate with the test statistic function.  A more interesting
-possibility would be to see if we can create something like R's formula
-for specifying our permutation models.
+While choosing what packages to depend on will require some thought, a more
+difficult set of questions will arise as we attempt to finalize our application
+programming interface (API).  We've already spent a lot of effort unifying our
+call signatures and naming conventions.  However, we have begun discussing more
+generic structures for specifying test statistics.  For instance,
+here is the call signature of our two sample permutation test for the equality
+of two means: 
+\begin{verbatim}
+  def two_sample(x, y, reps=10**5, stat='mean', alternative='greater',
+                 keep_dist=False, interval=False, level=0.95, seed=None)
+\end{verbatim}
+Currently, you can specify the test statistic by setting \texttt{stat} to
+\texttt{"mean"} or \texttt{"t"} depending on whether you want to use the
+difference in the means or the two-sample t-statistic.  The function checks
+which string is passed in and then chooses the correct function for the test
+statistic.  Ideally, we would like to allow users to pass a function in
+directly rather than a string.  If we go this route it may make sense to
+consider creating test statistics classes that we can instantiate with the test
+statistic function.  Another possibility would be to see if we can create
+something like R's formula for specifying our permutation models.
 
-Finally, as we start implementing more tests and applying our package
-to larger datasets, we will need to take performance more seriously.
-While we've been able to stick to a pure Python implementation so far,
-we will eventual need to write C extensions or use something like
-Cython to improve computation time.  As permutation tests are inherently
-parallelizable, we will also need to consider providing parallel processing
-support.
+Finally, as we start implementing more tests and applying our package to larger
+datasets, we will need to take performance more seriously.  While we have been
+able to stick to a pure Python implementation so far, we will eventual need to
+write C extensions or use an NumPy-aware optimizing static compiler for Python such
+Cython\footnote{\url{http://cython.org}} or
+Numba\footnote{\url{http://numba.pydata.org}} to improve computation time.  As
+permutation tests are inherently parallelizable, we will also need to consider
+providing parallel processing support.
