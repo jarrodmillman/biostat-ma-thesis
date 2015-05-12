@@ -22,7 +22,7 @@ to ensure we are able to independently produce the results given by the R
 implementation, we plan to develop it into an R package.  Since the existing R
 code was released for the purpose of illustration, rather than as an attempt by
 the authors to provide an R library for reuse, we do not currently plan to
-submit the package to CRAN.  However, it will be publicly-available on GitHub
+submit the package to CRAN.  However, it will be publicly available on GitHub
 and will be easily installable (we will need to make it easy to install for the
 purposes of our automated testing anyway).
 
@@ -40,17 +40,17 @@ in Python.
 
 Now that we have our development infrastructure in place and some experience in
 designing the API, it will be easier to add new permutation tests (e.g., for
-slope in linear regression, for independence and association, or for symmetry).
+slope in linear regression, for independence, or for symmetry).
 Even without motivating scientific collaborations, we will begin adding these
 tests (and others) and their associated confidence sets as it will help us
 refine our naming and call signature conventions.
 
 Our motivating scientific collaborations have so far involved small- to
 moderate-sized datasets.  We will soon begin working with larger datasets.  In
-particular, we will begin using our software for problems from
-genomics and functional neuroimaging.  Both of these problem domains already
-make use of permutation tests and the size of the datasets will help us
-better understand the performance and scalability issues.
+particular, we will begin using our software for problems from genomics and
+functional neuroimaging.  Both of these problem domains already use permutation
+tests and the size of the datasets will help us better understand the
+performance and scalability issues.
 
 \section{Design decisions}
 

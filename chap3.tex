@@ -24,10 +24,13 @@ reliability test (\S~\ref{sec:irr}).
 \section{Utility functions}
 
 We provide several utility functions that are useful in multiple specific
-permutation tests as well as functions useful for reproducible tests, which
-rely on a PRNG.  This includes core functions for permuting various data
-structures in different ways.  Currently, we have functions for permuting the
-rows of a matrix in-place as well as permuting conditions within each group.
+permutation tests as well as functions useful for ensuring our unit tests are
+repeatable when they call functions that rely on a PRNG.  This includes core
+functions for permuting various data structures in different ways.  Currently,
+we have functions for permuting the rows of a matrix in-place, permuting
+conditions within each group, and permuting the elements of a (binary)
+incidence matrix keeping the row and column sums constant.
+
 
 \section{Quality assurance}
 
@@ -52,12 +55,19 @@ correlation coefficient.
 
 \section{Stratified tests}
 
-This module was the first we developed and contains code adapted from an
-IPython notebook written by Philip demonstrating how to perform a stratified
-permutation test using the sum of the differences in means between two or more
-conditions in each group (stratum) as the test statistic.
-We also have a function to simulate permutation p-values for a stratified
-Spearman correlation test, which was implemented during Anne Boring's visit.
+Some experimental designs have natural groupings. In these situations, it often
+makes sense to estimate effects within groups and then combine the within-group
+estimates to get an overall estimate.  To do this you carry out the permutation
+test within each group and then aggregate test statistics across groups. This
+helps control for group-level effects.
+
+The stratified tests module was the first code we developed and began by
+adapting some functions from an IPython notebook written by Philip
+demonstrating how to perform a stratified permutation test using the sum of the
+differences in means between two or more conditions in each group (stratum) as
+the test statistic.  More recently we added a function to simulate permutation
+p-values for a stratified Spearman correlation test, which we implemented
+during Anne Boring's visit.
 
 \section{\label{sec:irr}Interrater reliability}
 
@@ -66,30 +76,29 @@ presented to us by Naomi Stark.  She was interested in analyzing rater
 reliability in a dataset collected during the following experiment.  Several
 different raters watched several videos.  Each video was paused at regular time
 intervals and each rater was asked to indicating whether or not a particular
-event occurred in the video segment they just viewed.\footnote{In fact, they
-were asked whether several different events occurred in the video segment, but
-we consider each event separately.  So for the purpose of this report, we will
-assume that there is only one event that is either present or absent during
-each video segment.} The question posed to us was to determine whether these
-responses (or ratings) were reliable between raters. 
+thing (e.g., a person in the video was seated) occurred during the video
+segment they just viewed.\footnote{In fact, they were asked whether several
+different things occurred in the video segment, but we consider each thing
+separately.  So for the purpose of this report, we will assume that there is
+only one thing of interest that is either present or absent during each video
+segment.} The question posed to us was to determine whether these responses (or
+ratings) were reliable among raters. 
 
 For each video and rater, we have a vector of 0s and 1s indicating whether the
-event occurred or not during each time interval.  Under the null hypothesis, we
-assume that the elements of this vector are exchangeable.  So the permutation
-distribution is derived from permuting the elements of each rater's rating
-vector independently.  For our test statistic, we count the number of
-concordant pairs.  We then calculate the p-value for each video.  Then we
-compute an overall p-value by combining the results across video (i.e., strata)
-using the nonparametric combination of tests (NPC) described in Pesarin and
-Salmaso.
+event occurred or not during each time interval.  Under the null hypothesis,
+the elements of this vector are exchangeable.  So the permutation distribution
+is derived from permuting the elements of each rater's rating vector
+independently.  For our test statistic, we count the number of concordant pairs
+of assignments for each video (i.e., stratum) and normalize this number to
+range between 0 and 1.  We then calculate the p-value for each video.  Then we
+compute an overall p-value by combining the results across videos (i.e.,
+strata) using the nonparametric combination of tests (NPC) described in Pesarin
+and Salmaso.
 
 In 1960, Cohen \cite{cohen1960} introduced the kappa statistic for measuring
 the agreement between two raters correcting for chance.  Since then a number of
 extensions have been proposed, but we were unable to find one that provided a
-stratified permutation test for multiple raters. We developed our own based on
-a proposal by Philip Stark. The complete details of our method are included in
-the documentation and are implemented with tests in our code.  A descriptive
+stratified test for multiple raters. We developed our own based on a proposal
+by Philip Stark. The complete details of our method are included in the
+documentation and are implemented with tests in our code.  A descriptive
 manuscript will soon follow.
-
-%That is, within each stratum, we count the number of concordant pairs of
-%assignments.

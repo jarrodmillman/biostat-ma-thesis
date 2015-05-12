@@ -58,8 +58,9 @@ Despite the problematic assumptions we are required to make, let's temporarily
 assume they hold and calculate a ``p-value'' anyway.
 
 \begin{verbatim}
->>> ratings = np.recfromcsv("RatingsData.csv")
->>> maleid   = ratings.overall[ratings.taidgender==1]
+>>> from permute.data import macnell2014
+>>> ratings = macnell2014()
+>>> maleid = ratings.overall[ratings.taidgender==1]
 >>> femaleid = ratings.overall[ratings.taidgender==0]
 >>> df = len(maleid) + len(femaleid) - 2
 >>> t, p = stats.ttest_ind(maleid, femaleid)
@@ -68,7 +69,7 @@ Test statistic: 1.54059
 >>> print 'P-value (two-sided):', np.round(p, 5)
 P-value (two-sided): 0.1311
 \end{verbatim}
-Note that the computer ``p-value'' is above the standard cut-offs for
+Note that the computed ``p-value'' is above the standard cut-offs for
 reporting significance in the literature.
 
 For the permutation test we can use the same test statistic, but we will
@@ -120,11 +121,6 @@ In Figure~\ref{fig:figure1}, you can see the ...
 
 \section{Stratified Spearman correlation permutation test}
 
-Some experimental designs have natural groupings. It makes sense to estimate
-effects within groups, then combine within-group estimates.  To do this you
-carry out permutation within groups, then aggregate test statistics across
-groups. This helps control for group-level effects.
-
 To illustrate the use of one of our stratified tests, I will use fake
 data similar to that used in \cite{boring2015}; we are unable to use
 the actual data due to data privacy laws in France.
@@ -139,7 +135,7 @@ hypothesis is that there is a positive association between a student's final
 exam performance and the rating they give their professor.
 
 There are 8 professors each with multiple student ratings.  One might think
-that professor 1 gets consistently high reviews because of something (e.g.,
+that a certain professor gets consistently high reviews because of something (e.g.,
 gender, attractiveness, likeability) unrelated to teaching effectiveness.
 Stratifying by professor allows us to assess teaching effectiveness for each
 individual student.  The test statistic we use within groups is the Spearman
