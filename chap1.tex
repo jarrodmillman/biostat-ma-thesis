@@ -13,38 +13,53 @@ development practices (\S~\ref{ch:dev}), the current functionality
 Permutation tests (sometimes referred to as randomization, re-randomization, or
 exact tests) are a nonparametric approach to statistical significance testing.
 They were first introduced by R. A. Fisher in 1935 \cite{fisher1935design} and
-further developed by E. J. G. Pitman  \cite{pitman1937, pitman1938significance}.
-After the introduction of the bootstrap, the ideas were extended in the late
-1980's by J. Romano \cite{romano1988bootstrap, romano1989bootstrap}.
-In a permutation test, the distribution of the test statistic under the null
-hypothesis is obtained exactly by computing the test statistic on all possible,
-equally likely relabelings of the observed data, or approximately, by computing
-the test statistic on a random sample of the equally likely relabelings of the
-observed data.
+further developed by E. J. G. Pitman  \cite{pitman1937,
+pitman1938significance}.  After the introduction of the bootstrap, the ideas
+were extended in the late 1980's by J. Romano \cite{romano1988bootstrap,
+romano1989bootstrap}.
+Abstract permutation tests are possible whenever the
+null distribution of the data is invariant under the action of some group.\footnote{A group $\mathcal{G} = (G, \cdot)$ is a tuple
+where $G$ is a set of elements and $\cdot$ is an operation that takes any two elements
+of $G$ and returns another element of $G$ such that (1) $G$ is \emph{closed} under $\cdot$,
+(2) $\cdot$ is \emph{associative}, (3) there exist an $e \in G$, called the \emph{identity}, such that
+for all $g \in G, e\cdot g = g$, and (4) for all $g \in G$ there exists an \emph{inverse}
+element $g^{-1} \in G$ such that $g^{-1}\cdot g = e$.}
+Then, a subset of outcomes is conditionally equally likely, given that the data
+fall in a particular orbit of the group: all possible data in the orbit of the
+observed data under the action of the group. That makes it possible to
+determine the conditional distribution of any test statistic, given the orbit
+of the data.  If tests are performed conditionally at level $\alpha$ regardless
+of the observed data, the resulting overall test has unconditional level
+$\alpha$, by the law of total probability.
 
-More formally, permutation tests involve notions from group theory.\footnote{A group $\mathcal{G} = (G, \star)$ is a tuple
-where $G$ is a set of elements and $\star$ is an operation that takes any two elements
-of $G$ and returns another element of $G$ such that (1) $G$ is \emph{closed} under $\star$,
-(2) $\star$ is \emph{associative}, (3) there exist an $e \in G$, called the \emph{identity}, such that
-for all $g \in G, e\star g = g$, and (4) for all $g \in G$ there exists an \emph{inverse}
-element $g^{-1} \in G$ such that $g^{-1}\star g = e$.}
+%In a permutation test, the distribution of the test statistic under the null
+%hypothesis is obtained exactly by computing the test statistic on all possible,
+%equally likely relabelings of the observed data, or approximately, by computing
+%the test statistic on a random sample of the equally likely relabelings of the
+%observed data.
+
+More formally,
 %\begin{itemize}
 %\item $G$ is closed under $\star$,
 %\item $\star$ is associative,
 %\item there exist an $e \in G$, called the identity, such that for all $g \in G, e\star g = g$,
 %\item for all $g \in G$ there exists an inverse element $g^{-1} \in G$ such that $g^{-1}\star g = e$.
 %\end{itemize}}
-When a finite group $\mathcal{G} = (G, \star)$
-acts on a finite set $X$, it permutes
-the elements of $X$.  For any $x \in X$, the \emph{orbit} of $x$ in $X$, denoted
-$\mathcal{G}(x)$, is the set of elements of $X$ to which $x$ can move under the group
+the \emph{action} of a (finite) group $\mathcal{G} = (G, \cdot)$ on a (finite) set $X$
+is a permutation $\pi_g: X \to X$ for each $g \in G$ such that (1) $\pi_e$ is the identity
+(i.e., for every $x \in X, \pi_e(x) = x$) and (2) for every $g_1$ and $g_2$ in $G$,
+$\pi_{g_1} \circ \pi_{g_2} = \pi_{g_1 \cdot g_2}$.  Following standard practice, I write $\pi_g(x)$ as $gx$.
+This is simplified notation for the effect of the permutation associated with $g$ on the
+element $x$ and is not meant to suggest that we can multiply elements of $G$ with elements of $X$.
+For any $x \in X$, the \emph{orbit} $\mathcal{G}(x)$ of $x$ in $X$ is
+the set of elements (or points) of $X$ to which $x$ moves under the group
 action of $\mathcal{G}$; that is,
-$\mathcal{G}(x) = \Set{g\star x \in X \given g \in G}$
+$\mathcal{G}(x) = \Set{gx \in X \given g \in G}$
 where $g$ runs over all elements of $G$.   
 
 Permutation testing involves conditional probabilities (i.e., conditional on
 the event that the hypothetical generated data lie in the orbit of the observed
-data), on the assumption that the null hypothesis is true.  The group is
+data) based on the assumption that the null hypothesis is true.  The group is
 determined by considering the underlying symmetries of the observed data under
 the null, which are equivariant.  These  conditional probability distributions
 allow you to find the probability of any event.  In the following examples, we
@@ -134,8 +149,8 @@ probability regardless of the $x$s.  Hence every pairing
 $(x_i, y_j)$ for any fixed $i$ and for $j = 1, 2, \dots, n$ is equally likely.
 
 Using the least squares estimate of the slope normalized by its standard error
-as the test statistic, you can find the exact distribution of this test
-statistic under the null by computing the test statistic on all possible pairs
+as the test statistic, you can find it's exact distribution under the null given
+the observed data by computing the test statistic on all possible pairs
 formed by permuting the $y$ values among the $x$ values.  From the distribution
 of the test statistic under the null conditioned on the observed data, the
 p-value is the ratio of the count of the \emph{as extreme} or \emph{more
@@ -157,15 +172,15 @@ distribution of this specific test statistic.
 \end{example}
 
 In summary, the general procedure for computing a p-value using permutation
-testing is: (1) carefully formulate the null hypothesis based on the
-experimental design and question of interest, (2) from the observed data,
-generate all equally likely possible datasets under the null, (3) compute the
-test statistic for the observed and generated hypothetical data, and (4)
-calculate the proportion of data sets with test statistic at least as extreme
+testing is: (1)~carefully formulate the null hypothesis based on the
+experimental design and question of interest, (2)~from the observed data,
+generate all equally likely possible datasets under the null, (3)~compute the
+test statistic for the observed and generated hypothetical data, and 
+(4)~calculate the proportion of data sets with test statistic at least as extreme
 as the observed.  Note that this exact procedure works regardless of the
 particular test statistic chosen.  If step (2) is too computationally expensive
 to perform, then you can approximate the exact p-value by the same procedure as
-above except that you replace step (2) with ($2^\prime$) from the observed
+above except that you replace step (2) with ($2^\prime$)~from the observed
 data, generate a sufficiently large uniform random sample of all equally likely
 possible datasets under the null. Simulating the distribution via random
 sampling will produce arbitrarily good approximate results as you increase your
@@ -183,7 +198,7 @@ rather than a similar question which is amenable to analysis.  Additionally,
 the rationale justifying these claims does not require asymptotic theory; this
 means we have exact results for small samples.  The disadvantage is the
 computational cost; however, with increasing computational resources and
-improved algorithms this limitation is less of a concern.
+improved algorithms, this limitation is less of a concern.
 
 \section{Confidence sets}
 
@@ -247,7 +262,7 @@ pretreatment cloned pair $(a_i, b_i)$ where $a_i\doteq t_i-d^\prime$ and $b_i
 \doteq c_i$. If $H_{d^\prime}$ is true, then all $2^n$ possible allocations of
 the treatment shift $d^\prime$ to one of cloned pairs $(a_i, b_i)$ represents a
 equally likely hypothetical treatment outcome. From this exact distribution you
-can find the permutation p-value for your desired test statistic(e.g., the
+can find the permutation p-value for your desired test statistic (e.g., the
 median difference between treatment and control). Hence a level $\alpha$ family
 of test of $H_{d^\prime}$ versus the alternative can be specified by accepting
 the alternative when the permutation p-value (under the null and conditioned on
