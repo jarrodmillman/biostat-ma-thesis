@@ -1,8 +1,8 @@
 \chapter{\label{app:def}Groups, actions, and orbits}
 \setcounter{example}{0}
 
-Groups are one of the basic objects of study in abstract algebra and
-are useful in many areas outside of mathematics \cite{armstrong1997groups, dummit2003abstract}.  They are intimately
+Groups are a basic object of study in abstract algebra and
+are useful in many areas outside of mathematics \cite{armstrong1997groups, dummit2003abstract, lang2002algebra}.  They are intimately
 related to the notion of symmetry.
 
 \begin{definition}
@@ -16,14 +16,15 @@ called (group) \emph{multiplication} such that
 \end{enumerate}
 \end{definition}
 
-Given a group $(G, \cdot)$, a subset $H$ of $G$ is called a subgroup if 
-$(H, \cdot)$ is a group.  The integers under addition $(\mathbb{Z}, +)$ is a group
-with identity element $0$ and where the inverse of $z$ is $-z$.  The even
-integers are a subgroup of $(\mathbb{Z}, +)$.  The rational numbers excluding
-$0$ under the multiplication $(\mathbb{Q}\setminus \Set{0}, \cdot)$ is a group
-with identity element $1$ and where the inverse of $p/q$ is $q/p$. In both
-cases, it is easy to verify that the group properties are met.  Here is a more
-complicated example that we will use in the sequel. 
+Given a group $(G, \cdot)$, a subset $H$ of $G$ is called a subgroup if $H$
+under the multiplication of $G$, i.e., $(H, \cdot)$, is a group $(H, \cdot)$.  The integers under
+addition $(\mathbb{Z}, +)$ is a group with identity element $0$ and where the
+inverse of $z$ is $-z$.  The even integers are a subgroup of $(\mathbb{Z}, +)$.
+The rational numbers excluding $0$ under the multiplication
+$(\mathbb{Q}\setminus \Set{0}, \cdot)$ is a group with identity element $1$ and
+where the inverse of $p/q$ is $q/p$. In both cases, it is easy to verify that
+the group properties are met.  Here is a more complicated example that we will
+use in the sequel. 
 
 \begin{example}
 A permutation of an arbitrary set $X$ is a bijection from $X$ to itself.  The
@@ -42,11 +43,12 @@ Let $G$ and $H$ be groups.  A \emph{homeomorphism} $\varphi: G \to H$ takes mult
 from $G$ to $H$ such that $\varphi(xy) = \varphi(x)\varphi(y)$ for all $x, y \in G$.
 \end{definition}
 
-Note that the multiplication on $G$ and the multiplication on $H$ might be completely different operations
+Note that the multiplication on $G$ and the multiplication on $H$ may be completely different operations
 and in general $\varphi(x)y$ will be undefined.
-To make that explicit, let $(G, \star)$ and $(H, \diamond)$ then we write 
+To make that explicit, let $(G, \star)$ and $(H, \diamond)$ be groups then we write the
+condition for a function $\varphi: G \to H$ to be a homeomorphism as
 $\varphi(x \star y) = \varphi(x)  \diamond \varphi(y)$.  
-Since the context will make clear what group multiplication is being used, we will not usually
+Since the context will make clear the group multiplication being used, we will not usually
 distinguish the different  operators.
 A homeomorphism takes the identity of $G$ to the identity of $H$
 since $\varphi(g) = \varphi(ge) = \varphi(g)\varphi(e)$ for all $g \in G$. It takes inverses to 
@@ -62,7 +64,7 @@ definition of a homeomorphism, this means that $\varphi(xy) = \varphi(x)\varphi(
 $x, y \in G$ where $\varphi(xy), \varphi(x), \varphi(y) \in S_X$.  Also notice that
 $\varphi(x)\varphi(y)$ represents composition of the permutations $\varphi(x)$ and 
 $\varphi(y)$.  Moreover, $\varphi(e)$ is the identity permutation in $S_X$.
-It is standard to write $gx$ instead of $\varphi(g)(X)$ since it is more compact.
+It is standard to write $gx$ instead of $\varphi(g)(x)$ since it is more compact.
 Note that $gx$ does not involve group multiplication, but represents the group action
 of $g$ on $x$, which can be thought of as the image of $x$ under the permutation of $X$
 induced by $g$.  Each $g \in G$ corresponds to a permutation of $X$ defined by the
@@ -85,3 +87,20 @@ the set of elements (or points) in $X$ to which $x$ moves under some $g$ in $G$.
 
 Each orbit defines a subgroup of $S_X$.  All the point in an orbit form an equivalence
 class under the group action.  The set of all such equivalence classes partitions $X$.
+
+\begin{example}
+The additive group $(\mathbb{Z}, +)$ acts on the real line $\mathbb{R}$ by translation.
+That is, for every integer $z$ and any real number $x$ the group action is given
+by $x \mapsto z + x$. To show that this a homeomorphism $\varphi : (\mathbb{Z}, +) \to (S_\mathbb{R}, \smallcirc)$,
+note that given any two integers $m$ and $n$ and any real number $x$ the following
+holds $(m + n) + x = m + (n + x)$.  The orbit of $\pi$ (i.e., $3.14152...$) under
+this group action is
+\begin{align*}
+\Set{z\pi  \given z \in \mathbb{Z}} = \Set{z + \pi  \given z \in \mathbb{Z}} =\Set{\dots, 2.14152..., 3.14152..., 4.14152..., \dots}.
+\end{align*}
+In a similar fashion, the orbit of any real number $x$ under this action of $(\mathbb{Z}, +)$
+on $\mathbb{R}$ creates and equivalence relation under the group structure of $(\mathbb{Z}, +)$ such
+that $x \sim y$ with $y$ in $\mathbb{R}$ exactly when there exists a $z$ in $\mathbb{Z}$ such that
+$y = z + x$.
+\end{example}
+
