@@ -15,13 +15,32 @@ exact tests) are a nonparametric approach to statistical significance testing.
 They were first introduced by R. A. Fisher in 1935 \cite{fisher1935design} and
 further developed by E. J. G. Pitman  \cite{pitman1937,
 pitman1938significance}.  After the introduction of the bootstrap, the ideas
-were extended in the late 1980's by J. Romano \cite{romano1988bootstrap,
+were extended in the 1980's by J. Romano \cite{romano1988bootstrap,
 romano1989bootstrap}.
-In a permutation test, the distribution of the test statistic under the null
-hypothesis is obtained exactly by computing the test statistic on all possible,
-equally likely relabelings of the observed data, or approximately, by computing
+
+Initially permutation testing was developed in situations where relabeling the
+observed data conditional on the null hypothesis was justified by the assumed
+exchangeability\footnote{A sequence $X_1, X_2, X_3, \dots, X_n$ of random
+variables is \emph{exchangeable} if their joint distribution is invariant to
+permutations of the indices; that is,
+\begin{align*}
+p(x_1, \dots, x_n) &= p(x_{\pi(1)}, \dots, x_{\pi(n)})
+\end{align*}
+for all permutations $\pi$ of $\Set{1, 2, \dots, n}$.  It is closely related to the
+notion of \emph{independent and identically-distributed} random variables.
+Independent and identically-distributed random variables are exchangeable.
+However, simple random sampling \emph{without} replacement produces an
+exchangeable, but not independent, sequence of random variables.}
+of the observed random variable.  In these situations, the
+distribution of the test statistic under the null hypothesis is obtained
+exactly by computing the test statistic on all possible, equally likely
+relabelings of the observed data under the exchangeability of the random
+variable. If computing the exact distribution is computationally infeasible,
+then the exact distribution can be approximated by computing
 the test statistic on a random sample of the equally likely relabelings of the
-observed data.
+observed data.  Importantly, the error of this approximation can be
+exactly controlled as $\sqrt{n}$ where $n$ is the number of random samples
+of the conditional distribution under the null.
 
 More generally, permutation tests are possible whenever the
 null distribution of the data is invariant under the action of some group (see Appendix~\ref{app:def} for background).
@@ -133,17 +152,7 @@ or \emph{more extreme} than the observed test statistics.  \end{example}
 \begin{example} Given $n=10$ observations of two scalars $(x_i, y_i)$ for
 $i = 1, 2, \dots, n$, consider the simple linear regression model
 $y_i = a + bx_i + \epsilon_i$.  Assume that the $\epsilon_i$'s are
-exchangeable.\footnote{A sequence $X_1, X_2, X_3, \dots, X_n$ of random
-variables is \emph{exchangeable} if their joint distribution is invariant to
-permutations of the indices; that is,
-\begin{align*}
-p(x_1, \dots, x_n) &= p(x_{\pi(1)}, \dots, x_{\pi(n)})
-\end{align*}
-for all permutations $\pi$ of $1, 2, \dots, n$.  It is closely related to the
-notion of \emph{independent and identically-distributed} random variables.
-Independent and identically-distributed random variables are exchangeable.
-However, simple random sampling \emph{without} replacement produces an
-exchangeable, but not independent, sequence of random variables.}
+exchangeable.
 
 You are interested in showing that the slope of the population regression line
 is non-zero; hence, your null hypothesis is $b = 0$. If $b = 0$, then the model
@@ -226,7 +235,7 @@ each $H_{\theta_0} \in \mathcal{H}$,
 P_{\theta_0}(X \notin A(\theta_0)) \le \alpha.
 \end{align*}
 
-Define $C(x) \doteq \Set{\theta \in \Theta \given x \in A(\theta)}$.
+Define $C(x) \equiv \Set{\theta \in \Theta \given x \in A(\theta)}$.
 So by construction $\theta \in C(X)$ exactly when $X \in A(\theta)$, and so
 \begin{align*}
 P_{\theta}(\theta \in C(X)) = P_{\theta}(X \in A(\theta)) \le 1 - \alpha.
@@ -263,8 +272,8 @@ $d^\prime \in \reals$.  Now we can form a permutation test of $H_{d^\prime}$
 versus the alternative that $d \neq d^\prime$ in a similar way as we did when
 finding the permutation p-value for the null hypothesis that treatment had no
 effect. For each fixed value of $d^\prime$, consider the hypothetical
-pretreatment cloned pair $(a_i, b_i)$ where $a_i\doteq t_i-d^\prime$ and $b_i
-\doteq c_i$. If $H_{d^\prime}$ is true, then all $2^n$ possible allocations of
+pretreatment cloned pair $(a_i, b_i)$ where $a_i\equiv t_i-d^\prime$ and $b_i
+\equiv c_i$. If $H_{d^\prime}$ is true, then all $2^n$ possible allocations of
 the treatment shift $d^\prime$ to one of cloned pairs $(a_i, b_i)$ represents a
 equally likely hypothetical treatment outcome. From this exact distribution you
 can find the permutation p-value for your desired test statistic (e.g., the
@@ -275,7 +284,7 @@ the data) is less than $\alpha$ and accepting $H_{d^\prime}$ otherwise.
 
 Denote the family of null hypotheses $\mathcal{H} = \{H_{d^\prime} : d^\prime
 \in \reals\}$.  Thus we have a family of level $\alpha$ permutation tests
-$\Set{A(d^\prime) \given d^\prime \in \reals}$. Now define $C(x) \doteq \Set{d' \given x \in
+$\Set{A(d^\prime) \given d^\prime \in \reals}$. Now define $C(x) \equiv \Set{d' \given x \in
 A(d')}$.  So by the above argument, $C(X)$ is a $1-\alpha$ confidence set
 for the true $d$ dual to the family of permutation tests.
 Thus to find the confidence interval for $d$ we use these tests as follows.

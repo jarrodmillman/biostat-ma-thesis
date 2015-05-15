@@ -1,4 +1,4 @@
-\chapter{\label{app:ex}Software examples}
+\chapter{\label{app:ex}Software demonstration}
 
 For the following two worked examples, we assume that the following imports 
 have been made.
@@ -108,7 +108,8 @@ $t$-distribution.
 >>> plt.show()
 \end{verbatim}
 
-In Figure~\ref{fig:figure1}, you can see the ...
+In Figure~\ref{fig:figure1}, you can see the actual distribution of the test
+statistic under the null with the $t$-distribution superimposed on it.
 
 \begin{figure}
   \begin{centering}
@@ -152,15 +153,14 @@ Test statistic: 0.94787
 One-sided (upper) p-value: 0.18
 \end{verbatim}
 
-Now I plot ...
+Finally, I plot the distribution of the test statistics under the null
+conditioned on the observed data in Figure~\ref{fig:figure2}.
 
 \begin{verbatim}
 >>> n, bins, patches = plt.hist(sim, 40, histtype='bar')
 >>> plt.axvline(x=rho, color='red')
 >>> plt.show()
 \end{verbatim}
-
-In Figure~\ref{fig:figure2}, you can see the ...
 
 \begin{figure}
   \begin{centering}

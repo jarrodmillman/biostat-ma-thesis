@@ -12,12 +12,12 @@ called (group) \emph{multiplication} such that
 \item $ab \in G$ for all $a, b \in G$ (i.e., $G$ is \emph{closed} under multiplication),
 \item for all $a, b, c \in G$, $(ab)c = a(bc)$ (i.e., multiplication is \emph{associative}),
 \item there exists an \emph{identity} element $e \in G$ such that $eg = ge = g$ for all $g \in G$, and
-\item for all $g \in G$ there exists an \emph{inverse} element $g^{-1} \in G$ such that $g^{-1}g = gg^{-1} = e$.
+\item for each $g \in G$ there exists an \emph{inverse} element $g^{-1} \in G$ such that $g^{-1}g = gg^{-1} = e$.
 \end{enumerate}
 \end{definition}
 
-Given a group $(G, \cdot)$, a subset $H$ of $G$ is called a subgroup if $H$
-under the multiplication of $G$, i.e., $(H, \cdot)$, is a group $(H, \cdot)$.  The integers under
+Given a group $(G, \cdot)$, a subset $H$ of $G$ is called a subgroup if $(H, \cdot)$ is a group
+under the multiplication of $G$.  The integers under
 addition $(\mathbb{Z}, +)$ is a group with identity element $0$ and where the
 inverse of $z$ is $-z$.  The even integers are a subgroup of $(\mathbb{Z}, +)$.
 The rational numbers excluding $0$ under the multiplication
@@ -27,13 +27,13 @@ the group properties are met.  Here is a more complicated example that we will
 use in the sequel. 
 
 \begin{example}
-A permutation of an arbitrary set $X$ is a bijection from $X$ to itself.  The
-set $S_X$ of all permutations of $X$ under function composition
-$(S_X, \smallcirc)$ is a group.  The associativity of permutations follows from the
+A permutation of an arbitrary set $\CX$ is a bijection from $\CX$ to itself.  The
+set $S_\CX$ of all permutations of $\CX$ under function composition
+$(S_\CX, \smallcirc)$ is a group.  The associativity of permutations follows from the
 associativity of function composition.  The bijection taking every element of
-$X$ to itself is the identity permutation. Since a permutation is a bijective function, the
+$\CX$ to itself is the identity permutation. Since a permutation is a bijective function, the
 inverse of every permutation exists and operates from both left and right.  
-If $X = {1, 2, \dots, n}$, then $S_X$ is the symmetry group of order $n$
+If $\CX = \Set{1, 2, \dots, n}$, then $S_\CX$ is the symmetry group of order $n$
 and is usually denoted $S_n$.
 \end{example}
 
@@ -56,24 +56,25 @@ inverses since $\varphi(e) = \varphi(g^{-1}g) = \varphi(g^{-1})\varphi(g)$ for a
 If $\varphi$ is a bijection, then it is called an isomorphism.
 
 \begin{definition}
-An \emph{action} of a group $G$ on a set $X$ is a homeomorphism $\varphi: G \to S_X$.
+An \emph{action} of a group $G$ on a set $\CX$ is a homeomorphism $\varphi: G \to S_\CX$.
 \end{definition}
 
-We say an action since a group $G$ can act on $X$ in more than one way. Recalling the
+We say an action since a group $G$ can act on $\CX$ in more than one way. Recalling the
 definition of a homeomorphism, this means that $\varphi(xy) = \varphi(x)\varphi(y)$ for all
-$x, y \in G$ where $\varphi(xy), \varphi(x), \varphi(y) \in S_X$.  Also notice that
+$x, y \in G$ where $\varphi(xy), \varphi(x), \varphi(y) \in S_\CX$.  Also notice that
 $\varphi(x)\varphi(y)$ represents composition of the permutations $\varphi(x)$ and 
-$\varphi(y)$.  Moreover, $\varphi(e)$ is the identity permutation in $S_X$.
+$\varphi(y)$.  Moreover, $\varphi(e)$ is the identity permutation in $S_\CX$.
 It is standard to write $gx$ instead of $\varphi(g)(x)$ since it is more compact.
-Note that $gx$ does not involve group multiplication, but represents the group action
-of $g$ on $x$, which can be thought of as the image of $x$ under the permutation of $X$
-induced by $g$.  Each $g \in G$ corresponds to a permutation of $X$ defined by the
+Note that $gx$ is not ``multiplying'' an element $g$ of $G$ with an element $x$ of $\CX$,
+but represents the group action
+of $g$ on $x$, which can be thought of as the image of $x$ under the permutation of $\CX$
+induced by $g$.  Each $g \in G$ corresponds to a permutation of $\CX$ defined by the
 homeomorphism.
 
 %\begin{definition}
-%An \emph{action} of a group $G$ on a set $X$ is a set of permutations $\pi_g: X \to X$ for $g \in G$ such that
+%An \emph{action} of a group $G$ on a set $\CX$ is a set of permutations $\pi_g: \CX \to \CX$ for $g \in G$ such that
 %
-%(1) $\pi_e$ is the identity (i.e., for every $x \in X, \pi_e(x) = x$) and
+%(1) $\pi_e$ is the identity (i.e., for every $x \in \CX, \pi_e(x) = x$) and
 %
 %(2) for every $g_1$ and $g_2$ in $G$, $\pi_{g_1} \smallcirc \pi_{g_2} = \pi_{g_1g_2}$.
 %\end{definition}
@@ -81,12 +82,13 @@ homeomorphism.
 
 
 \begin{definition}
-The \emph{orbit} $G(x) = \Set{gx  \given g \in G}$ of any $x$ in $X$ is
-the set of elements (or points) in $X$ to which $x$ moves under some $g$ in $G$.
+The \emph{orbit} $G(x) \equiv \Set{gx  \given g \in G}$ of any $x$ in $\CX$ is
+the set of all images of the particular point $x$ under all elements of $G$.
 \end{definition}
 
-Each orbit defines a subgroup of $S_X$.  All the point in an orbit form an equivalence
-class under the group action.  The set of all such equivalence classes partitions $X$.
+%The set of all the points in an orbit form an equivalence relations under the group action.
+%The set of all such equivalence relations partitions $\CX$ by a subgroup of
+%$S_\CX$ under composition endowed with the group structure of $G$.
 
 \begin{example}
 The additive group $(\mathbb{Z}, +)$ acts on the real line $\mathbb{R}$ by translation.
@@ -104,3 +106,47 @@ that $x \sim y$ with $y$ in $\mathbb{R}$ exactly when there exists a $z$ in $\ma
 $y = z + x$.
 \end{example}
 
+The set of all orbits as $x$ ranges over $\CX$ is a partition of $\CX$ into equivalence classes.
+The relevance for permutation tests is as follows: Suppose that $\CX$ is the outcome
+space of some experiment, and we will make an observation $X$ drawn from $P$.
+Let $(G, \cdot)$ be a group that acts on $\CX$.
+Suppose that under the null hypothesis, all elements of $\CX$ in any given orbit under $G$ 
+are equally likely.
+Then if we observe $X=x$, it is just as likely that we would have observed $gx$ for any
+$g \in G$: conditional on the orbit $Gx$, all elements of $Gx$ are equally likely.
+This then determines the (conditional) distribution of $X$: every element of $Gx$ is equally
+likely given $GX = Gx$---even though we do not know $P(X \in Gx)$.
+The uniform conditional distribution lets us calculate the conditional null distribution of
+any test statistic.
+
+\begin{thm}
+Given a probability space $(\mathcal{X}, \Sigma, \mu)$ and a group $(G, \cdot)$
+acting on $\mathcal{X}$ such  $\Sigma$ is closed under the action of $G$,  
+let $X \sim P$ for some unknown $P$ dominated by $\mu$.
+Consider testing the hypothesis that $P$ is invariant under $G$:
+\begin{align*}
+H_0: P(S \subset \mathcal{X}) = P(GS  \subset \mathcal{X}) \text{  for all }S \in \Sigma.
+\end{align*}
+Suppose we have a family of tests with (conditional) level no greater than $\alpha$ conditional on the orbit of
+the observed data
+\begin{align*}
+P(\text{reject }H_0 | GX=gx \| H_0) \le \alpha,
+\end{align*}
+where ``$\| H_0$'' means ``computed on the assumption that $H_0$ is true''.
+Then the resulting overall test has unconditional level no greater than $\alpha$:
+\begin{align*}
+P(\text{reject }H_0  \| H_0) \le \alpha.
+\end{align*}
+%If tests are performed conditionally at level α regardless of the observed data, the
+%resulting overall test has unconditional level α, by the law of total probability. 
+\end{thm}
+
+\begin{proof}
+By the law of total probability, we have
+\begin{align*}
+P(\text{reject }H_0  \| H_0) &= \int_\mathcal{X} P(\text{reject }H_0 | GX=gx \| H_0)P(GX=gx \| H_0)d\mu(x) \\
+  &\le \int_\mathcal{X} \alpha P(GX=gx \| H_0)d\mu(x) \\
+  &= \alpha \int_\mathcal{X} P(GX=gx \| H_0)d\mu(x) \\
+  &= \alpha.  \qedhere
+\end{align*}
+\end{proof}
