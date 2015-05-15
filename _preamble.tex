@@ -18,7 +18,7 @@
 \usepackage{thmtools}
 
 \declaretheorem[style=definition]{example}
-
+\declaretheorem[style=definition]{definition}
 
 %-----------------------------------------------------------------------------
 % Special-purpose color definitions (dark enough to print OK in black and white)
@@ -107,3 +107,5 @@
 \newcommand\SetSymbol[1][]{\nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}}
 \providecommand\given{} % to make it exist
 \DeclarePairedDelimiterX\Set[1]\{\}{\renewcommand\given{\SetSymbol[\delimsize]}#1}
+
+\newcommand{\smallcirc}{\mathbin{\text{\raisebox{0.2ex}{\scalebox{0.6}{$\circ$}}}}}

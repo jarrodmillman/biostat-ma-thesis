@@ -17,57 +17,62 @@ further developed by E. J. G. Pitman  \cite{pitman1937,
 pitman1938significance}.  After the introduction of the bootstrap, the ideas
 were extended in the late 1980's by J. Romano \cite{romano1988bootstrap,
 romano1989bootstrap}.
-Abstract permutation tests are possible whenever the
-null distribution of the data is invariant under the action of some group.\footnote{A group $\mathcal{G} = (G, \cdot)$ is a tuple
-where $G$ is a set of elements and $\cdot$ is an operation that takes any two elements
-of $G$ and returns another element of $G$ such that (1) $G$ is \emph{closed} under $\cdot$,
-(2) $\cdot$ is \emph{associative}, (3) there exist an $e \in G$, called the \emph{identity}, such that
-for all $g \in G, e\cdot g = g$, and (4) for all $g \in G$ there exists an \emph{inverse}
-element $g^{-1} \in G$ such that $g^{-1}\cdot g = e$.}
+In a permutation test, the distribution of the test statistic under the null
+hypothesis is obtained exactly by computing the test statistic on all possible,
+equally likely relabelings of the observed data, or approximately, by computing
+the test statistic on a random sample of the equally likely relabelings of the
+observed data.
+
+More generally, permutation tests are possible whenever the
+null distribution of the data is invariant under the action of some group (see Appendix~\ref{app:def} for background).
+%\footnote{A group $\mathcal{G} = (G, \cdot)$ is a tuple
+%where $G$ is a set of elements and $\cdot$ is an operation that takes any two elements
+%of $G$ and returns another element of $G$ such that (1) $G$ is \emph{closed} under $\cdot$,
+%(2) $\cdot$ is \emph{associative}, (3) there exist an $e \in G$, called the \emph{identity}, such that
+%for all $g \in G, e\cdot g = g$, and (4) for all $g \in G$ there exists an \emph{inverse}
+%element $g^{-1} \in G$ such that $g^{-1}\cdot g = e$.}
 Then, a subset of outcomes is conditionally equally likely, given that the data
 fall in a particular orbit of the group: all possible data in the orbit of the
-observed data under the action of the group. That makes it possible to
+observed data under the action of the group. 
+That makes it possible to
 determine the conditional distribution of any test statistic, given the orbit
-of the data.  If tests are performed conditionally at level $\alpha$ regardless
+of the data.
+Since the conditional distribution is uniform on the orbit of the
+original data, the probability of any event is the proportion of possible
+outcomes that lie in the event.
+If tests are performed conditionally at level $\alpha$ regardless
 of the observed data, the resulting overall test has unconditional level
 $\alpha$, by the law of total probability.
 
-%In a permutation test, the distribution of the test statistic under the null
-%hypothesis is obtained exactly by computing the test statistic on all possible,
-%equally likely relabelings of the observed data, or approximately, by computing
-%the test statistic on a random sample of the equally likely relabelings of the
-%observed data.
-
-More formally,
+%More formally,
 %\begin{itemize}
 %\item $G$ is closed under $\star$,
 %\item $\star$ is associative,
 %\item there exist an $e \in G$, called the identity, such that for all $g \in G, e\star g = g$,
 %\item for all $g \in G$ there exists an inverse element $g^{-1} \in G$ such that $g^{-1}\star g = e$.
 %\end{itemize}}
-the \emph{action} of a (finite) group $\mathcal{G} = (G, \cdot)$ on a (finite) set $X$
-is a permutation $\pi_g: X \to X$ for each $g \in G$ such that (1) $\pi_e$ is the identity
-(i.e., for every $x \in X, \pi_e(x) = x$) and (2) for every $g_1$ and $g_2$ in $G$,
-$\pi_{g_1} \circ \pi_{g_2} = \pi_{g_1 \cdot g_2}$.  Following standard practice, I write $\pi_g(x)$ as $gx$.
-This is simplified notation for the effect of the permutation associated with $g$ on the
-element $x$ and is not meant to suggest that we can multiply elements of $G$ with elements of $X$.
-For any $x \in X$, the \emph{orbit} $\mathcal{G}(x)$ of $x$ in $X$ is
-the set of elements (or points) of $X$ to which $x$ moves under the group
-action of $\mathcal{G}$; that is,
-$\mathcal{G}(x) = \Set{gx \in X \given g \in G}$
-where $g$ runs over all elements of $G$.   
+%the \emph{action} of a (finite) group $\mathcal{G} = (G, \cdot)$ on a (finite) set $X$
+%is a permutation $\pi_g: X \to X$ for each $g \in G$ such that (1) $\pi_e$ is the identity
+%(i.e., for every $x \in X, \pi_e(x) = x$) and (2) for every $g_1$ and $g_2$ in $G$,
+%$\pi_{g_1} \circ \pi_{g_2} = \pi_{g_1 \cdot g_2}$.  Following standard practice, I write $\pi_g(x)$ as $gx$.
+%This is simplified notation for the effect of the permutation associated with $g$ on the
+%element $x$ and is not meant to suggest that we can multiply elements of $G$ with elements of $X$.
+%For any $x \in X$, the \emph{orbit} $\mathcal{G}(x)$ of $x$ in $X$ is
+%the set of elements (or points) of $X$ to which $x$ moves under the group
+%action of $\mathcal{G}$; that is,
+%$\mathcal{G}(x) = \Set{gx \in X \given g \in G}$
+%where $g$ runs over all elements of $G$.   
 
-Permutation testing involves conditional probabilities (i.e., conditional on
-the event that the hypothetical generated data lie in the orbit of the observed
-data) based on the assumption that the null hypothesis is true.  The group is
-determined by considering the underlying symmetries of the observed data under
-the null, which are equivariant.  These  conditional probability distributions
-allow you to find the probability of any event.  In the following examples, we
-will restrict our attention to the probability the test statistic is \emph{as
-or more extreme} than observed, under the null conditioned on the observed
-data.  Since the conditional distribution is uniform on the orbit of the
-original data, the probability of any event is the proportion of possible
-outcomes that lie in the event.
+%Permutation testing involves conditional probabilities (i.e., conditional on
+%the event that the hypothetical generated data lie in the orbit of the observed
+%data) based on the assumption that the null hypothesis is true.  The group is
+%determined by considering the underlying symmetries of the observed data under
+%the null, which are equivariant.  These  conditional probability distributions
+%allow you to find the probability of any event.  In the following examples, we
+%will restrict our attention to the probability the test statistic is \emph{as
+%or more extreme} than observed, under the null conditioned on the observed
+%data.  
+
 
 \begin{example}[label=exa:cont] Consider the following randomized, controlled
 experiment.  You suspect a specific treatment will increase the growth rate of

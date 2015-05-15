@@ -1,0 +1,87 @@
+\chapter{\label{app:def}Groups, actions, and orbits}
+\setcounter{example}{0}
+
+Groups are one of the basic objects of study in abstract algebra and
+are useful in many areas outside of mathematics \cite{armstrong1997groups, dummit2003abstract}.  They are intimately
+related to the notion of symmetry.
+
+\begin{definition}
+A \emph{group} $(G, \cdot)$ is a set $G$ and a binary operation $\cdot: G \times G \to G$
+called (group) \emph{multiplication} such that
+\begin{enumerate}
+\item $ab \in G$ for all $a, b \in G$ (i.e., $G$ is \emph{closed} under multiplication),
+\item for all $a, b, c \in G$, $(ab)c = a(bc)$ (i.e., multiplication is \emph{associative}),
+\item there exists an \emph{identity} element $e \in G$ such that $eg = ge = g$ for all $g \in G$, and
+\item for all $g \in G$ there exists an \emph{inverse} element $g^{-1} \in G$ such that $g^{-1}g = gg^{-1} = e$.
+\end{enumerate}
+\end{definition}
+
+Given a group $(G, \cdot)$, a subset $H$ of $G$ is called a subgroup if 
+$(H, \cdot)$ is a group.  The integers under addition $(\mathbb{Z}, +)$ is a group
+with identity element $0$ and where the inverse of $z$ is $-z$.  The even
+integers are a subgroup of $(\mathbb{Z}, +)$.  The rational numbers excluding
+$0$ under the multiplication $(\mathbb{Q}\setminus \Set{0}, \cdot)$ is a group
+with identity element $1$ and where the inverse of $p/q$ is $q/p$. In both
+cases, it is easy to verify that the group properties are met.  Here is a more
+complicated example that we will use in the sequel. 
+
+\begin{example}
+A permutation of an arbitrary set $X$ is a bijection from $X$ to itself.  The
+set $S_X$ of all permutations of $X$ under function composition
+$(S_X, \smallcirc)$ is a group.  The associativity of permutations follows from the
+associativity of function composition.  The bijection taking every element of
+$X$ to itself is the identity permutation. Since a permutation is a bijective function, the
+inverse of every permutation exists and operates from both left and right.  
+If $X = {1, 2, \dots, n}$, then $S_X$ is the symmetry group of order $n$
+and is usually denoted $S_n$.
+\end{example}
+
+
+\begin{definition}
+Let $G$ and $H$ be groups.  A \emph{homeomorphism} $\varphi: G \to H$ takes multiplication
+from $G$ to $H$ such that $\varphi(xy) = \varphi(x)\varphi(y)$ for all $x, y \in G$.
+\end{definition}
+
+Note that the multiplication on $G$ and the multiplication on $H$ might be completely different operations
+and in general $\varphi(x)y$ will be undefined.
+To make that explicit, let $(G, \star)$ and $(H, \diamond)$ then we write 
+$\varphi(x \star y) = \varphi(x)  \diamond \varphi(y)$.  
+Since the context will make clear what group multiplication is being used, we will not usually
+distinguish the different  operators.
+A homeomorphism takes the identity of $G$ to the identity of $H$
+since $\varphi(g) = \varphi(ge) = \varphi(g)\varphi(e)$ for all $g \in G$. It takes inverses to 
+inverses since $\varphi(e) = \varphi(g^{-1}g) = \varphi(g^{-1})\varphi(g)$ for all $g \in G$.
+If $\varphi$ is a bijection, then it is called an isomorphism.
+
+\begin{definition}
+An \emph{action} of a group $G$ on a set $X$ is a homeomorphism $\varphi: G \to S_X$.
+\end{definition}
+
+We say an action since a group $G$ can act on $X$ in more than one way. Recalling the
+definition of a homeomorphism, this means that $\varphi(xy) = \varphi(x)\varphi(y)$ for all
+$x, y \in G$ where $\varphi(xy), \varphi(x), \varphi(y) \in S_X$.  Also notice that
+$\varphi(x)\varphi(y)$ represents composition of the permutations $\varphi(x)$ and 
+$\varphi(y)$.  Moreover, $\varphi(e)$ is the identity permutation in $S_X$.
+It is standard to write $gx$ instead of $\varphi(g)(X)$ since it is more compact.
+Note that $gx$ does not involve group multiplication, but represents the group action
+of $g$ on $x$, which can be thought of as the image of $x$ under the permutation of $X$
+induced by $g$.  Each $g \in G$ corresponds to a permutation of $X$ defined by the
+homeomorphism.
+
+%\begin{definition}
+%An \emph{action} of a group $G$ on a set $X$ is a set of permutations $\pi_g: X \to X$ for $g \in G$ such that
+%
+%(1) $\pi_e$ is the identity (i.e., for every $x \in X, \pi_e(x) = x$) and
+%
+%(2) for every $g_1$ and $g_2$ in $G$, $\pi_{g_1} \smallcirc \pi_{g_2} = \pi_{g_1g_2}$.
+%\end{definition}
+
+
+
+\begin{definition}
+The \emph{orbit} $G(x) = \Set{gx  \given g \in G}$ of any $x$ in $X$ is
+the set of elements (or points) in $X$ to which $x$ moves under some $g$ in $G$.
+\end{definition}
+
+Each orbit defines a subgroup of $S_X$.  All the point in an orbit form an equivalence
+class under the group action.  The set of all such equivalence classes partitions $X$.
