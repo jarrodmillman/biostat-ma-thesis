@@ -17,7 +17,7 @@ You will also need to have \texttt{permute} version \texttt{0.1a1} installed.
 '0.1a1'
 \end{verbatim}
 
-Note that this is an \emph{alpha} release, so we are making no guarantees
+Note that this is an \emph{alpha} release, so we are making no claims
 regarding the stability of our package structure or call signatures.  We do not
 have plans to break our API, but we are allowing ourselves to continue refining
 our API as we gain experience using the package and continue adding new
@@ -27,7 +27,7 @@ of what working with \texttt{permute} is like.
 \section*{Two sample permutation test}
 
 There is growing evidence of gender bias in student evaluations of teaching.
-To address the question ``Do students give higher ratings to male teachers?'',
+To address the question ``Do students give higher ratings to male teachers?,''
 an online experiment was done with two professors, one male and one female
 \cite{macnell2014s}.  Each professor taught two sections. In one section, they
 used a male name.  In the other, they used a female name. The students didn't
@@ -108,7 +108,7 @@ $t$-distribution.
 >>> plt.show()
 \end{verbatim}
 
-In Figure~\ref{fig:figure1}, you can see the actual distribution of the test
+In Figure~\ref{fig:figure1}, you can see the simulated distribution of the test
 statistic under the null with the $t$-distribution superimposed on it.
 
 \begin{figure}
@@ -135,7 +135,7 @@ exam performance and the rating they give their professor.  The alternative
 hypothesis is that there is a positive association between a student's final
 exam performance and the rating they give their professor.
 
-There are 8 professors each with multiple student ratings.  One might think
+There are 8 professors, each with multiple student ratings.  One might think
 that a certain professor gets consistently high reviews because of something (e.g.,
 gender, attractiveness, likeability) unrelated to teaching effectiveness.
 Stratifying by professor allows us to assess teaching effectiveness for each
@@ -153,7 +153,7 @@ Test statistic: 0.94787
 One-sided (upper) p-value: 0.18
 \end{verbatim}
 
-Finally, I plot the distribution of the test statistics under the null
+Finally, I plot the simulated distribution of the test statistics under the null
 conditioned on the observed data in Figure~\ref{fig:figure2}.
 
 \begin{verbatim}

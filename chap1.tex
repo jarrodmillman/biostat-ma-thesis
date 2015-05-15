@@ -18,8 +18,8 @@ pitman1938significance}.  After the introduction of the bootstrap, the ideas
 were extended in the 1980's by J. Romano \cite{romano1988bootstrap,
 romano1989bootstrap}.
 
-Initially permutation testing was developed in situations where relabeling the
-observed data conditional on the null hypothesis was justified by the assumed
+Permutation tests were developed to test hypotheses for which relabeling the
+observed data was justified by 
 exchangeability\footnote{A sequence $X_1, X_2, X_3, \dots, X_n$ of random
 variables is \emph{exchangeable} if their joint distribution is invariant to
 permutations of the indices; that is,
@@ -31,16 +31,14 @@ notion of \emph{independent and identically-distributed} random variables.
 Independent and identically-distributed random variables are exchangeable.
 However, simple random sampling \emph{without} replacement produces an
 exchangeable, but not independent, sequence of random variables.}
-of the observed random variable.  In these situations, the
-distribution of the test statistic under the null hypothesis is obtained
-exactly by computing the test statistic on all possible, equally likely
-relabelings of the observed data under the exchangeability of the random
-variable. If computing the exact distribution is computationally infeasible,
-then the exact distribution can be approximated by computing
-the test statistic on a random sample of the equally likely relabelings of the
-observed data.  Importantly, the error of this approximation can be
-exactly controlled as $\sqrt{n}$ where $n$ is the number of random samples
-of the conditional distribution under the null.
+of the observed random variables.  In these situations, the
+conditional distribution of the test statistic under the null hypothesis is completely
+determined by the fact that all relabelings of the data are equally likely.
+That distribution might be calculable in closed form; if not, it can be simulated
+with arbitrary accuracy by generating relabelings uniformly at random.
+In contrast to approximate parametric methods or asymptotic methods, the accuracy
+of the simulation for any finite (re)-sample size is known, and can be made
+arbitrarily small at the expense of computing time.
 
 More generally, permutation tests are possible whenever the
 null distribution of the data is invariant under the action of some group (see Appendix~\ref{app:def} for background).
@@ -51,8 +49,8 @@ null distribution of the data is invariant under the action of some group (see A
 %for all $g \in G, e\cdot g = g$, and (4) for all $g \in G$ there exists an \emph{inverse}
 %element $g^{-1} \in G$ such that $g^{-1}\cdot g = e$.}
 Then, a subset of outcomes is conditionally equally likely, given that the data
-fall in a particular orbit of the group: all possible data in the orbit of the
-observed data under the action of the group. 
+fall in a particular \emph{orbit} of the group (all potential observations that result from
+applying elements of the group to the observed value of the data).
 That makes it possible to
 determine the conditional distribution of any test statistic, given the orbit
 of the data.
@@ -99,85 +97,89 @@ a certain type of cell.  To test this hypothesis, you clone 100 cells. Now
 there are 200 cells composed of 100 pairs of identical clones. For each cloned
 pair you randomly assign one to treatment, with probability 1/2, independently
 across the 100 pairs.  At the end of the treatment, you measure the growth rate
-for all the cells.  The null hypothesis is that this treatment has no effect.
+for all the cells.  The null hypothesis is that treatment has no effect.
 If that is true, then the assignment of a clone to treatment amounts to an
-arbitrary label that has nothing to do with the measured response.  So you can
-generate new hypothetical datasets from the observed data by exchanging the
+arbitrary label that has nothing to do with the measured response.  So, given
+the responses within each pair (but not the knowledge of which clone in each
+pair had which response), it would have been just as likely to observe
+the same \emph{numbers} but with flipped labels within each pair.
+We could
+generate new hypothetical datasets from the observed data by assigning the
 treatment and control labels for all the cloned pairs independently.  This
 yields a total of $2^{100}$ total datasets (including the observed data and all
-the hypothetical datasets that you generated), which are equally likely to have
-occurred under the null, conditioning on the observed data.
+the hypothetical datasets that you generated), all equally likely to have
+occurred under the null, conditioning on the observed data (but not the labeling).
 
 The standard parametric approach to this problem is the paired $t$-test, since
 the cloned cells are presumably more similar to each other than to another
 randomly chosen cell (and thus more readily compared).  The paired $t$-test
-requires you to assume that the differences between each paired clone are
-independently and identically (iid) normally distributed with unknown variance.
+assumes that, if the null hypothesis is true, the differences in response
+between each pair of clones are 
+independently and identically (iid) normally distributed with mean zero and unknown variance.
 The test statistic is the mean of the differences between each cloned pair
-divided by the standard error of these differences.  The null hypothesis is
-that the iid normally distributed differences have zero mean (i.e., $d_i \iid
-\N{0}{\sigma^2}$ where $d_i$ is the difference in growth rate of the
-$i^{\text{th}}$ cloned pair and $\sigma^2$ is an unknown constant).  The
-alternative is that the mean difference of the underlying population is
-non-zero.  Under these additional assumptions, the test statistic is
+divided by the standard error of these differences.  
+Under these assumptions, the test statistic is
 distributed as a $t$-distribution with $n-1$ degrees of freedom.  This means you can
 calculate the test statistic and then read off the p-value from the
 $t$-distribution.  If the p-value is below some prespecified critical value
-$\alpha$, then you reject the null.  However, this may lead you to reject the
-null because the distributions are not normally distributed and not because the
-means are different.
+$\alpha$, then you reject the null.  
+If the true generative model for the data is not iid normal, however, the
+probability of rejecting the null hypothesis can be quite different from $\alpha$
+even if treatment has no effect.
 
-Using permutation testing you can use the same test statistic as for
-a paired $t$-test, but instead of calibrating the significance against the
-$t$-distribution you would use the exact distribution of the test statistic
-under the null by computing it on all equally likely possible datasets (i.e.,
-the observed data as well as your hypothetical generated data).  However, you
-can choose another test statistic if you wish.  For example, if the alternative
-hypothesis is that treatment increases response and you are concerned with
-extreme outliers in your observed data, you might prefer to use either the
-\emph{median difference in response between the treated and the controls} or
-the \emph{number of treated clones that have larger responses than their
-paired control} as your test statistic.
+A permutation version of the $t$-test can avoid that vulnerability: one can
+use the $t$-statistic as the test statistic, but instead of selecting the critical
+value on the basis of Student's $t$-distribution, one uses the
+the distribution of the statistic under the permutation distribution.
+Of course, other test statistics could be used instead; the test statistic
+should be sensitive to the nature of the alternative hypothesis, to ensure
+that the test has power against the alternatives the science suggests are
+relevant.
 
 Regardless of which test statistic you choose for your permutation test, if the
 problem size is not too large then you enumerate all equally likely
 possibilities under the null given the observed data.  If the problem is too
-large to feasibly enumerate, then you use a suitably large, random uniform
-sample from the exact distribution just described.  As you increase the number
-of samples, you will get increasingly better approximations of the exact
-distribution of the test statistic under the null.  The permutation p-value is
-then the proportion of the total number of test statistics that are \emph{as}
-or \emph{more extreme} than the observed test statistics.  \end{example}
+large to feasibly enumerate, then you use a suitably large, iid random 
+sample from the exact distribution just described, by selecting permutations
+uniformly at random and applying the test statistic to those permutations.  As you increase the number
+of samples, you will get increasingly better (in probability) approximations of the exact
+distribution of the test statistic under the null.  The null conditional probability of any
+event can be estimated as the proportion of random permutations for which the event occurs,
+and the sampling variability of that estimate can be characterized exactly, for instance,
+using binomial tests (since the distribution of the number of times the event occurs
+is Binomial with $n$ equal to the number of samples and $p$ the unknown probability to be
+estimated). 
+\end{example}
 
 \begin{example} Given $n=10$ observations of two scalars $(x_i, y_i)$ for
 $i = 1, 2, \dots, n$, consider the simple linear regression model
-$y_i = a + bx_i + \epsilon_i$.  Assume that the $\epsilon_i$'s are
+$y_i = a + bx_i + \epsilon_i$.  Assume that $\{\epsilon_i\}_{i=1}^{10}$ are
 exchangeable.
 
-You are interested in showing that the slope of the population regression line
+You are interested in testing whether the slope of the population regression line
 is non-zero; hence, your null hypothesis is $b = 0$. If $b = 0$, then the model
 reduces to $y_i = a + \epsilon_i$ for all $i$.  If this is true, the
-$y_i$s are exchangeable since they are just shifted versions of the
-exchangeable $\epsilon_i$s.  Thus every permutation of the $y$s has the same
-probability regardless of the $x$s.  Hence every pairing
+$\{y_i\}_{i=1}^{10}$ are exchangeable since they are just shifted versions of the
+exchangeable $\{\epsilon_i\}_{i=1}^{10}$.  Thus every permutation of the $\{y_i\}_{i=1}^{10}$ has the same
+conditional probability regardless of the $x$s.  Hence every pairing
 $(x_i, y_j)$ for any fixed $i$ and for $j = 1, 2, \dots, n$ is equally likely.
 
 Using the least squares estimate of the slope normalized by its standard error
-as the test statistic, you can find it's exact distribution under the null given
+as the test statistic, you can find its exact distribution under the null given
 the observed data by computing the test statistic on all possible pairs
-formed by permuting the $y$ values among the $x$ values.  From the distribution
+formed by permuting the $y$ values, keeping the original order of the $x$ values.  From the distribution
 of the test statistic under the null conditioned on the observed data, the
 p-value is the ratio of the count of the \emph{as extreme} or \emph{more
 extreme} test statistics to the total number of such test statistics. For
-$n=10$ you would enumerate all $10!$ equally likely pairings and then compute
+$n=10$ you might in principle enumerate all $10!$ equally likely pairings and then compute
 the exact p-value.  For sufficiently large $n$, enumeration becomes infeasible;
-in which case, you would approximate the exact p-value using a uniform random
+in which case, you could approximate the exact p-value using a uniform random
 sample of the equally likely pairings.
 
 A parametric approach to this problem would begin by imposing additional
-assumptions on the noise $\epsilon$.  For example, if it is assumed that
-$\epsilon$ comes from identical Gaussian distributions with mean 0
-independently realized for each observed pair, then the test statistic has a
+assumptions on the noise $\epsilon$.  For example, if we assume
+that $\{\epsilon_i\}$ are iid Gaussians with mean zero, 
+then the test statistic has a
 $t$-distribution with $n-2$ degrees of freedom.  If this additional assumption
 holds, then we can read the p-value off a table.  Note that, unlike in the
 permutation test, we were only able to calculate the p-value (even with the
@@ -186,33 +188,28 @@ distribution of this specific test statistic.
 \end{example}
 
 In summary, the general procedure for computing a p-value using permutation
-testing is: (1)~carefully formulate the null hypothesis based on the
-experimental design and question of interest, (2)~from the observed data,
-generate all equally likely possible datasets under the null, (3)~compute the
-test statistic for the observed and generated hypothetical data, and 
-(4)~calculate the proportion of data sets with test statistic at least as extreme
-as the observed.  Note that this exact procedure works regardless of the
-particular test statistic chosen.  If step (2) is too computationally expensive
-to perform, then you can approximate the exact p-value by the same procedure as
-above except that you replace step (2) with ($2^\prime$)~from the observed
-data, generate a sufficiently large uniform random sample of all equally likely
-possible datasets under the null. Simulating the distribution via random
-sampling will produce arbitrarily good approximate results as you increase your
-sample size.
+testing is to formulate the null hypothesis based on the
+experimental design and question of interest and then determine whether,
+under the null hypothesis, the probability distribution of the data is invariant
+under the action of some group. 
+If so, then given the orbit of the observed data, every element of that
+orbit is conditionally equally likely; with that knowledge,
+one can either calculate the null conditional probability distribution
+of any test statistic or simulate it to any desired level of accuracy. 
 
-The advantage of the permutation approach is that it produces exact (or---if we
-sample from the distribution of the test statistic rather than enumerate it
-completely---approximately exact) results with weaker assumptions 
-about the generating process than necessary using parametric tests since we do
-not need to derive an analytic form for the distribution of our chosen test statistic.
-Further, the weaker assumptions necessary for a permutation test can be
-verified directly from the randomization of the experimental design.  Thus
+A big advantage of the permutation approach is that it produces (essentially) exact 
+tests with weaker assumptions 
+about the generating process than parametric tests require.
+Those weaker assumptions may follow directly from the 
+the experimental design.  Thus
 permutation testing allows us to focus on the exact question of interest,
-rather than a similar question which is amenable to analysis.  Additionally,
-the rationale justifying these claims does not require asymptotic theory; this
-means we have exact results for small samples.  The disadvantage is the
+rather than a similar question that is amenable to analysis.  Additionally,
+justifying these claims does not require asymptotic theory; 
+we get exact results for small samples.  A potential disadvantage is the
 computational cost; however, with increasing computational resources and
 improved algorithms, this limitation is less of a concern.
+Moreover, permutation tests are easier for most people to understand than
+parametric tests are.
 
 \section{Confidence sets}
 
@@ -259,7 +256,7 @@ test of any other null hypotheses.
 \begin{example}[continues=exa:cont] To illustrate how to form $1-\alpha$
 confidence sets from a family of level $\alpha$ permutation tests, we further
 assume that the effect of treatment in the paired clone experiment is explained
-by a \emph{shift model}.  The shift model assumes that the treatment effect
+by a \emph{shift model}.  The shift model assumes that the treatment
 adds an unknown constant real number $d$ to the control response of the cell.
 Let $(t_i, c_i)$ denote the observed growth rates of the $i^\text{th}$ cloned
 pair where $t_i$ corresponds to the treated clone and $c_i$ the control.  Then
@@ -269,32 +266,17 @@ $t_i^c$ plus the constant treatment shift $d$ (i.e., $t_i = t_i^c + d$).
 
 Let $H_{d^\prime}$ denote the null hypothesis that $d=d^\prime$ for any
 $d^\prime \in \reals$.  Now we can form a permutation test of $H_{d^\prime}$
-versus the alternative that $d \neq d^\prime$ in a similar way as we did when
-finding the permutation p-value for the null hypothesis that treatment had no
+versus the alternative that $d \neq d^\prime$ using a procedure analogous to the
+one we used to test the null hypothesis that treatment had no
 effect. For each fixed value of $d^\prime$, consider the hypothetical
 pretreatment cloned pair $(a_i, b_i)$ where $a_i\equiv t_i-d^\prime$ and $b_i
-\equiv c_i$. If $H_{d^\prime}$ is true, then all $2^n$ possible allocations of
-the treatment shift $d^\prime$ to one of cloned pairs $(a_i, b_i)$ represents a
-equally likely hypothetical treatment outcome. From this exact distribution you
-can find the permutation p-value for your desired test statistic (e.g., the
-median difference between treatment and control). Hence a level $\alpha$ family
-of test of $H_{d^\prime}$ versus the alternative can be specified by accepting
-the alternative when the permutation p-value (under the null and conditioned on
-the data) is less than $\alpha$ and accepting $H_{d^\prime}$ otherwise. 
-
-Denote the family of null hypotheses $\mathcal{H} = \{H_{d^\prime} : d^\prime
-\in \reals\}$.  Thus we have a family of level $\alpha$ permutation tests
-$\Set{A(d^\prime) \given d^\prime \in \reals}$. Now define $C(x) \equiv \Set{d' \given x \in
-A(d')}$.  So by the above argument, $C(X)$ is a $1-\alpha$ confidence set
-for the true $d$ dual to the family of permutation tests.
-Thus to find the confidence interval for $d$ we use these tests as follows.
-Let $d^\prime$ be the estimated treatment effect given by your test statistic.
-Form the hypothetical pretreatment cloned pair $(a_i, b_i)$ using your estimate
-of $d$.  Then determine the exact p-value of $d^\prime$ under the null
-hypothesis $H_{d^\prime}$ given the observed data. If the p-value is greater
-than $\alpha$ include it in your confidence interval.  Systematically increase
-(decrease) $d^\prime$ until the permutation test rejects to get the upper (lower)
-bounds on the confidence interval.
+\equiv c_i$. If $H_{d^\prime}$ were true, then the data for the $i$th pair would
+just as likely have been $(b_i+d', a_i)$ as $(t_i, c_i)$, and all pairs are
+independent.
+That lets us find the p-value of the hypothesis $d=d'$, on the assumption that
+the effect of treatment is a simple shift, equal for each clone pair.
+Inverting the tests to find the range of values of $d'$ for which we would not
+reject $d=d'$ gives a confidence interval for $d$.
 
 By assuming a shift model we are able to invert the permutation test to form
 confidence sets.  However, it should be noted that assuming a constant additive
@@ -302,7 +284,7 @@ effect of treatment across all cell pairs may be unwarranted. It is likely
 that individual variability among cloned pairs would correspond to variability
 in treatment effect.  For instance, if the treatment involves administering a
 nutritional supplement, then there is a possibility that the different cloned
-pairs will have differing abilities to incorporate it.
+pairs will have differing abilities to metabolize it.
 
 %\begin{algorithmic}[1]
 %\While{some condition holds}
