@@ -130,7 +130,7 @@ H_0: P(S \subset \mathcal{X}) = P(GS  \subset \mathcal{X}) \text{  for all }S \i
 Suppose we have a family of tests with (conditional) level no greater than $\alpha$ conditional on the orbit of
 the observed data
 \begin{align*}
-P(\text{reject }H_0 | GX=gx \| H_0) \le \alpha,
+P(\text{reject }H_0 | GX=Gx \| H_0) \le \alpha,
 \end{align*}
 where ``$\| H_0$'' means ``computed on the assumption that $H_0$ is true''.
 Then the resulting overall test has unconditional level no greater than $\alpha$:
@@ -144,9 +144,9 @@ P(\text{reject }H_0  \| H_0) \le \alpha.
 \begin{proof}
 By the law of total probability, we have
 \begin{align*}
-P(\text{reject }H_0  \| H_0) &= \int_\mathcal{X} P(\text{reject }H_0 | GX=gx \| H_0)P(GX=gx \| H_0)d\mu(x) \\
-  &\le \int_\mathcal{X} \alpha P(GX=gx \| H_0)d\mu(x) \\
-  &= \alpha \int_\mathcal{X} P(GX=gx \| H_0)d\mu(x) \\
+P(\text{reject }H_0  \| H_0) &= \int_\mathcal{X} P(\text{reject }H_0 | GX=Gx \| H_0)P(GX=Gx \| H_0)d\mu(x) \\
+  &\le \int_\mathcal{X} \alpha P(GX=Gx \| H_0)d\mu(x) \\
+  &= \alpha \int_\mathcal{X} P(GX=Gx \| H_0)d\mu(x) \\
   &= \alpha.  \qedhere
 \end{align*}
 \end{proof}
