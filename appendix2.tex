@@ -18,10 +18,10 @@ called (group) \emph{multiplication} such that
 
 Given a group $(G, \cdot)$, a subset $H$ of $G$ is called a subgroup if $(H, \cdot)$ is a group
 under the multiplication of $G$.  The integers under
-addition $(\mathbb{Z}, +)$ is a group with identity element $0$ and where the
-inverse of $z$ is $-z$.  The even integers are a subgroup of $(\mathbb{Z}, +)$.
-The rational numbers excluding $0$ under the multiplication
-$(\mathbb{Q}\setminus \Set{0}, \cdot)$ is a group with identity element $1$ and
+addition $(\ints, +)$ is a group with identity element $0$ and where the
+inverse of $z$ is $-z$.  The even integers are a subgroup of $(\ints, +)$.
+The rational numbers excluding $0$ under multiplication
+$(\rationals\setminus \Set{0}, \cdot)$ is a group with identity element $1$ and
 where the inverse of $p/q$ is $q/p$. In both cases, it is easy to verify that
 the group properties are met.  Here is a more complicated example that we will
 use in the sequel. 
@@ -91,18 +91,18 @@ the set of all images of the particular point $x$ under all elements of $G$.
 %$S_\CX$ under composition endowed with the group structure of $G$.
 
 \begin{example}
-The additive group $(\mathbb{Z}, +)$ acts on the real line $\mathbb{R}$ by translation.
+The additive group $(\ints, +)$ acts on the real line $\reals$ by translation.
 That is, for every integer $z$ and any real number $x$ the group action is given
-by $x \mapsto z + x$. To show that this a homeomorphism $\varphi : (\mathbb{Z}, +) \to (S_\mathbb{R}, \smallcirc)$,
+by $x \mapsto z + x$. To show that this a homeomorphism $\varphi : (\ints, +) \to (S_\reals, \smallcirc)$,
 note that given any two integers $m$ and $n$ and any real number $x$ the following
 holds $(m + n) + x = m + (n + x)$.  The orbit of $\pi$ (i.e., $3.14152...$) under
 this group action is
 \begin{align*}
-\Set{z\pi  \given z \in \mathbb{Z}} = \Set{z + \pi  \given z \in \mathbb{Z}} =\Set{\dots, 2.14152..., 3.14152..., 4.14152..., \dots}.
+\Set{z\pi  \given z \in \ints} = \Set{z + \pi  \given z \in \ints} =\Set{\dots, 2.14152..., 3.14152..., 4.14152..., \dots}.
 \end{align*}
-In a similar fashion, the orbit of any real number $x$ under this action of $(\mathbb{Z}, +)$
-on $\mathbb{R}$ creates and equivalence relation under the group structure of $(\mathbb{Z}, +)$ such
-that $x \sim y$ with $y$ in $\mathbb{R}$ exactly when there exists a $z$ in $\mathbb{Z}$ such that
+In a similar fashion, the orbit of any real number $x$ under this action of $(\ints, +)$
+on $\reals$ creates and equivalence relation under the group structure of $(\ints, +)$ such
+that $x \sim y$ with $y$ in $\reals$ exactly when there exists a $z$ in $\ints$ such that
 $y = z + x$.
 \end{example}
 

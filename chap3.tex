@@ -50,7 +50,7 @@ two-sided, two-sample permutation test for the equality of two means.  We also
 have functions for computing confidence intervals for a binomial.
 While one of our collaborators, Anne Boring from OFCE-Sciences Po in Paris, was
 visiting to work on a study evaluating bias in student evaluations of teachers
-\cite{boring2015}, we added code to simulate permutation p-values for a Spearman
+\cite{boring2015}, we added code to simulate permutation $p$-values for a Spearman
 correlation coefficient.
 
 \section{Stratified tests}
@@ -66,7 +66,7 @@ adapting some functions from an IPython notebook written by Philip
 demonstrating how to perform a stratified permutation test using the sum of the
 differences in means between two or more conditions in each group (stratum) as
 the test statistic.  More recently we added a function to simulate permutation
-p-values for a stratified Spearman correlation test, which we implemented
+$p$-values for a stratified Spearman correlation test, which we implemented
 during Anne Boring's visit.
 
 \section{\label{sec:irr}Interrater reliability}
@@ -90,8 +90,8 @@ the elements of this vector are exchangeable.  So the permutation distribution
 is derived from permuting the elements of each rater's rating vector
 independently.  For our test statistic, we count the number of concordant pairs
 of assignments for each video (i.e., stratum) and normalize this number to
-range between 0 and 1.  We then calculate the p-value for each video.  Then we
-compute an overall p-value by combining the results across videos (i.e.,
+range between 0 and 1.  We then calculate the $p$-value for each video.  Then we
+compute an overall $p$-value by combining the results across videos (i.e.,
 strata) using the nonparametric combination of tests (NPC) described in Pesarin
 and Salmaso.
 

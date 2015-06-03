@@ -120,8 +120,8 @@ The test statistic is the mean of the differences between each cloned pair
 divided by the standard error of these differences.  
 Under these assumptions, the test statistic is
 distributed as a $t$-distribution with $n-1$ degrees of freedom.  This means you can
-calculate the test statistic and then read off the p-value from the
-$t$-distribution.  If the p-value is below some prespecified critical value
+calculate the test statistic and then read off the $p$-value from the
+$t$-distribution.  If the $p$-value is below some prespecified critical value
 $\alpha$, then you reject the null.  
 If the true generative model for the data is not iid normal, however, the
 probability of rejecting the null hypothesis can be quite different from $\alpha$
@@ -169,11 +169,11 @@ as the test statistic, you can find its exact distribution under the null given
 the observed data by computing the test statistic on all possible pairs
 formed by permuting the $y$ values, keeping the original order of the $x$ values.  From the distribution
 of the test statistic under the null conditioned on the observed data, the
-p-value is the ratio of the count of the \emph{as extreme} or \emph{more
+$p$-value is the ratio of the count of the \emph{as extreme} or \emph{more
 extreme} test statistics to the total number of such test statistics. For
 $n=10$ you might in principle enumerate all $10!$ equally likely pairings and then compute
-the exact p-value.  For sufficiently large $n$, enumeration becomes infeasible;
-in which case, you could approximate the exact p-value using a uniform random
+the exact $p$-value.  For sufficiently large $n$, enumeration becomes infeasible;
+in which case, you could approximate the exact $p$-value using a uniform random
 sample of the equally likely pairings.
 
 A parametric approach to this problem would begin by imposing additional
@@ -181,13 +181,13 @@ assumptions on the noise $\epsilon$.  For example, if we assume
 that $\{\epsilon_i\}$ are iid Gaussians with mean zero, 
 then the test statistic has a
 $t$-distribution with $n-2$ degrees of freedom.  If this additional assumption
-holds, then we can read the p-value off a table.  Note that, unlike in the
-permutation test, we were only able to calculate the p-value (even with the
+holds, then we can read the $p$-value off a table.  Note that, unlike in the
+permutation test, we were only able to calculate the $p$-value (even with the
 additional assumptions) because we happened to be able to derive the
 distribution of this specific test statistic.
 \end{example}
 
-In summary, the general procedure for computing a p-value using permutation
+In summary, the general procedure for computing a $p$-value using permutation
 testing is to formulate the null hypothesis based on the
 experimental design and question of interest and then determine whether,
 under the null hypothesis, the probability distribution of the data is invariant
@@ -235,7 +235,7 @@ P_{\theta_0}(X \notin A(\theta_0)) \le \alpha.
 Define $C(x) \equiv \Set{\theta \in \Theta \given x \in A(\theta)}$.
 So by construction $\theta \in C(X)$ exactly when $X \in A(\theta)$, and so
 \begin{align*}
-P_{\theta}(\theta \in C(X)) = P_{\theta}(X \in A(\theta)) \le 1 - \alpha.
+P_{\theta}(\theta \in C(X)) = P_{\theta}(X \in A(\theta)) \ge 1 - \alpha.
 \end{align*}
 
 This result allows us to construct a $1-\alpha$ confidence set dual to
@@ -248,7 +248,7 @@ permutation tests with acceptance regions $A(\theta_0)$ for all $\theta_0 \in
 
 For instance in Example 1 above, we could form an acceptance region for a level
 $\alpha$ permutation test for the null hypothesis that the treatment had no
-effect by stipulating that the p-value under the null given the observed data
+effect by stipulating that the $p$-value under the null given the observed data
 is greater than $\alpha$.  However, using only the original assumptions, it is
 unclear how you would form acceptance regions for a level $\alpha$ permutation
 test of any other null hypotheses. 
@@ -273,7 +273,7 @@ pretreatment cloned pair $(a_i, b_i)$ where $a_i\equiv t_i-d^\prime$ and $b_i
 \equiv c_i$. If $H_{d^\prime}$ were true, then the data for the $i$th pair would
 just as likely have been $(b_i+d', a_i)$ as $(t_i, c_i)$, and all pairs are
 independent.
-That lets us find the p-value of the hypothesis $d=d'$, on the assumption that
+That lets us find the $p$-value of the hypothesis $d=d'$, on the assumption that
 the effect of treatment is a simple shift, equal for each clone pair.
 Inverting the tests to find the range of values of $d'$ for which we would not
 reject $d=d'$ gives a confidence interval for $d$.
@@ -318,7 +318,7 @@ SciPy\footnote{\url{http://scipy.org}}, and
 matplotlib\footnote{\url{http://matplotlib.org}} provide a core foundation on
 which other scientific Python packages (such as \texttt{permute}) build 
 \cite{oliphant2007python, van2011numpy, hunter2007matplotlib}. NumPy
-provides the basic n-dimensional array data structure and a small number of
+provides the basic $n$-dimensional array data structure and a small number of
 basic functions (e.g., linear algebra, Fourier transforms) to compute on this data
 structure.  SciPy adds additional general routines on top of this core
 functionality necessary for scientific computing including basic statistics and

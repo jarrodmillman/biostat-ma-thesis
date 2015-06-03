@@ -55,7 +55,7 @@ two-sample t-test to be valid, we require the following assumptions:
 \end{itemize}
 
 Despite the problematic assumptions we are required to make, let's temporarily
-assume they hold and calculate a ``p-value'' anyway.
+assume they hold and calculate a ``$p$-value'' anyway.
 
 \begin{verbatim}
 >>> from permute.data import macnell2014
@@ -69,11 +69,11 @@ Test statistic: 1.54059
 >>> print 'P-value (two-sided):', np.round(p, 5)
 P-value (two-sided): 0.1311
 \end{verbatim}
-Note that the computed ``p-value'' is above the standard cut-offs for
+Note that the computed ``$p$-value'' is above the standard cut-offs for
 reporting significance in the literature.
 
 For the permutation test we can use the same test statistic, but we will
-compute the p-value by randomly sampling the exact distribution of the test
+compute the $p$-value by randomly sampling the exact distribution of the test
 statistics.  The null hypothesis is that reported/perceived teacher gender has
 no effect whatsoever on ratings---as if ``male'' and ``female'' are randomly
 assigned labels.  The alternative hypothesis is that reported/perceived teacher
@@ -93,7 +93,7 @@ P-value (two-sided): 0.04436
 95% Confidence Interval for the P-value [ 0.04309  0.04565]
 \end{verbatim}
 
-Not only is the use of this p-value justified (since our assumptions are
+Not only is the use of this $p$-value justified (since our assumptions are
 met), but its value is below the cut-off for significance commonly used.
 Since the permutation test also returns the approximately exact distribution
 of the test statistic, let's compare the actual distribution with the
@@ -149,8 +149,8 @@ correlation.
 ...                                            group=evals.prof_id)
 >>> print 'Test statistic:', np.round(rho, 5)
 Test statistic: 0.94787
->>> print 'One-sided (upper) p-value:', np.round(pupper, 5)
-One-sided (upper) p-value: 0.18
+>>> print 'One-sided (upper) P-value:', np.round(pupper, 5)
+One-sided (upper) P-value: 0.18
 \end{verbatim}
 
 Finally, I plot the simulated distribution of the test statistics under the null
