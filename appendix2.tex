@@ -43,7 +43,7 @@ Let $G$ and $H$ be groups.  A \emph{homeomorphism} $\varphi: G \to H$ takes mult
 from $G$ to $H$ such that $\varphi(xy) = \varphi(x)\varphi(y)$ for all $x, y \in G$.
 \end{definition}
 
-Note that the multiplication on $G$ and the multiplication on $H$ may be completely different operations
+Note that the multiplication on $G$ and the multiplication on $H$ may be different operations
 and in general $\varphi(x)y$ will be undefined.
 To make that explicit, let $(G, \star)$ and $(H, \diamond)$ be groups then we write the
 condition for a function $\varphi: G \to H$ to be a homeomorphism as
@@ -59,7 +59,7 @@ If $\varphi$ is a bijection, then it is called an isomorphism.
 An \emph{action} of a group $G$ on a set $\CX$ is a homeomorphism $\varphi: G \to S_\CX$.
 \end{definition}
 
-We say an action since a group $G$ can act on $\CX$ in more than one way. Recalling the
+We say \emph{an} action since a group $G$ can act on $\CX$ in more than one way. Recalling the
 definition of a homeomorphism, this means that $\varphi(xy) = \varphi(x)\varphi(y)$ for all
 $x, y \in G$ where $\varphi(xy), \varphi(x), \varphi(y) \in S_\CX$.  Also notice that
 $\varphi(x)\varphi(y)$ represents composition of the permutations $\varphi(x)$ and 
@@ -121,32 +121,30 @@ any test statistic.
 
 \begin{thm}
 Given a probability space $(\mathcal{X}, \Sigma, \mu)$ and a group $(G, \cdot)$
-acting on $\mathcal{X}$ such  $\Sigma$ is closed under the action of $G$,  
+acting on $\mathcal{X}$ such that $\Sigma$ is closed under the action of $G$,  
 let $X \sim P$ for some unknown $P$ dominated by $\mu$.
-Consider testing the hypothesis that $P$ is invariant under $G$:
+Consider testing the hypothesis that $P$ is invariant under $G$
 \begin{align*}
 H_0: P(S \subset \mathcal{X}) = P(GS  \subset \mathcal{X}) \text{  for all }S \in \Sigma.
 \end{align*}
 Suppose we have a family of tests with (conditional) level no greater than $\alpha$ conditional on the orbit of
 the observed data
 \begin{align*}
-P(\text{reject }H_0 | GX=Gx \| H_0) \le \alpha,
+P(\text{reject }H_0 \mid GX=Gx \parallel H_0) \le \alpha,
 \end{align*}
-where ``$\| H_0$'' means ``computed on the assumption that $H_0$ is true''.
-Then the resulting overall test has unconditional level no greater than $\alpha$:
+where the notation ``$\, \parallel H_0$'' means ``assuming $H_0$ is true.''
+Then the resulting overall test has unconditional level no greater than $\alpha$
 \begin{align*}
-P(\text{reject }H_0  \| H_0) \le \alpha.
+P(\text{reject }H_0  \parallel H_0) \le \alpha.
 \end{align*}
-%If tests are performed conditionally at level α regardless of the observed data, the
-%resulting overall test has unconditional level α, by the law of total probability. 
 \end{thm}
 
 \begin{proof}
 By the law of total probability, we have
 \begin{align*}
-P(\text{reject }H_0  \| H_0) &= \int_\mathcal{X} P(\text{reject }H_0 | GX=Gx \| H_0)P(GX=Gx \| H_0)d\mu(x) \\
-  &\le \int_\mathcal{X} \alpha P(GX=Gx \| H_0)d\mu(x) \\
-  &= \alpha \int_\mathcal{X} P(GX=Gx \| H_0)d\mu(x) \\
+P(\text{reject }H_0  \parallel H_0) &= \int_\mathcal{X} P(\text{reject }H_0  \mid GX=Gx \parallel H_0)P(GX=Gx \parallel H_0) \dif \mu(x) \\
+  &\le \int_\mathcal{X} \alpha P(GX=Gx \parallel H_0) \dif \mu(x) \\
+  &= \alpha \int_\mathcal{X} P(GX=Gx \parallel H_0) \dif \mu(x) \\
   &= \alpha.  \qedhere
 \end{align*}
 \end{proof}
