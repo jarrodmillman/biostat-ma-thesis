@@ -1,5 +1,4 @@
-# thesis
-MA Thesis
+# Biostatistics MA Thesis
 
 - https://math.berkeley.edu/~vojta/tex/ucbthesis-phd.html
 - https://math.berkeley.edu/~vojta/thesis/
