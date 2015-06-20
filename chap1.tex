@@ -213,14 +213,14 @@ parametric tests are.
 
 \section{Confidence sets}
 
-Given $X \sim P_\theta$ for some $\theta \in \Theta$,\footnote{In general, we allow any
-arbitrary set $\Theta$ to index the family of distributions. In the following example, we will take $\Theta =\reals$.} a random set
-$C(X)$ is a $1 - \alpha$ confidence set for $\theta$ if
+Given $X \sim P_\theta$ for some $\theta \in \Theta$,\footnote{In general, we
+allow any arbitrary set $\Theta$ to index the family of distributions. In
+the following example, we will take $\Theta =\reals$.} recall that a random
+set $C(X)$ is a $1 - \alpha$ confidence set for $\theta$ if
 \begin{align*}
 P_\theta(\theta \in C(X)) &\ge 1 - \alpha
 \end{align*}
 for all $\theta \in \Theta$.
-
 For every $\theta_0 \in \Theta$, let $A(\theta_0)$ be the acceptance region for
 a test at level $\alpha$ of the null hypothesis $H_{\theta_0}: \theta =
 \theta_0$ versus the alternative that $\theta_0$ is not the true $\theta$.
@@ -231,9 +231,8 @@ each $H_{\theta_0} \in \mathcal{H}$,
 \begin{align*}
 P_{\theta_0}(X \notin A(\theta_0)) \le \alpha.
 \end{align*}
-
 Define $C(x) \equiv \Set{\theta \in \Theta \given x \in A(\theta)}$.
-So by construction $\theta \in C(X)$ exactly when $X \in A(\theta)$, and so
+By construction, $\theta \in C(X)$ exactly when $X \in A(\theta)$ and so
 \begin{align*}
 P_{\theta}(\theta \in C(X)) = P_{\theta}(X \in A(\theta)) \ge 1 - \alpha.
 \end{align*}

@@ -19,6 +19,11 @@
 % be indented (like the others), then include this line:
 % \usepackage{indentfirst}
 
+% For a masters thesis, replace the above \documentclass line with
+% \documentclass[masters]{ucbthesis}
+% This affects the title and approval pages, which by default calls this
+% document a "dissertation", not a "thesis".
+
 \newtheorem{theorem}{Jibberish}
 
 \bibliography{references}
@@ -42,9 +47,6 @@
 \othermembers{Professor Philip B. Stark \\
   Professor Nicholas P. Jewell}
 \numberofmembers{3}
-% Previous degrees are no longer to be listed on the title page.
-% \prevdegrees{B.A. (University of Northern South Dakota at Hoople) 1978 \\
-%   M.S. (Ed's School of Quantum Mechanics and Muffler Repair) 1989}
 \field{Biostatistics}
 % Designated Emphasis -- this is optional, and rare
 % \emphasis{Colloidal Telemetry}
@@ -52,11 +54,6 @@
 % \jointinstitution{University of Western Maryland}
 % This is optional
 \campus{Berkeley}
-
-% For a masters thesis, replace the above \documentclass line with
-% \documentclass[masters]{ucbthesis}
-% This affects the title and approval pages, which by default calls this
-% document a "dissertation", not a "thesis".
 
 \maketitle
 % Delete (or comment out) the \approvalpage line for the final version.
@@ -85,13 +82,6 @@
 %\listoftables
 
 %\begin{acknowledgements}
-%Thanks to my wonderful collaborators --- Philip Stark and Kellie Ottoboni.
-
-%code contributions 
-%Matthew Brett
-%Fernando Perez
-%Stefan van der Walt
-%Jean-Baptiste Poline
 %\end{acknowledgements}
 
 \end{frontmatter}
@@ -108,9 +98,7 @@
 \printbibliography
 
 \appendix
-\include{appendix2}
-\include{appendix}
-%\chapter{Worked example}
-
+\include{appx1}
+\include{appx2}
 
 \end{document}
